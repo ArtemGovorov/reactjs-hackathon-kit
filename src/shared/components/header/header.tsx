@@ -9,7 +9,7 @@ class HeaderComponent extends React.Component<any, any> {
 	render() {
 		return (
 			<header>
-				<p className="header"> I'm the Header and I'm cool :) </p>
+				<p className="header"> I'm the Header and I'm cool! very cool! :) </p>
 			</header>
 		);
 	}

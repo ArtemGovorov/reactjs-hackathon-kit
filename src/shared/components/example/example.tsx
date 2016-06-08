@@ -1,5 +1,5 @@
 import * as React from "react";
-import "./example.css";
+import "./example";
 
 class ExampleComponent extends React.Component<any, any> {
 	constructor(props:any) {

@@ -2,29 +2,33 @@ import * as React from "react";
 import {Link} from "react-router";
 
 let styles = {
-	color: 'white',
-	backgroundColor: 'red',
-	minHeight: 100
+  color: 'white',
+  backgroundColor: 'red',
+  minHeight: 100
 };
 
 class App extends React.Component<any, any> {
-	render() {
-		//console.log(this.props.children);
-		return (
-			<div>
-				<div style={styles}>
-					<h1> React Typescript template with Webpack, react-router and react-hot-loader </h1>
-					</div>
+  render() {
+    //console.log(this.props.children);
+    return (
+      <div>
+        <div style={styles}>
+          <h1> React Typescript template with Webpack, react-router and react-hot-loader </h1>
+        </div>
 
-				{/*Rendu des composants des routes enfants*/}
-				{this.props.children}
+        {/*Rendu des composants des routes enfants*/}
+        {this.props.children}
 
-				<div>
-					<Link to="/">Go back</Link>
-					</div>
-			</div>
-		);
-	}
+        <div>
+          <Link to="/">Go back</Link>
+        </div>
+
+        <button type="button" class="btn btn-default btn-lg">
+          <span class="glyphicon glyphicon-star" aria-hidden="true"></span> Star
+        </button>
+      </div>
+    );
+  }
 }
 
 //render par défaut sans react-router:

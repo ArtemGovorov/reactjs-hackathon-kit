@@ -1,17 +1,15 @@
-import * as webpack from "webpack";
-import {Configuration} from "webpack";
-import * as path from "path";
-import {APP_DIR, BUILD_DIR} from "./webpack.constants";
-const ExtractTextPlugin = require("extract-text-webpack-plugin");
-var cssnano = require('cssnano');
-const AssetsPlugin = require('assets-webpack-plugin');
+import * as webpack from 'webpack';
+import {Configuration} from 'webpack';
+import {APP_DIR, BUILD_DIR} from './webpack.constants';
+const cssnano = require('cssnano');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 const webpackDevConfig: Configuration = {
   cache: true,
-  devtool: 'eval',
+  devtool: 'source-map',
   entry: {
     'main': [
-      "webpack-dev-server/client?http://localhost:8080",
-      "webpack/hot/only-dev-server",
+      'webpack-dev-server/client?http://localhost:8080',
+      'webpack/hot/only-dev-server',
       `bootstrap-sass!${APP_DIR}/theme/bootstrap.config.js`,
       `font-awesome-webpack!${APP_DIR}/theme/font-awesome.config.js`,
       `${APP_DIR}/client`
@@ -21,7 +19,7 @@ const webpackDevConfig: Configuration = {
     filename: '[name]-[hash].js',
     chunkFilename: '[name]-[chunkhash].js',
     path: BUILD_DIR,
-    publicPath: "/"
+    publicPath: '/'
   },
   module: {
     loaders: [
@@ -29,8 +27,8 @@ const webpackDevConfig: Configuration = {
         test: /\.tsx?$/,
         include: APP_DIR,
         loaders: [
-          "react-hot",
-          "ts-loader"
+          'react-hot',
+          'ts-loader'
         ]
       },
       {
@@ -48,45 +46,49 @@ const webpackDevConfig: Configuration = {
       },
       {
         test: /\.woff(\?v=\d+\.\d+\.\d+)?$/,
-        loader: "url?limit=10000&mimetype=application/font-woff"
+        loader: 'url?limit=10000&mimetype=application/font-woff'
       },
       {
         test: /\.woff2(\?v=\d+\.\d+\.\d+)?$/,
-        loader: "url?limit=10000&mimetype=application/font-woff"
+        loader: 'url?limit=10000&mimetype=application/font-woff'
       },
       {
         test: /\.ttf(\?v=\d+\.\d+\.\d+)?$/,
-        loader: "url?limit=10000&mimetype=application/octet-stream"
+        loader: 'url?limit=10000&mimetype=application/octet-stream'
       },
       {
         test: /\.eot(\?v=\d+\.\d+\.\d+)?$/,
-        loader: "file"
+        loader: 'file'
       },
       {
         test: /\.svg(\?v=\d+\.\d+\.\d+)?$/,
-        loader: "url?limit=10000&mimetype=image/svg+xml"
+        loader: 'url?limit=10000&mimetype=image/svg+xml'
       },
       {
         test: /\.(html|ico)$/,
-        loader: "file-loader?name=[name].[ext]"
+        loader: 'file-loader?name=[name].[ext]'
       },
       {
         test: /\.(jp[e]?g|png|gif|svg)$/i,
-        loader: "file-loader?name=img/[name].[ext]"
+        loader: 'file-loader?name=img/[name].[ext]'
       }
     ]
   },
 
   resolve: {
-    extensions: ["", ".ts", ".tsx", ".js", ".jsx"]
+    extensions: ['', '.ts', '.tsx', '.js', '.jsx']
   },
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
-    new AssetsPlugin({
-      filename: 'webpack.assets.json',
-      path: BUILD_DIR,
-      prettyPrint: true
-    }),
+    new HtmlWebpackPlugin({
+      template: `${APP_DIR}/client/index.ejs`,
+      hash: false,
+      filename: 'index.html',
+      inject: 'body',
+      minify: {
+        collapseWhitespace: true
+      }
+    })
   ]
 };
 

@@ -80,8 +80,7 @@ module.exports = {
   resolve: {
     modulesDirectories: [
       'src',
-      'node_modules'
-    ],
+      'node_modules'\
     extensions: ['', '.json', '.js', '.jsx']
   },
   plugins: [

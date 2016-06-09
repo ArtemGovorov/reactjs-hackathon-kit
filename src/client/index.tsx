@@ -1,11 +1,11 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
-import { AppContainer } from 'react-hot-loader/';
-import makeRoutes from './routes';
+import { AppContainer } from 'react-hot-loader';
+/*import makeRoutes from './routes';
 import createBrowserHistory from 'history/lib/createBrowserHistory';
 import { useRouterHistory, match } from 'react-router';
 import { syncHistoryWithStore } from 'react-router-redux';
-import createStore from './store/createStore';
+import createStore from './store/createStore';*/
 
 // ========================================================
 // Mount Setup

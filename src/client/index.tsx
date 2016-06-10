@@ -5,14 +5,14 @@ import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import { AppContainer } from 'react-hot-loader';
 import createRoutes from '../shared/routes';
-import createBrowserHistory from 'history/lib/createBrowserHistory';
+import * as createBrowserHistory from 'history/lib/createBrowserHistory';
 import { useRouterHistory, match } from 'react-router';
 import { syncHistoryWithStore } from 'react-router-redux';
 import createStore from '../shared/store/createStore';
 
 const MOUNT_ELEMENT = document.getElementById('root');
 
-const browserHistory = useRouterHistory(createBrowserHistory)({
+const browserHistory = useRouterHistory(createBrowserHistory as any)({
   basename: __BASENAME__
 });
 

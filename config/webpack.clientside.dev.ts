@@ -87,7 +87,12 @@ const webpackDevConfig: Configuration = {
       minify: {
         collapseWhitespace: true
       }
-    })
+    }),
+    new webpack.DefinePlugin({
+      __BASENAME__: JSON.stringify(process.env.BASENAME || ''),
+      __DEV__: true,
+      __DEVTOOLS__: true
+    }),
   ]
 };
 
@@ -107,6 +112,6 @@ webpackDevConfig['postcss'] = [
     safe: true,
     sourcemap: true
   })
-]
+];
 
 export = webpackDevConfig;

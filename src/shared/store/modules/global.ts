@@ -1,5 +1,5 @@
 import { LOCATION_CHANGE } from 'react-router-redux';
-import * as Rx from 'rxjs';
+import {Observable} from 'rxjs/Observable';
 
 export const START_LOADING = LOCATION_CHANGE;
 export const END_LOADING = 'END_LOADING';
@@ -14,7 +14,7 @@ export const endLoading = (path) =>
   (actions, store) => {
     const state = store.getState();
     if (state.router.locationBeforeTransitions.pathname === path) {
-      return Rx.Observable.of({
+      return Observable.of({
         type: END_LOADING,
       });
     }

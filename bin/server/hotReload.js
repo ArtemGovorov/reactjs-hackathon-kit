@@ -7,7 +7,7 @@ var port = 8080;
 new WebpackDevServer(webpack(devConfig), {
   publicPath: devConfig.output.publicPath,
   quiet: false,
-  noInfo: false,
+  noInfo: true,
   hot: true,
   progress: true,
   lazy: false,

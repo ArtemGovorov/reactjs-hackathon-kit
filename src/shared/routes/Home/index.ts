@@ -1,6 +1,5 @@
 import { endLoading } from '../../store/modules/global';
 
-
 export default (store) => ({
   path: '',
   /*  Async getComponent is only invoked when route matches   */

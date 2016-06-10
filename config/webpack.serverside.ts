@@ -1,6 +1,5 @@
 import * as webpack from 'webpack';
 import {Configuration} from 'webpack';
-import * as path from 'path';
 import {APP_DIR, BUILD_DIR, PROJECT_ROOT} from './webpack.constants';
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const cssnano = require('cssnano');
@@ -38,11 +37,38 @@ const webpackServerSideConfig: Configuration = {
       },
       {
         test: /\.less$/,
-        loader: ExtractTextPlugin.extract('style-loader', 'css?sourceMap&-minimize&modules&importLoaders=1&sourceMap&localIdentName=[local]___[hash:base64:5]!postcss!less?outputStyle=expanded&sourceMap')
+        loader: ExtractTextPlugin
+          .extract(
+          'style-loader',
+          `css?
+          sourceMap&
+          -minimize&
+          modules&
+          importLoaders=1&
+          sourceMap&
+          localIdentName=[local]___[hash:base64:5]
+          !postcss
+          !less?
+          outputStyle=expanded&
+          sourceMap`
+          )
       },
       {
         test: /\.scss$/,
-        loader: ExtractTextPlugin.extract('style-loader', 'css?sourceMap&-minimize&modules&importLoaders=1&sourceMap&localIdentName=[local]___[hash:base64:5]!postcss!sass?outputStyle=expanded&sourceMap')
+        loader: ExtractTextPlugin
+          .extract(
+          'style-loader',
+          `css?
+           sourceMap&
+           -minimize&
+           modules&
+           importLoaders=1&
+           sourceMap&
+           localIdentName=[local]___[hash:base64:5]
+           !postcss
+           !sass?outputStyle=expanded&
+           sourceMap`
+          )
       },
       {
         test: /\.woff(\?v=\d+\.\d+\.\d+)?$/,

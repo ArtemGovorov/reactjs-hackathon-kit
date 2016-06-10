@@ -25,8 +25,8 @@ const history = syncHistoryWithStore(browserHistory, store, {
 
 // Render Setup
 let render = (key = null) => {
-  const Root = require('./containers/Root').default;
-  routes = require('./routes/index').default(store);
+  const Root = require('../shared/containers/Root').default;
+  routes = require('../shared/routes/index').default(store);
   let App;
   if (__DEV__) {
     App = (
@@ -56,7 +56,7 @@ if (__DEV__ && module.hot) {
       renderError(e);
     }
   };
-  module.hot.accept(['./containers/Root', './routes/index.js'], () => {
+  module.hot.accept(['../shared/containers/Root', '../shared/routes/index.ts'], () => {
     render();
   });
 }

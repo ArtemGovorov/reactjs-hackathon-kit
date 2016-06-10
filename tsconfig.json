@@ -15,16 +15,12 @@
         "preserveConstEnums": true,
         "suppressImplicitAnyIndexErrors": true
     },
-    "filesGlob": [
-        "**/*.ts",
-        "**/*.tsx",
-        "!typings/**/*.ts",
-        "typings/tsd.d.ts",
-        "!node_modules/**"
-    ],
     "compileOnSave": true,
     "buildOnSave": false,
     "atom": {
         "rewriteTsconfig": true
-    }
+    },
+    "exclude": [
+        "node_modules"
+    ]
 }

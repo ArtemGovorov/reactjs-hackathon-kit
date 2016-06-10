@@ -3,7 +3,7 @@ import { routerReducer as router } from 'react-router-redux';
 import global from './modules/global';
 
 export const reducers = (asyncReducers?: any) =>
-  combineReducers<any>(
+  combineReducers(
     Object.assign(
       {},
       {

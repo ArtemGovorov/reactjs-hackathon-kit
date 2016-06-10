@@ -27,7 +27,6 @@ const webpackDevConfig: Configuration = {
         test: /\.tsx?$/,
         include: APP_DIR,
         loaders: [
-          'react-hot',
           'ts-loader'
         ]
       },

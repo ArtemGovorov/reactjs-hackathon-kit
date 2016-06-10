@@ -8,6 +8,7 @@ const webpackDevConfig: Configuration = {
   devtool: 'source-map',
   entry: {
     'main': [
+      'react-hot-loader/patch',
       'webpack-dev-server/client?http://localhost:8080',
       'webpack/hot/only-dev-server',
       `bootstrap-sass!${APP_DIR}/theme/bootstrap.config.js`,
@@ -91,7 +92,7 @@ const webpackDevConfig: Configuration = {
     new webpack.DefinePlugin({
       __BASENAME__: JSON.stringify(process.env.BASENAME || ''),
       __DEV__: true,
-      __DEVTOOLS__: true
+      __DEVTOOLS__: false
     }),
   ]
 };

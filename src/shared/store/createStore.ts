@@ -23,7 +23,7 @@ export default (initialState = {}, history) => {
   // ======================================================
   // Store Instantiation and HMR Setup
   // ======================================================
-  const store = createStore(
+  const store: any = createStore(
     reducers(),
     initialState,
     compose(
@@ -35,7 +35,7 @@ export default (initialState = {}, history) => {
 
   if (module.hot) {
     module.hot.accept('./reducers', () => {
-      const reducers = require('./reducers').default; 
+      const reducers = require('./reducers').default;
       store.replaceReducer(reducers);
     });
   }

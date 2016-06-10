@@ -1,0 +1,12 @@
+.counter {
+  font-weight: bold;
+}
+
+.counter--green {
+  composes: counter;
+  color: rgb(25,200,25);
+}
+
+.counter-container {
+  margin: 1em auto;
+}

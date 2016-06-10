@@ -6,11 +6,16 @@
     "react": "registry:dt/react#0.14.0+20160423065914",
     "react-dom": "registry:dt/react-dom#0.14.0+20160412154040",
     "react-helmet": "registry:dt/react-helmet#0.0.0+20160423063849",
+    "react-redux": "registry:dt/react-redux#4.4.0+20160501125835",
     "react-router": "registry:dt/react-router#2.0.0+20160501155536",
     "react-router-redux": "registry:dt/react-router-redux#4.0.0+20160316155526",
     "react-router/history": "registry:dt/react-router/history#2.0.0+20160608102730",
     "source-map": "registry:dt/source-map#0.0.0+20160317120654",
     "uglify-js": "registry:dt/uglify-js#2.6.1+20160316155526",
-    "webpack": "registry:dt/webpack#1.12.9+20160321060707"
+    "webpack": "registry:dt/webpack#1.12.9+20160321060707",
+    "chai": "registry:npm/chai#3.4.0+20160308201903",
+    "sinon": "registry:npm/sinon#1.16.0+20160309002336",
+    "sinon-chai": "registry:npm/sinon-chai#2.8.0+20160310030142",
+    "mocha": "registry:dt/mocha#2.2.5+20160317120654"
   }
 }

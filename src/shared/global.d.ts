@@ -17,6 +17,14 @@ interface NodeModule {
   }
 }
 
+interface NodeRequireFunction {
+  ensure: any;
+}
+
+interface ObjectConstructor {
+  assign(target: any, ...sources: any[]): any;
+}
+
 declare module "react-hot-loader" {
   const ReactHotLoader: any;
   const AppContainer: any

@@ -17,6 +17,6 @@ new WebpackDevServer(webpack(devConfig), {
   if (err) {
     console.log(err);
   }
-  console.log('🚧  Webpack Server launched at http://' + host + ':' + port + ' 🚧  🔥  Hot Reload Enabled 🔥 ');
+  console.log('🚧  Webpack Server launched at http://' + host + ':' + port + '\n 🚧  🔥  Hot Reload Enabled 🔥 ');
 
 });

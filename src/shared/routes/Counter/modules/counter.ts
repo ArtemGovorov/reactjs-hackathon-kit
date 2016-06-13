@@ -1,15 +1,10 @@
-import {Observable} from 'rxjs/Observable';
+import * as Rx  from 'rxjs/Rx';
 
-// ------------------------------------
-// Constants
-// ------------------------------------
 export const COUNTER_INCREMENT = 'COUNTER_INCREMENT';
 export const DOUBLE_ASYNC_PENDING = 'DOUBLE_ASYNC_PENDING';
 export const DOUBLE_ASYNC_ABORTED = 'DOUBLE_ASYNC_ABORTED';
 
-// ------------------------------------
-// Actions
-// ------------------------------------
+
 export function increment(value = 1) {
   return {
     type: COUNTER_INCREMENT,
@@ -19,7 +14,7 @@ export function increment(value = 1) {
 
 export const doubleAsync = () =>
   (actions, store) =>
-    Observable
+    Rx.Observable
       .of<any>(increment(store.getState().counter))
       .delay(500)
       .takeUntil(actions.ofType(DOUBLE_ASYNC_ABORTED))

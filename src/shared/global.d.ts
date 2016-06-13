@@ -4,6 +4,9 @@ declare var __BASENAME__: string;
 declare var __DEV__: string;
 declare var __DEVTOOLS__: string;
 
+interface ObjectConstructor {
+  assign(target: any, ...sources: any[]): any;
+}
 
 
 interface Window {

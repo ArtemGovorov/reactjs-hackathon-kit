@@ -1,15 +1,14 @@
+import '../src/shared/polyfill';
 import * as webpack from 'webpack';
 import {Configuration} from 'webpack';
-import {APP_DIR, BUILD_DIR, PROJECT_ROOT} from './webpack.constants';
+import {APP_DIR, BUILD_DIR} from './webpack.constants';
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const cssnano = require('cssnano');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
 const webpackDevConfig: Configuration = {
   cache: true,
-  devtool: 'eval',
+  devtool: 'source-map',
   entry: {
     'main': [
-      'react-hot-loader/patch',
-      `webpack-hot-middleware/client?path=/__webpack_hmr`,
       `bootstrap-sass!${APP_DIR}/theme/bootstrap.config.js`,
       `font-awesome-webpack!${APP_DIR}/theme/font-awesome.config.js`,
       `${APP_DIR}/client`
@@ -36,12 +35,38 @@ const webpackDevConfig: Configuration = {
       },
       {
         test: /\.less$/,
-        loader:
-        'style!css?sourceMap&-minimize&modules&importLoaders=1&sourceMap&localIdentName=[local]___[hash:base64:5]!postcss!less?outputStyle=expanded&sourceMap'
+        loader: ExtractTextPlugin
+          .extract(
+          'style-loader',
+          `css?
+          sourceMap&
+          -minimize&
+          modules&
+          importLoaders=1&
+          sourceMap&
+          localIdentName=[local]___[hash:base64:5]
+          !postcss
+          !less?
+          outputStyle=expanded&
+          sourceMap`
+          )
       },
       {
         test: /\.scss$/,
-        loader: 'style!css?sourceMap&-minimize&modules&importLoaders=1&sourceMap&localIdentName=[local]___[hash:base64:5]!postcss!sass?outputStyle=expanded&sourceMap'
+        loader: ExtractTextPlugin
+          .extract(
+          'style-loader',
+          `css?
+           sourceMap&
+           -minimize&
+           modules&
+           importLoaders=1&
+           sourceMap&
+           localIdentName=[local]___[hash:base64:5]
+           !postcss
+           !sass?outputStyle=expanded&
+           sourceMap`
+          )
       },
       {
         test: /\.woff(\?v=\d+\.\d+\.\d+)?$/,
@@ -78,23 +103,14 @@ const webpackDevConfig: Configuration = {
     extensions: ['', '.ts', '.tsx', '.js', '.jsx']
   },
   plugins: [
-    new webpack.HotModuleReplacementPlugin(),
-    new HtmlWebpackPlugin({
-      template: `${APP_DIR}/client/index.ejs`,
-      hash: false,
-      filename: 'index.html',
-      inject: 'body',
-      minify: {
-        collapseWhitespace: true
-      }
-    }),
+    new ExtractTextPlugin('[name]-[chunkhash].css', { allChunks: true }),
     new webpack.DefinePlugin({
       'process.env': {
-        NODE_ENV: '"devlopment"'
+        NODE_ENV: '"test"'
       },
       __BASENAME__: JSON.stringify(process.env.BASENAME || ''),
-      __DEV__: true,
-      __DEVTOOLS__: true
+      __DEV__: false,
+      __DEVTOOLS__: false
     }),
   ]
 };

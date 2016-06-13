@@ -1,7 +1,7 @@
 /* tslint:disable:no-unused-variable */
 import * as React from 'react';
 import Header from '../../components/Header';
-import classes from './CoreLayout';
+const classes = require('./CoreLayout.scss');
 
 export const CoreLayout = ({ children }) =>
   (<div className='container text-center'>

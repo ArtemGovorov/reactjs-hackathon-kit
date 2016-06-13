@@ -81,8 +81,6 @@ const webpackProdConfig: Configuration = {
         NODE_ENV: '"production"'
       },
       __BASENAME__: JSON.stringify(process.env.BASENAME || ''),
-      __CLIENT__: true,
-      __SERVER__: false,
       __DEV__: false,
       __DEVTOOLS__: false
     }),

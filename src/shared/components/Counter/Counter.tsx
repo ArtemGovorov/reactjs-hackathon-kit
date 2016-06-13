@@ -1,6 +1,6 @@
 /* tslint:disable:no-unused-variable */
 import * as React from 'react';
-import classes from './Counter';
+const classes = require('./Counter.scss');
 
 export const Counter = (props) => (
   <div>

@@ -10,9 +10,7 @@ export const reducers = (asyncReducers?: any) =>
         router,
         global
       },
-      {
-        asyncReducers
-      }
+      asyncReducers
     )
   );
 

@@ -1,7 +1,7 @@
 /* tslint:disable:no-unused-variable */
 import * as React from 'react';
 import { IndexLink, Link } from 'react-router';
-import classes from './Header';
+const classes = require('./Header.scss');
 
 export const Header = () =>
   (<div>

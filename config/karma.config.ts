@@ -1,10 +1,8 @@
 import { argv } from 'yargs';
+import * as webpackConfig from './webpack.test';
+require('es6-object-assign').polyfill();
 
-import webpackConfig from './config/webpack.test.config';
-import _debug from 'debug';
 
-const debug = _debug('app:karma');
-debug('Create configuration.');
 
 const karmaConfig = {
   basePath: '', // project root in relation to bin/karma.js
@@ -13,7 +11,7 @@ const karmaConfig = {
   autoWatchBatchDelay: 300,
   files: [
     {
-      pattern: './tests/test-bundler.js',
+      pattern: '../tests/test-bundler.ts',
       watched: true,
       served: true,
       included: true
@@ -26,7 +24,7 @@ const karmaConfig = {
   captureTimeout: 60000,
   preprocessors: {
     //'tests/test-bundler.js': ['webpack']
-     'tests/test-bundler.js': ['webpack', 'sourcemap']
+    'tests/test-bundler.js': ['webpack', 'sourcemap']
   },
   client: {
     mocha: {
@@ -38,15 +36,13 @@ const karmaConfig = {
   browsers: ['Chrome'],
 
   webpack: {
-     devtool: 'inline-source-map',
+    devtool: 'inline-source-map',
     //devtool: 'cheap-module-source-map',
-    resolve: {
-      ...webpackConfig.resolve,
-      alias: {
-        ...webpackConfig.resolve.alias,
+    resolve: Object.assign({}, webpackConfig.resolve, {
+      alias: Object.assign({}, webpackConfig.resolve.alias, {
         sinon: 'sinon/pkg/sinon.js'
-      }
-    },
+      })
+    }),
     plugins: webpackConfig.plugins,
     module: {
       noParse: [
@@ -59,15 +55,14 @@ const karmaConfig = {
         }
       ])
     },
-// Enzyme fix, see:
-// https://github.com/airbnb/enzyme/issues/47
-    externals: {
-      ...webpackConfig.externals,
+    // Enzyme fix, see:
+    // https://github.com/airbnb/enzyme/issues/47
+    externals: Object.assign({}, webpackConfig.externals, {
       'react/addons': true,
       'react/lib/ExecutionEnvironment': true,
       'react/lib/ReactContext': 'window'
-    },
-    sassLoader: webpackConfig.sassLoader
+    }),
+    sassLoader: webpackConfig['sassLoader']
   },
   webpackMiddleware: {
     quiet: false,
@@ -81,15 +76,15 @@ const karmaConfig = {
   },
   coverageReporter: {
     reporters: [
-    { type: 'text-summary' },
-    { type: 'lcov', dir: 'coverage' }
+      { type: 'text-summary' },
+      { type: 'lcov', dir: 'coverage' }
     ]
   }
 };
 
 
 karmaConfig.reporters.push('coverage');
-karmaConfig.webpack.module.preLoaders = [{
+karmaConfig.webpack.module['preLoaders'] = [{
   test: /\.(js|jsx)$/,
   include: new RegExp('src'),
   loader: 'isparta',

@@ -11,6 +11,8 @@ import './favicon.ico';
 
 const store = {};
 
+
+
 export default function (req: any, res: any, assets: any) {
 
 	console.log(req.url);

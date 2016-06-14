@@ -27,7 +27,7 @@ const webpackServerSideConfig: Configuration = {
   module: {
     loaders: [
       {
-        test: /\.ts(x)?$/,
+        test: /\.ts?$/,
         exclude: /node_modules/,
         loader: 'ts-loader'
       },

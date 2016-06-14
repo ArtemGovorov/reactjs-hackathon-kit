@@ -1,12 +1,15 @@
 import {
   hello,
- // signUp,
+  // signUp,
   logIn,
- // logOut
-} from 'server/cloud/auth';
+  // logOut
+} from '../../../../src/server/api/auth';
 
 
-function getArguments(params, user) {
+function getArguments(params: any, user?: any): {
+  res: { success: any, error: any },
+  req: { [key: string]: any }
+} {
   return {
     req: {
       params,
@@ -20,12 +23,9 @@ function getArguments(params, user) {
 }
 
 describe('(Cloud) Auth', () => {
-  beforeEach(() => {
-
-  });
 
   it('Should say hello!', () => {
-    const { req, res } = getArguments();
+    const { req, res } = getArguments(void 0, void 0);
     const expectedResponse = 'Hello!';
     hello(req, res);
     expect(res.success).calledWith(expectedResponse);
@@ -59,7 +59,7 @@ describe('(Cloud) Auth', () => {
       }
     );
     const stub = sinon.stub(Parse.User, 'logIn')
-      .returns(when(expectedResponse));
+      .returns(When(expectedResponse));
 
     logIn(req, res)
       .then(
@@ -85,7 +85,7 @@ describe('(Cloud) Auth', () => {
       }
     );
     const stub = sinon.stub(Parse.User, 'logIn')
-      .returns(when.reject(expectedError));
+      .returns(When.reject(expectedError));
 
     logIn(req, res)
       .then(

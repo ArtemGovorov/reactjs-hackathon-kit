@@ -5,11 +5,11 @@ import {
   increment,
   doubleAsync,
   default as counterReducer
-} from 'routes/Counter/modules/counter';
+} from '../../../../src/shared/routes/Counter/modules/counter';
 
 
 import { ActionsObservable } from 'redux-observable';
-import Rx from 'rxjs';
+import * as Rx  from 'rxjs/Rx';
 
 
 describe('(Redux Module) Counter', () => {
@@ -26,7 +26,7 @@ describe('(Redux Module) Counter', () => {
   const actions = new Rx.Subject();
   const actionsObs = new ActionsObservable(actions);
   const store = { getState: () => globalState };
-  const getStateSpy = sinon.spy(store, 'getState');
+  const getStateSpy: Sinon.SinonSpy = sinon.spy(store, 'getState');
 
   it('Should export a constant COUNTER_INCREMENT.', () => {
     expect(COUNTER_INCREMENT).to.equal('COUNTER_INCREMENT');
@@ -131,7 +131,7 @@ describe('(Redux Module) Counter', () => {
         () => { },
         (error) => console.error(error),
         () => {
-          getStateSpy.should.have.been.calledOnce;
+          expect(getStateSpy.calledOnce).to.be.true;
           done();
         }
       );
@@ -144,7 +144,7 @@ describe('(Redux Module) Counter', () => {
         .flatMap(
         value => {
           dispatch(value);
-          getStateSpy.should.have.been.calledOnce;
+          expect(getStateSpy.calledOnce).to.be.true;
           expect(globalState.counter).to.equal(10);
           return actionFactory();
         }
@@ -153,7 +153,7 @@ describe('(Redux Module) Counter', () => {
         .subscribe(
         value => {
           dispatch(value);
-          getStateSpy.should.have.been.calledTwice;
+          expect(getStateSpy.calledOnce).to.be.true;
           expect(globalState.counter).to.equal(20);
         },
         error => { console.error(error); },

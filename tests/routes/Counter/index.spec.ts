@@ -1,4 +1,4 @@
-import CounterRoute from 'routes/Counter';
+import CounterRoute from '../../../src/shared/routes/Counter';
 
 describe('(Route) Counter', () => {
   let route;

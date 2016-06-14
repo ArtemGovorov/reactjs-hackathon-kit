@@ -6,70 +6,70 @@ const cssnano = require('cssnano');
 const AssetsPlugin = require('assets-webpack-plugin');
 const CleanPlugin = require('clean-webpack-plugin');
 const webpackProdConfig: Configuration = {
-	entry: [
+  entry: [
     `bootstrap-sass!${APP_DIR}/theme/bootstrap.config.prod.js`,
     `font-awesome-webpack!${APP_DIR}/theme/font-awesome.config.prod.js`,
     `${APP_DIR}/client`
-	],
-	output: {
+  ],
+  output: {
     filename: '[name]-[chunkhash].js',
     chunkFilename: '[name]-[chunkhash].js',
     path: BUILD_DIR,
     publicPath: '/'
-	},
-	module: {
+  },
+  module: {
     loaders: [
-			{
-				test: /\.tsx?$/,
-				loader: 'ts-loader'
-			},
-			{
-				test: /\.json$/,
-				loader: 'json-loader'
-			},
-			{
-				test: /\.less$/,
-				loader: 'style!css?sourceMap&-minimize&modules&importLoaders=1&sourceMap&localIdentName=[local]___[hash:base64:5]!postcss!less?outputStyle=expanded&sourceMap'
-			},
       {
-				test: /\.scss$/,
-				loader: ExtractTextPlugin.extract('style-loader', 'css?sourceMap&-minimize&modules&importLoaders=1&sourceMap&localIdentName=[local]___[hash:base64:5]!postcss!sass?outputStyle=expanded&sourceMap')
-			},
+        test: /\.ts?$/,
+        loader: 'ts-loader'
+      },
       {
-				test: /\.woff(\?v=\d+\.\d+\.\d+)?$/,
-				loader: "url?limit=10000&mimetype=application/font-woff"
-			},
+        test: /\.json$/,
+        loader: 'json-loader'
+      },
       {
-				test: /\.woff2(\?v=\d+\.\d+\.\d+)?$/,
-				loader: "url?limit=10000&mimetype=application/font-woff"
-			},
+        test: /\.less$/,
+        loader: 'style!css?sourceMap&-minimize&modules&importLoaders=1&sourceMap&localIdentName=[local]___[hash:base64:5]!postcss!less?outputStyle=expanded&sourceMap'
+      },
       {
-				test: /\.ttf(\?v=\d+\.\d+\.\d+)?$/,
-				loader: "url?limit=10000&mimetype=application/octet-stream"
-			},
+        test: /\.scss$/,
+        loader: ExtractTextPlugin.extract('style-loader', 'css?sourceMap&-minimize&modules&importLoaders=1&sourceMap&localIdentName=[local]___[hash:base64:5]!postcss!sass?outputStyle=expanded&sourceMap')
+      },
       {
-				test: /\.eot(\?v=\d+\.\d+\.\d+)?$/,
-				loader: "file"
-			},
+        test: /\.woff(\?v=\d+\.\d+\.\d+)?$/,
+        loader: "url?limit=10000&mimetype=application/font-woff"
+      },
       {
-				test: /\.svg(\?v=\d+\.\d+\.\d+)?$/,
-				loader: "url?limit=10000&mimetype=image/svg+xml"
-			},
+        test: /\.woff2(\?v=\d+\.\d+\.\d+)?$/,
+        loader: "url?limit=10000&mimetype=application/font-woff"
+      },
+      {
+        test: /\.ttf(\?v=\d+\.\d+\.\d+)?$/,
+        loader: "url?limit=10000&mimetype=application/octet-stream"
+      },
+      {
+        test: /\.eot(\?v=\d+\.\d+\.\d+)?$/,
+        loader: "file"
+      },
+      {
+        test: /\.svg(\?v=\d+\.\d+\.\d+)?$/,
+        loader: "url?limit=10000&mimetype=image/svg+xml"
+      },
 
-			{
-				test: /\.(jp[e]?g|png|gif|svg)$/i,
-				loader: 'file-loader?name=img/[name].[ext]'
-			},
-			{
-				test: /\.(html|ico)$/,
-				loader: 'file-loader?name=[name].[ext]'
-			}
+      {
+        test: /\.(jp[e]?g|png|gif|svg)$/i,
+        loader: 'file-loader?name=img/[name].[ext]'
+      },
+      {
+        test: /\.(html|ico)$/,
+        loader: 'file-loader?name=[name].[ext]'
+      }
     ]
-	},
-	resolve: {
+  },
+  resolve: {
     extensions: ['', '.ts', '.tsx', '.js', '.jsx']
-	},
-	plugins: [
+  },
+  plugins: [
     new CleanPlugin([BUILD_DIR], { root: PROJECT_ROOT }),
     new webpack.optimize.CommonsChunkPlugin({
       names: ['vendor']
@@ -103,7 +103,7 @@ const webpackProdConfig: Configuration = {
       mangle: true,
       minimize: true
     } as any)
-	]
+  ]
 };
 
 webpackProdConfig['postcss'] = [

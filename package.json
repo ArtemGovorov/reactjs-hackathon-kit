@@ -10,7 +10,7 @@
     "ts:init": "typings install",
     "server:clientside": "node ./bin/server/clientSideRendering.js",
     "server:serverside": "node ./bin/server/serverSideRendering.js",
-    "tsc:webpack": "tsc ./config/webpack.clientside.dev.ts ./config/webpack.clientside.prod.ts ./config/webpack.constants.ts ./config/webpack.serverside.ts ./config/karma.config.ts ./typings/index.d.ts ./src/shared/global.d.ts  ",
+    "tsc:webpack": "tsc ./typings/index.d.ts ./config/webpack.clientside.dev.ts ./config/webpack.clientside.prod.ts ./config/webpack.constants.ts ./config/webpack.serverside.ts  ./config/webpack.test.ts",
     "dev:build": "npm run tsc:webpack && webpack -d --colors --config ./config/webpack.clientside.dev.js",
     "dev": " better-npm-run dev",
     "prod:build:clientside": "npm run tsc:webpack && webpack -p --progress --colors --config ./config/webpack.clientside.prod.js",
@@ -27,7 +27,7 @@
       }
     },
     "test": {
-      "command": "npm run tsc:webpack && node ./node_modules/karma/bin/karma start config/karma.config.js",
+      "command": "npm run tsc:webpack && karma start ",
       "env": {
         "NODE_ENV": "test"
       }
@@ -74,7 +74,7 @@
     "file-loader": "^0.8.4",
     "font-awesome": "^4.4.0",
     "font-awesome-webpack": "0.0.4",
-    "fs": "0.0.2",
+    "fs-extra": "^0.30.0",
     "history": "^2.0.0",
     "html-webpack-plugin": "^2.19.0",
     "imports-loader": "^0.6.5",
@@ -82,6 +82,9 @@
     "less": "^2.5.3",
     "less-loader": "^2.2.1",
     "node-sass": "^3.4.2",
+    "parse": "^1.8.0",
+    "parse-dashboard": "^1.0.13",
+    "parse-server": "^2.2.11",
     "postcss-loader": "^0.9.0",
     "react": "^15.0.0",
     "react-dom": "^15.0.0",
@@ -102,13 +105,14 @@
     "typings": "^1.0.4",
     "url-loader": "^0.5.6",
     "webpack": "^1.12.14",
-    "webpack-dev-server": "^1.14.1",
+    "when": "^3.7.7",
     "yargs": "^4.0.0"
   },
   "devDependencies": {
-    "chai": "^3.4.1",
+    "chai": "^3.5.0",
     "chai-as-promised": "^5.1.0",
     "chai-enzyme": "^0.4.0",
+    "cheerio": "^0.20.0",
     "codecov": "^1.0.1",
     "commitizen": "^2.8.1",
     "cz-customizable": "^4.0.0",
@@ -130,6 +134,12 @@
     "sinon": "^1.17.3",
     "sinon-chai": "^2.8.0",
     "webpack-dev-middleware": "^1.6.1",
-    "webpack-hot-middleware": "^2.6.0"
+    "webpack-hot-middleware": "^2.6.0",
+    "react-addons-test-utils": "^15.0.0",
+    "react-transform-catch-errors": "^1.0.0",
+    "karma-typescript-preprocessor2": "^1.1.1"
+
+
+
   }
 }

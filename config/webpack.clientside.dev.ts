@@ -24,7 +24,7 @@ const webpackDevConfig: Configuration = {
   module: {
     loaders: [
       {
-        test: /\.tsx?$/,
+        test: /\.ts?$/,
         include: APP_DIR,
         loaders: [
           'ts-loader'

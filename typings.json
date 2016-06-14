@@ -1,7 +1,10 @@
 {
   "name": "reactjs-typescript-starterkit",
-  "dependencies": {},
   "globalDependencies": {
+    "chai": "registry:dt/chai#3.4.0+20160317120654",
+    "chai-as-promised": "registry:dt/chai-as-promised#0.0.0+20160423070304",
+    "cheerio": "registry:dt/cheerio#0.17.0+20160407085313",
+    "enzyme": "registry:dt/enzyme#2.3.0+20160525083955",
     "es6-promise": "registry:dt/es6-promise#0.0.0+20160423074304",
     "history": "registry:dt/history#1.8.0+20160316155526",
     "jquery": "registry:dt/jquery#1.10.0+20160417213236",
@@ -9,7 +12,9 @@
     "node": "registry:dt/node#6.0.0+20160514165920",
     "object-assign": "registry:dt/object-assign#4.0.1+20160316155526",
     "parse": "registry:dt/parse#1.2.19+20160316155526",
+    "promises-a-plus": "registry:dt/promises-a-plus#0.0.0+20160317120654",
     "react": "registry:dt/react#0.14.0+20160423065914",
+    "react-addons-test-utils": "registry:dt/react-addons-test-utils#0.14.0+20160427035638",
     "react-dom": "registry:dt/react-dom#0.14.0+20160412154040",
     "react-helmet": "registry:dt/react-helmet#0.0.0+20160423063849",
     "react-redux": "registry:dt/react-redux#4.4.0+20160501125835",
@@ -17,10 +22,13 @@
     "react-router-redux": "registry:dt/react-router-redux#4.0.0+20160316155526",
     "react-router/history": "registry:dt/react-router/history#2.0.0+20160608102730",
     "redux": "registry:dt/redux#3.3.1+20160326112656",
+    "sinon": "registry:dt/sinon#1.16.0+20160517064723",
+    "sinon-chai": "registry:dt/sinon-chai#2.7.0+20160317120654",
     "source-map": "registry:dt/source-map#0.0.0+20160317120654",
     "uglify-js": "registry:dt/uglify-js#2.6.1+20160316155526",
     "underscore": "registry:dt/underscore#1.7.0+20160505190121",
     "webpack": "registry:dt/webpack#1.12.9+20160321060707",
+    "when": "registry:dt/when#2.4.0+20160317120654",
     "yargs": "registry:dt/yargs#0.0.0+20160326124407"
   }
 }

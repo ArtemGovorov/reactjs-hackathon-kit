@@ -1,5 +1,5 @@
-import React from 'react';
-import { Header } from 'components/Header/Header';
+import * as  React from 'react';
+import { Header } from '../../../src/shared/components/Header/Header';
 import { IndexLink, Link } from 'react-router';
 import { shallow } from 'enzyme';
 
@@ -18,11 +18,11 @@ describe('(Component) Header', () => {
 
   describe('Navigation links...', () => {
     it('Should render an IndexLink to Home route', () => {
-      expect(wrapper.contains(<IndexLink to="/" />)).to.equal.true;
+      expect(wrapper.contains(<IndexLink to="/" />)).to.be.true;
     });
 
     it('Should render an Link to Counter route)', () => {
-      expect(wrapper.contains(<Link to="/counter" />)).to.equal.true;
+      expect(wrapper.contains(<Link to="/counter" />)).to.be.true;
     });
   });
 });

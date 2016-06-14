@@ -1,17 +1,15 @@
-import { argv } from 'yargs';
-import * as webpackConfig from './webpack.test';
+var argv = require('yargs');
+var webpackConfig = require('./config/webpack.test');
 require('es6-object-assign').polyfill();
 
-
-
-const karmaConfig = {
+var karmaConfig = {
   basePath: '', // project root in relation to bin/karma.js
   // enable / disable watching file and executing tests whenever any file changes
   autoWatch: true,
   autoWatchBatchDelay: 300,
   files: [
     {
-      pattern: '../tests/test-bundler.ts',
+      pattern: './tests/karma.bundler.ts',
       watched: true,
       served: true,
       included: true
@@ -19,12 +17,11 @@ const karmaConfig = {
   ],
   colors: true,
   singleRun: !argv.watch,
-  frameworks: ['mocha'],
   reporters: ['mocha'],
   captureTimeout: 60000,
   preprocessors: {
-    //'tests/test-bundler.js': ['webpack']
-    'tests/test-bundler.js': ['webpack', 'sourcemap']
+    'tests/karma.bundler.ts': ['webpack']
+    //'tests/karma.bundler.ts': ['webpack', 'sourcemap']
   },
   client: {
     mocha: {
@@ -33,7 +30,7 @@ const karmaConfig = {
       timeout: 15000
     }
   },
-  browsers: ['Chrome'],
+  browsers: ['PhantomJS'],
 
   webpack: {
     devtool: 'inline-source-map',
@@ -85,12 +82,14 @@ const karmaConfig = {
 
 karmaConfig.reporters.push('coverage');
 karmaConfig.webpack.module['preLoaders'] = [{
-  test: /\.(js|jsx)$/,
+  test: /\.(ts|tsx)$/,
   include: new RegExp('src'),
   loader: 'isparta',
   exclude: /node_modules/
 }];
 
 // cannot use `export default` because of Karma.
-module.exports = (cfg) => cfg.set(karmaConfig);
+module.exports = function (cfg) {
+  return cfg.set(karmaConfig)
+}
 

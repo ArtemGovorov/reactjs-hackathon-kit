@@ -1,0 +1,160 @@
+{
+  "basePath": "",
+  "autoWatch": true,
+  "autoWatchBatchDelay": 300,
+  "files": [
+    "tests/karma.bundler.ts"
+  ],
+  "colors": true,
+  "singleRun": true,
+  "reporters": [
+    "mocha",
+    "coverage"
+  ],
+  "captureTimeout": 60000,
+  "preprocessors": {
+    "tests/test-bundler.ts": [
+      "webpack"
+    ]
+  },
+  "client": {
+    "mocha": {
+      "reporter": "html",
+      "ui": "bdd",
+      "timeout": 15000
+    }
+  },
+  "browsers": [
+    "Chrome"
+  ],
+  "webpack": {
+    "devtool": "inline-source-map",
+    "resolve": {
+      "extensions": [
+        "",
+        ".ts",
+        ".tsx",
+        ".js",
+        ".jsx"
+      ],
+      "alias": {
+        "sinon": "sinon/pkg/sinon.js"
+      }
+    },
+    "plugins": [
+      {
+        "filename": "[name]-[chunkhash].css",
+        "options": {
+          "allChunks": true
+        },
+        "id": 1
+      },
+      {
+        "definitions": {
+          "process.env": {
+            "NODE_ENV": "\"test\""
+          },
+          "__BASENAME__": "\"\"",
+          "__DEV__": false,
+          "__DEVTOOLS__": false
+        }
+      }
+    ],
+    "module": {
+      "noParse": [
+        {}
+      ],
+      "loaders": [
+        {
+          "test": {},
+          "exclude": {},
+          "loaders": [
+            "ts-loader"
+          ]
+        },
+        {
+          "test": {},
+          "loader": "json-loader"
+        },
+        {
+          "test": {},
+          "loader": "/home/nathanvale/Documents/repos/ts-starter-kit/node_modules/extract-text-webpack-plugin/loader.js?{\"omit\":1,\"extract\":true,\"remove\":true}!style-loader!css?\n          sourceMap&\n          -minimize&\n          modules&\n          importLoaders=1&\n          sourceMap&\n          localIdentName=[local]___[hash:base64:5]\n          !postcss\n          !less?\n          outputStyle=expanded&\n          sourceMap"
+        },
+        {
+          "test": {},
+          "loader": "/home/nathanvale/Documents/repos/ts-starter-kit/node_modules/extract-text-webpack-plugin/loader.js?{\"omit\":1,\"extract\":true,\"remove\":true}!style-loader!css?\n           sourceMap&\n           -minimize&\n           modules&\n           importLoaders=1&\n           sourceMap&\n           localIdentName=[local]___[hash:base64:5]\n           !postcss\n           !sass?outputStyle=expanded&\n           sourceMap"
+        },
+        {
+          "test": {},
+          "loader": "url?limit=10000&mimetype=application/font-woff"
+        },
+        {
+          "test": {},
+          "loader": "url?limit=10000&mimetype=application/font-woff"
+        },
+        {
+          "test": {},
+          "loader": "url?limit=10000&mimetype=application/octet-stream"
+        },
+        {
+          "test": {},
+          "loader": "file"
+        },
+        {
+          "test": {},
+          "loader": "url?limit=10000&mimetype=image/svg+xml"
+        },
+        {
+          "test": {},
+          "loader": "file-loader?name=[name].[ext]"
+        },
+        {
+          "test": {},
+          "loader": "file-loader?name=img/[name].[ext]"
+        },
+        {
+          "test": {},
+          "loader": "imports?define=>false,require=>false"
+        }
+      ],
+      "preLoaders": [
+        {
+          "test": {},
+          "include": {},
+          "loader": "isparta",
+          "exclude": {}
+        }
+      ]
+    },
+    "externals": {
+      "react/addons": true,
+      "react/lib/ExecutionEnvironment": true,
+      "react/lib/ReactContext": "window"
+    }
+  },
+  "webpackMiddleware": {
+    "quiet": false,
+    "noInfo": true,
+    "hot": true,
+    "inline": true,
+    "progress": true,
+    "lazy": false,
+    "headers": {
+      "Access-Control-Allow-Origin": "*"
+    },
+    "stats": {
+      "colors": true
+    }
+  },
+  "coverageReporter": {
+    "reporters": [
+      {
+        "type": "text-summary"
+      },
+      {
+        "type": "lcov",
+        "dir": "coverage"
+      }
+    ]
+  }
+}

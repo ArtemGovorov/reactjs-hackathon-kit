@@ -1,6 +1,6 @@
-import React from 'react';
-import TestUtils from 'react-addons-test-utils';
-import CoreLayout from 'layouts/CoreLayout/CoreLayout';
+import * as React from 'react';
+import * as TestUtils from 'react-addons-test-utils';
+import CoreLayout from '../../src/shared/layouts/CoreLayout/CoreLayout';
 
 function shallowRender(component) {
   const renderer = TestUtils.createRenderer();
@@ -10,7 +10,7 @@ function shallowRender(component) {
 }
 
 function shallowRenderWithProps(props = {}) {
-  return shallowRender(<CoreLayout {...props} />);
+  return shallowRender(<CoreLayout children={void 0}{...props} ></CoreLayout>);
 }
 
 describe('(Layout) Core', () => {
@@ -19,7 +19,7 @@ describe('(Layout) Core', () => {
   let child;
 
   beforeEach(() => {
-    child = <h1 className="child">Child</h1>;
+    child = <h1 className='child'>Child</h1>;
     props = {
       children: child
     };

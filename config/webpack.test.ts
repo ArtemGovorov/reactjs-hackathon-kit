@@ -1,7 +1,6 @@
-import '../src/shared/polyfill';
 import * as webpack from 'webpack';
 import {Configuration} from 'webpack';
-import {APP_DIR, BUILD_DIR} from './webpack.constants';
+import {APP_DIR, BUILD_DIR, PROJECT_ROOT} from './webpack.constants';
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const cssnano = require('cssnano');
 const webpackDevConfig: Configuration = {
@@ -23,8 +22,8 @@ const webpackDevConfig: Configuration = {
   module: {
     loaders: [
       {
-        test: /\.tsx?$/,
-        include: APP_DIR,
+        test: /\.ts?$/,
+        exclude: /node_modules/,
         loaders: [
           'ts-loader'
         ]
@@ -100,7 +99,7 @@ const webpackDevConfig: Configuration = {
   },
 
   resolve: {
-    extensions: ['', '.ts', '.tsx', '.js', '.jsx']
+    extensions: ['', '.ts', '.tsx', '.js', '.jsx', '.json']
   },
   plugins: [
     new ExtractTextPlugin('[name]-[chunkhash].css', { allChunks: true }),

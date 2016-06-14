@@ -1,12 +1,13 @@
-import assert from 'assert';
-import React from 'react';
+import * as assert from 'assert';
+/* tslint:disable:no-unused-variable */
+import * as React from 'react';
 import { mount, render, shallow } from 'enzyme';
 
 
 const Fixture = () =>
   <div>
-    <input id="checked" defaultChecked />
-    <input id="not" defaultChecked={false} />
+    <input id = 'checked' defaultChecked />
+    < input id = 'not' defaultChecked = { false} / >
   </div>;
 
 describe('(Framework) Karma Plugins', () => {
@@ -26,14 +27,6 @@ describe('(Framework) Karma Plugins', () => {
     assert.ok(should);
   });
 
-  it('Should expose "TestScheduler" globally.', () => {
-    assert.ok(TestScheduler);
-  });
-
-  it('Should expose "Observable" globally.', () => {
-    assert.ok(Observable);
-  });
-
 
   it('Should have chai-as-promised helpers.', () => {
     const pass = new Promise(res => res('test'));
@@ -46,13 +39,13 @@ describe('(Framework) Karma Plugins', () => {
   });
 
   it('should have chai-enzyme working', () => {
-    let wrapper = shallow(<Fixture />);
-    expect(wrapper.find('#checked')).to.be.checked();
+    let shallowWrapper = shallow(<Fixture />);
+    expect(shallowWrapper.find('#checked')).to.be['checked']();
+    let reactWrapper;
+    reactWrapper = mount(<Fixture />);
+    expect(reactWrapper.find('#checked')).to.be['checked']();
 
-    wrapper = mount(<Fixture />);
-    expect(wrapper.find('#checked')).to.be.checked();
-
-    wrapper = render(<Fixture />);
-    expect(wrapper.find('#checked')).to.be.checked();
+    reactWrapper = render(<Fixture />);
+    expect(reactWrapper.find('#checked')).to.be['checked']();
   });
 });

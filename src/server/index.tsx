@@ -1,4 +1,3 @@
-/// <reference path="../shared/global.d.ts" />
 import '../shared/polyfill';
 /* tslint:disable:no-unused-variable */
 import * as React from 'react';

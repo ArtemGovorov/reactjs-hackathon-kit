@@ -27,7 +27,7 @@
       }
     },
     "test": {
-      "command": "npm run tsc:webpack && karma start ",
+      "command": "npm run tsc:webpack && ./node_modules/karma/bin/karma  start  karma.config.js",
       "env": {
         "NODE_ENV": "test"
       }
@@ -136,8 +136,7 @@
     "webpack-dev-middleware": "^1.6.1",
     "webpack-hot-middleware": "^2.6.0",
     "react-addons-test-utils": "^15.0.0",
-    "react-transform-catch-errors": "^1.0.0",
-    "karma-typescript-preprocessor2": "^1.1.1"
+    "react-transform-catch-errors": "^1.0.0"
 
 
 

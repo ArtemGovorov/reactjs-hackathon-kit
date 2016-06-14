@@ -3,6 +3,7 @@ var webpackConfig = require('./config/webpack.test');
 require('es6-object-assign').polyfill();
 
 var karmaConfig = {
+
   basePath: '', // project root in relation to bin/karma.js
   // enable / disable watching file and executing tests whenever any file changes
   autoWatch: true,
@@ -20,8 +21,8 @@ var karmaConfig = {
   reporters: ['mocha'],
   captureTimeout: 60000,
   preprocessors: {
-    'tests/karma.bundler.ts': ['webpack']
-    //'tests/karma.bundler.ts': ['webpack', 'sourcemap']
+    //'tests/karma.bundler.ts': ['webpack'],
+    'tests/karma.bundler.ts': ['webpack', 'sourcemap']
   },
   client: {
     mocha: {
@@ -31,7 +32,6 @@ var karmaConfig = {
     }
   },
   browsers: ['PhantomJS'],
-
   webpack: {
     devtool: 'inline-source-map',
     //devtool: 'cheap-module-source-map',

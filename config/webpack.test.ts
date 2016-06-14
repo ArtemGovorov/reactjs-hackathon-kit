@@ -6,13 +6,6 @@ const cssnano = require('cssnano');
 const webpackDevConfig: Configuration = {
   cache: true,
   devtool: 'source-map',
-  entry: {
-    'main': [
-      `bootstrap-sass!${APP_DIR}/theme/bootstrap.config.js`,
-      `font-awesome-webpack!${APP_DIR}/theme/font-awesome.config.js`,
-      `${APP_DIR}/client`
-    ]
-  },
   output: {
     filename: '[name]-[hash].js',
     chunkFilename: '[name]-[chunkhash].js',
@@ -23,7 +16,7 @@ const webpackDevConfig: Configuration = {
     loaders: [
       {
         test: /\.ts?$/,
-        exclude: /node_modules/,
+        include: APP_DIR,
         loaders: [
           'ts-loader'
         ]

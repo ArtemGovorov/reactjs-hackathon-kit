@@ -20,8 +20,8 @@ if (config.DEV) {
   var compiler = webpack(webpackConfig)
   server.use(webpackDevMiddleware(compiler, {
     publicPath: webpackConfig.output.publicPath,
-    quiet: true,
-    noInfo: true,
+    quiet: false,
+    noInfo: false,
     hot: true,
     progress: true,
     lazy: false,

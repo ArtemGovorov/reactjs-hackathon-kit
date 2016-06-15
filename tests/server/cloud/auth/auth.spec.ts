@@ -61,6 +61,7 @@ describe('(Cloud) Auth', () => {
     const stub = sinon.stub(Parse.User, 'logIn')
       .returns(When(expectedResponse));
 
+
     logIn(req, res)
       .then(
       () => {

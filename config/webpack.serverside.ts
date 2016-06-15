@@ -136,12 +136,11 @@ const webpackServerSideConfig: Configuration = {
     new webpack.optimize.OccurenceOrderPlugin(false),
     new webpack.optimize.UglifyJsPlugin({
       compress: {
+        unused: true,
+        dead_code: true,
         warnings: false
       },
-      comments: false,
-      sourceMap: true,
-      mangle: true,
-      minimize: true
+      comments: false
     } as any)
   ]
 };

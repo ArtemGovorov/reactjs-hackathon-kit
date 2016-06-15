@@ -1,53 +1,20 @@
 import * as webpack from 'webpack';
-import {APP_DIR} from './webpack.constants';
-module.exports = {
-  entry: [
-    `bootstrap-sass!${APP_DIR}/theme/bootstrap.config.js`,
-    `font-awesome-webpack!${APP_DIR}/theme/font-awesome.config.js`,
-    `${APP_DIR}/client`
-  ]
-  ,
+import {Configuration} from 'webpack';
+import {APP_DIR, BUILD_DIR, PROJECT_ROOT} from './webpack.constants';
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const cssnano = require('cssnano');
+const webpackDevConfig: Configuration = {
+  devtool: 'inline-source-map',
   output: {
-    filename: 'build.js',
-    path: 'tmp'
+
+    filename: '[name]-[hash].js',
+    path: BUILD_DIR,
+    publicPath: '/'
   },
-  resolve: {
-    root: __dirname,
-    extensions: ['', '.ts', '.tsx', '.js', '.jsx', '.json'],
-    alias: {
-      sinon: 'sinon/pkg/sinon.js'
-    }
-  },
-  resolveLoader: {
-    modulesDirectories: ['node_modules']
-  },
-  devtool: 'source-map-inline',
-  externals: {
-    'react/addons': true,
-    'react/lib/ExecutionEnvironment': true,
-    'react/lib/ReactContext': 'window'
-  },
-  plugins: [
-    new webpack.DefinePlugin({
-      'process.env': {
-        NODE_ENV: '"test"'
-      },
-      __BASENAME__: JSON.stringify(process.env.BASENAME || ''),
-      __DEV__: false,
-      __DEVTOOLS__: false
-    })
-  ],
   module: {
-    noParse: [
-      /\/sinon\.js/
-    ],
     loaders: [
       {
-        test: /sinon(\\|\/)pkg(\\|\/)sinon\.js/,
-        loader: 'imports?define=>false,require=>false'
-      },
-      {
-        test: /\.ts(x?)$/,
+        test: /\.tsx?$/,
         loaders: [
           'ts-loader'
         ]
@@ -55,11 +22,6 @@ module.exports = {
       {
         test: /\.json$/,
         loader: 'json-loader'
-      },
-      {
-        test: /\.html$/,
-        exclude: /node_modules/,
-        loader: 'raw'
       },
       {
         test: /\.less$/,
@@ -91,16 +53,49 @@ module.exports = {
         loader: 'url?limit=10000&mimetype=image/svg+xml'
       },
       {
+        test: /\.(html|ico)$/,
+        loader: 'file-loader?name=[name].[ext]'
+      },
+      {
         test: /\.(jp[e]?g|png|gif|svg)$/i,
         loader: 'file-loader?name=img/[name].[ext]'
       }
-    ],
-    postLoaders: [
-      {
-        test: /^((?!\.spec\.ts).)*.ts$/,
-        exclude: /(node_modules|bower_components)/,
-        loader: 'istanbul-instrumenter'
-      }
     ]
-  }
+  },
+
+  resolve: {
+    extensions: ['', '.ts', '.tsx', '.js', '.jsx', '.json']
+  },
+  plugins: [
+    new webpack.DefinePlugin({
+      'process.env': {
+        NODE_ENV: '"test"'
+      },
+      __BASENAME__: JSON.stringify(process.env.BASENAME || ''),
+      __DEV__: false,
+      __DEVTOOLS__: false
+    }),
+  ]
 };
+
+webpackDevConfig['postcss'] = [
+  cssnano({
+    autoprefixer: {
+      add: true,
+      remove: true,
+      browsers: ['last 2 versions']
+    },
+    discardComments: {
+      removeAll: true
+    },
+    discardUnused: false,
+    mergeIdents: false,
+    reduceIdents: false,
+    safe: true,
+    sourcemap: true
+  })
+];
+
+
+
+export = webpackDevConfig;

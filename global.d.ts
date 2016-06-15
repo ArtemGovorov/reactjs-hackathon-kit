@@ -3,12 +3,24 @@
 declare var __BASENAME__: string;
 declare var __DEV__: string;
 declare var __DEVTOOLS__: string;
+
 declare var expect: Chai.ExpectStatic;
 declare var should: Chai.Should;
+
+declare namespace NodeJS {
+  export interface Global {
+    When: any;
+    Parse: any;
+    chai: any;
+    sinon: any;
+    expect: any;
+    should: any;
+  }
+}
+
 interface ObjectConstructor {
   assign(target: any, ...sources: any[]): any;
 }
-
 
 interface Window {
   __data: string;
@@ -43,7 +55,7 @@ declare module 'react-hot-loader' {
 }
 
 declare module 'redux-observable' {
-  const ActionsObservable: (actions?: any) => void;
+  const ActionsObservable: (actions: any) => void;
   const reduxObservable: (processor?: any) => void;
   export {
   ActionsObservable,

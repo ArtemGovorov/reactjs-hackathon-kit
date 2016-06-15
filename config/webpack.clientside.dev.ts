@@ -1,10 +1,9 @@
 import * as webpack from 'webpack';
 import {Configuration} from 'webpack';
-import {APP_DIR, BUILD_DIR, PROJECT_ROOT} from './webpack.constants';
+import {APP_DIR, BUILD_DIR} from './webpack.constants';
 const cssnano = require('cssnano');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const webpackDevConfig: Configuration = {
-  cache: true,
   devtool: 'eval',
   entry: {
     'main': [
@@ -24,8 +23,8 @@ const webpackDevConfig: Configuration = {
   module: {
     loaders: [
       {
-        test: /\.ts?$/,
-        include: APP_DIR,
+        test: /\.tsx?$/,
+        exclude: /node_modules/,
         loaders: [
           'ts-loader'
         ]
@@ -75,10 +74,11 @@ const webpackDevConfig: Configuration = {
   },
 
   resolve: {
-    extensions: ['', '.ts', '.tsx', '.js', '.jsx']
+    extensions: ['', '.ts', '.tsx', '.js', '.jsx', '.json']
   },
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
+    new webpack.NoErrorsPlugin(),
     new HtmlWebpackPlugin({
       template: `${APP_DIR}/client/index.ejs`,
       hash: false,

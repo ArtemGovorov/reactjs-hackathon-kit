@@ -153,7 +153,7 @@ describe('(Redux Module) Counter', () => {
         .subscribe(
         value => {
           dispatch(value);
-          expect(getStateSpy.calledOnce).to.be.true;
+          expect(getStateSpy.calledTwice).to.be.true;
           expect(globalState.counter).to.equal(20);
         },
         error => { console.error(error); },

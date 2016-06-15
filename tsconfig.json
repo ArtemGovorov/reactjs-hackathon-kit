@@ -14,7 +14,8 @@
         "noLib": false,
         "preserveConstEnums": true,
         "suppressImplicitAnyIndexErrors": true,
-        "allowSyntheticDefaultImports" : false
+        "allowSyntheticDefaultImports" : false,
+        "sourceMap": true
     },
     "compileOnSave": true,
     "buildOnSave": false,

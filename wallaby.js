@@ -9,7 +9,7 @@ config.module.loaders = config.module.loaders.filter(function (l) {
 })
 
 // tests + specHelper will be webpack-ed entry points
-config.entryPatterns = ['tests/**/*.spec.js*', 'src/shared/polyfill.js', 'tests/karma.bundler.js'];
+config.entryPatterns = ['tests/**/*.spec.js*', 'src/shared/polyfill.js', 'tests/spec-helper.js'];
 
 config.resolve = {
 
@@ -33,7 +33,7 @@ module.exports = function (wallaby) {
         files: [
             // PhantomJs Function.bind polyfill
             { pattern: 'node_modules/phantomjs-polyfill/bind-polyfill.js', instrument: false },
-            { pattern: 'tests/karma.bundler.ts', load: false },
+            { pattern: 'tests/spec-helper.ts', load: false },
             { pattern: 'src/shared/polyfill.ts', instrument: false },
             { pattern: 'src/**/*.ts*', load: false },
             { pattern: 'src/**/*.scss', load: false },

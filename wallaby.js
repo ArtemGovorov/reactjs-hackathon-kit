@@ -51,7 +51,6 @@ module.exports = function (wallaby) {
         setup: function () {
             global.React = require("react");
 
-            // Taken from https://github.com/airbnb/enzyme/blob/master/docs/guides/jsdom.md
             var jsdom = require('jsdom').jsdom;
 
             var exposedProperties = ['window', 'navigator', 'document'];
@@ -64,6 +63,10 @@ module.exports = function (wallaby) {
                     global[property] = document.defaultView[property];
                 }
             });
+
+            global.navigator = {
+                userAgent: 'node.js'
+            };
 
         },
         bootstrap: function () {

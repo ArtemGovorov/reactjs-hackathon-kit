@@ -1,96 +1,75 @@
-var babel = require('babel-core');
+'use strict';
+
 var wallabyWebpack = require('wallaby-webpack');
+var config = require('./config/webpack.test.js')
 
-var webpackPostprocessor = wallabyWebpack({
-    entryPatterns: [
-        'tests/karma.bundler.js',
-        'tests/**/*.spec.js'
-    ],
-    module: {
-        externals: {
-            'react': 'React',
-            'react/addons': true,
-            'react/lib/ExecutionEnvironment': true,
-            'react/lib/ReactContext': 'window'
-        },
-        loaders: [
-            {
-                test: /\.json$/,
-                loader: 'json-loader'
-            },
-            {
-                test: /\.html$/,
-                exclude: /node_modules/,
-                loader: 'raw'
-            },
-            {
-                test: /\.less$/,
-                loader:
-                'style!css?sourceMap&-minimize&modules&importLoaders=1&sourceMap&localIdentName=[local]___[hash:base64:5]!postcss!less?outputStyle=expanded&sourceMap'
-            },
-            {
-                test: /\.scss$/,
-                loader: 'style!css?sourceMap&-minimize&modules&importLoaders=1&sourceMap&localIdentName=[local]___[hash:base64:5]!postcss!sass?outputStyle=expanded&sourceMap'
-            },
-            {
-                test: /\.woff(\?v=\d+\.\d+\.\d+)?$/,
-                loader: 'url?limit=10000&mimetype=application/font-woff'
-            },
-            {
-                test: /\.woff2(\?v=\d+\.\d+\.\d+)?$/,
-                loader: 'url?limit=10000&mimetype=application/font-woff'
-            },
-            {
-                test: /\.ttf(\?v=\d+\.\d+\.\d+)?$/,
-                loader: 'url?limit=10000&mimetype=application/octet-stream'
-            },
-            {
-                test: /\.eot(\?v=\d+\.\d+\.\d+)?$/,
-                loader: 'file'
-            },
-            {
-                test: /\.svg(\?v=\d+\.\d+\.\d+)?$/,
-                loader: 'url?limit=10000&mimetype=image/svg+xml'
-            },
-            {
-                test: /\.(jp[e]?g|png|gif|svg)$/i,
-                loader: 'file-loader?name=img/[name].[ext]'
-            }
-        ],
+
+config.module.loaders = config.module.loaders.filter(function (l) {
+    return l.loader !== 'ts-loader'
+})
+
+// tests + specHelper will be webpack-ed entry points
+config.entryPatterns = ['tests/**/*.spec.js*', 'src/shared/polyfill.js', 'tests/karma.bundler.js'];
+
+config.resolve = {
+
+    extensions: ['', '.js', '.json'],
+    alias: {
+        sinon: 'sinon/pkg/sinon.js'
     }
-});
+}
 
-module.exports = function () {
+
+var webpackPostprocessor = wallabyWebpack(config)
+
+
+
+
+module.exports = function (wallaby) {
+
+
     return {
+        debug: true,
         files: [
-            { pattern: 'testlib/phantomPolyfill.js', instrument: false }, // required when testing react components to polyfill the bind() method
-            { pattern: 'node_modules/react-tools/src/test/phantomjs-shims.js', instrument: false },
-            { pattern: 'node_modules/sinon/pkg/sinon.js', instrument: false },
-            { pattern: 'node_modules/chai/chai.js', instrument: false },
-            { pattern: 'src/**/*.html', load: false },
-            { pattern: 'src/**/*.scss', load: false },
-            { pattern: 'src/**/*.css', load: false },
-            { pattern: 'src/**/*.jpg', load: false },
-            { pattern: 'src/**/*.ts', load: false },
-            { pattern: 'src/**/*.tsx', load: false },
+            // PhantomJs Function.bind polyfill
+            { pattern: 'node_modules/phantomjs-polyfill/bind-polyfill.js', instrument: false },
             { pattern: 'tests/karma.bundler.ts', load: false },
-            { pattern: 'node_modules/**/*.js', ignore: true }
+            { pattern: 'src/shared/polyfill.ts', instrument: false },
+            { pattern: 'src/**/*.ts*', load: false },
+            { pattern: 'src/**/*.scss', load: false },
+            { pattern: 'src/**/*.jpg', load: false }
         ],
-
         tests: [
-
-            { pattern: 'tests/**/*.spec.ts' },
-            { pattern: 'tests/**/*.spec.tsx' },
-            { pattern: 'node_modules/**/*.js', ignore: true }
+            { pattern: 'tests/**/*.spec.ts*', load: false },
         ],
 
-        preprocessors: {
-            '**/*.js': file => babel.transform(file.content, { sourceMap: true })
-        },
-        "testFramework": "mocha",
+
+
         postprocessor: webpackPostprocessor,
-        bootstrap: function (wallaby) {
+
+        testFramework: "mocha",
+        setup: function () {
+            global.React = require("react");
+
+            // Taken from https://github.com/airbnb/enzyme/blob/master/docs/guides/jsdom.md
+            var jsdom = require('jsdom').jsdom;
+
+            var exposedProperties = ['window', 'navigator', 'document'];
+
+            global.document = jsdom('');
+            global.window = document.defaultView;
+            Object.keys(document.defaultView).forEach((property) => {
+                if (typeof global[property] === 'undefined') {
+                    exposedProperties.push(property);
+                    global[property] = document.defaultView[property];
+                }
+            });
+
+        },
+        bootstrap: function () {
+
             window.__moduleBundler.loadTests();
+
         }
     };
 };

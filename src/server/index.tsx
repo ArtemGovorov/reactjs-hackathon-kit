@@ -6,7 +6,7 @@ import {renderToString} from 'react-dom/server';
 import {match, RouterContext} from 'react-router';
 import routes from '../shared/routes';
 import Html from './Html';
-import './favicon.ico';
+//import './favicon.ico';
 
 const store = {};
 

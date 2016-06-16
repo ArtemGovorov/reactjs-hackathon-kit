@@ -9,8 +9,7 @@ export const CoreLayout = ({ children }) =>
     <div className={classes['main-container']}>
       {children}
     </div>
-  </div>
-  );
+  </div>);
 
 /*CoreLayout.propTypes = {
   children: React.PropTypes.element.isRequired,

@@ -23,12 +23,14 @@ global.expect = chai.expect;
 global.should = chai.should();
 
 
+
+
 chai.config.includeStack = true;
 
-require('phantomjs-polyfill');
+//require('phantomjs-polyfill');
 
 
-requireAll((<any>require).context('./', true, /spec.ts(x)?$/));
+/*requireAll((<any>require).context('./', true, /spec.ts(x)?$/));
 function requireAll(r: any): any {
     r.keys().forEach(r);
-}
+}*/

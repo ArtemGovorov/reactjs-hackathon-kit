@@ -1,16 +1,7 @@
 import * as webpack from 'webpack';
-import {APP_DIR} from './webpack.constants';
+
 module.exports = {
-  entry: [
-    `bootstrap-sass!${APP_DIR}/theme/bootstrap.config.js`,
-    `font-awesome-webpack!${APP_DIR}/theme/font-awesome.config.js`,
-    `${APP_DIR}/client`
-  ]
-  ,
-  output: {
-    filename: 'build.js',
-    path: 'tmp'
-  },
+
   resolve: {
     root: __dirname,
     extensions: ['', '.ts', '.tsx', '.js', '.jsx', '.json'],

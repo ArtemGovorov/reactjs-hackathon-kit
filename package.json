@@ -4,6 +4,7 @@
   "description": "A React.js typescript isomorphic template with Webpack and react-router",
   "scripts": {
     "test": "better-npm-run test",
+    "test:dev": "npm run test -- --watch",
     "clean": "node ./bin/clean.js",
     "postinstall": "npm run ts:init",
     "lint": "tslint 'src/**/*.{ts,tsx}'",
@@ -27,7 +28,7 @@
       }
     },
     "test": {
-      "command": "npm run tsc:webpack && ./node_modules/karma/bin/karma  start  karma.config.js",
+      "command": "npm run tsc:webpack && karma start  karma.config.js",
       "env": {
         "NODE_ENV": "test"
       }
@@ -136,7 +137,6 @@
     "karma-sourcemap-loader": "0.3.7",
     "karma-spec-reporter": "0.0.26",
     "karma-mocha": "^1.0.1",
-    "karma-sinon": "^1.0.4",
     "karma-mocha-reporter": "^2.0.0",
     "karma-chrome-launcher": "^1.0.1",
     "karma-typescript-preprocessor": "0.2.0",

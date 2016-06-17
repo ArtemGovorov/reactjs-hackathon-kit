@@ -1,37 +1,38 @@
 'use strict';
-
+var argv = require('yargs').argv;
 var webpackConfig = require('./config/webpack.test');
-require('phantomjs-polyfill')
-webpackConfig.entry = {};
+
 
 module.exports = function (config) {
   config.set({
     basePath: '',
-    frameworks: ['mocha', 'sinon'],
+    frameworks: ['mocha'],
     port: 9876,
     colors: true,
     logLevel: config.LOG_INFO,
     autoWatch: true,
     autoWatchBatchDelay: 300,
-    browsers: ['Chrome'],
-    singleRun: false,//!argv.watch,
+    browsers: ['PhantomJS'],
+    singleRun: !argv.watch,
     files: [
       './node_modules/phantomjs-polyfill/bind-polyfill.js',
-      './tests/karma.bundler.ts'
-    ],
-    babelPreprocessor: {
-      options: {
-        presets: ['es2015']
+      {
+        pattern: './tests/karma.bundler.ts',
+        watched: true,
+        served: true,
+        included: true
       }
-    },
+    ],
     preprocessors: {
-      'tests/karma.bundler.ts': ['webpack'],
+      'tests/karma.bundler.ts': ['webpack', 'sourcemap'],
       'src/**/!(*.spec)+(.js)': ['coverage']
     },
     webpackMiddleware: {
       stats: {
         chunkModules: false,
-        colors: true
+        colors: true,
+        quiet: false,
+        noInfo: false
       }
     },
     webpack: webpackConfig,

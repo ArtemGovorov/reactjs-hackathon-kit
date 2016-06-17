@@ -12,7 +12,6 @@ describe('(View) Home', () => {
 
   it('Renders a welcome message', () => {
     const welcome = component.find('h4');
-    console.log(welcome);
     expect(welcome).to.exist;
     expect(welcome.text()).to.match(/Welcome!/);
   });

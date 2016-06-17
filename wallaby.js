@@ -31,8 +31,6 @@ module.exports = function (wallaby) {
     return {
         debug: true,
         files: [
-            // PhantomJs Function.bind polyfill
-            { pattern: 'node_modules/phantomjs-polyfill/bind-polyfill.js', instrument: false },
             { pattern: 'tests/spec-helper.ts', load: false },
             { pattern: 'src/shared/polyfill.ts', instrument: false },
             { pattern: 'src/**/*.ts*', load: false },
@@ -48,27 +46,7 @@ module.exports = function (wallaby) {
         postprocessor: webpackPostprocessor,
 
         testFramework: "mocha",
-        setup: function () {
-            global.React = require("react");
 
-            var jsdom = require('jsdom').jsdom;
-
-            var exposedProperties = ['window', 'navigator', 'document'];
-
-            global.document = jsdom('');
-            global.window = document.defaultView;
-            Object.keys(document.defaultView).forEach((property) => {
-                if (typeof global[property] === 'undefined') {
-                    exposedProperties.push(property);
-                    global[property] = document.defaultView[property];
-                }
-            });
-
-            global.navigator = {
-                userAgent: 'node.js'
-            };
-
-        },
         bootstrap: function () {
 
             window.__moduleBundler.loadTests();

@@ -2,6 +2,8 @@
 {
   "files.exclude": {
     "node_modules/": false,
-    "config/**/*.js": true
+    "config/**/*.js": true,
+    "coverage": true,
+    "reports": true
   }
 }

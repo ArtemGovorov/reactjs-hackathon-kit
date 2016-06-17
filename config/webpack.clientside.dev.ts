@@ -1,6 +1,6 @@
 import * as webpack from 'webpack';
 import {Configuration} from 'webpack';
-import {APP_DIR, BUILD_DIR} from './webpack.constants';
+import {APP_DIR, BUILD_DIR, DEVTOOLS} from './webpack.constants';
 const cssnano = require('cssnano');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const webpackDevConfig: Configuration = {
@@ -94,7 +94,7 @@ const webpackDevConfig: Configuration = {
       },
       __BASENAME__: JSON.stringify(process.env.BASENAME || ''),
       __DEV__: true,
-      __DEVTOOLS__: true
+      __DEVTOOLS__: DEVTOOLS
     }),
   ]
 };

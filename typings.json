@@ -10,7 +10,6 @@
     "jquery": "registry:dt/jquery#1.10.0+20160417213236",
     "mocha": "registry:dt/mocha#2.2.5+20160317120654",
     "node": "registry:dt/node#6.0.0+20160514165920",
-    "object-assign": "registry:dt/object-assign#4.0.1+20160316155526",
     "parse": "registry:dt/parse#1.2.19+20160316155526",
     "promises-a-plus": "registry:dt/promises-a-plus#0.0.0+20160317120654",
     "react": "registry:dt/react#0.14.0+20160423065914",

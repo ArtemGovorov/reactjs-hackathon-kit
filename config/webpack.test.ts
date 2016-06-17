@@ -1,5 +1,5 @@
 import * as webpack from 'webpack';
-
+import {DEVTOOLS} from './webpack.constants';
 module.exports = {
 
   resolve: {
@@ -25,7 +25,7 @@ module.exports = {
       },
       __BASENAME__: JSON.stringify(process.env.BASENAME || ''),
       __DEV__: false,
-      __DEVTOOLS__: false
+      __DEVTOOLS__: DEVTOOLS
     })
   ],
   module: {

@@ -16,12 +16,12 @@ var port = config.PORT;
 
 server.use(compress({ threshold: 0 }));
 
-if (config.DEV) {
+if (!config.DEV) {
   var compiler = webpack(webpackConfig)
   server.use(webpackDevMiddleware(compiler, {
     publicPath: webpackConfig.output.publicPath,
-    quiet: false,
-    noInfo: false,
+    quiet: true,
+    noInfo: true,
     hot: true,
     progress: true,
     lazy: false,

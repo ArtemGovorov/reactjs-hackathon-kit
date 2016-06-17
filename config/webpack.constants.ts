@@ -12,5 +12,7 @@ export const PROD = process.env.NODE_ENV === 'production';
 export const TEST = process.env.NODE_ENV === 'test';
 export const BASENAME = JSON.stringify(process.env.BASENAME || '');
 
+export const DEVTOOLS: boolean = false;
+
 
 

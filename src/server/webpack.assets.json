@@ -1,0 +1,15 @@
+{
+  "home-view": {
+    "js": "/0.home-view-82bada1027e30b57a254.js"
+  },
+  "counter": {
+    "js": "/1.counter-e39f3495e842c9e9316c.js"
+  },
+  "vendor": {
+    "js": "/vendor-06a8ad3d7d615ea4e823.js"
+  },
+  "main": {
+    "js": "/main-89d390c28f77857d6337.js",
+    "css": "/main-89d390c28f77857d6337.css"
+  }
+}

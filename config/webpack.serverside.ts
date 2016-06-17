@@ -1,6 +1,6 @@
 import * as webpack from 'webpack';
 import {Configuration} from 'webpack';
-import {APP_DIR, BUILD_DIR, PROJECT_ROOT} from './webpack.constants';
+import {APP_DIR, BUILD_DIR, PROJECT_ROOT, DEVTOOLS} from './webpack.constants';
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const cssnano = require('cssnano');
 const AssetsPlugin = require('assets-webpack-plugin');
@@ -11,15 +11,15 @@ const webpackServerSideConfig: Configuration = {
   devtool: 'cheap-module-source-map',
  	entry: {
     main: [
-      `bootstrap-sass!${APP_DIR}/theme/bootstrap.config.prod.js`,
-      `font-awesome-webpack!${APP_DIR}/theme/font-awesome.config.prod.js`,
-      `${APP_DIR}/server`
+
+      APP_DIR + '/server/index.tsx'
     ]
   },
   target: 'node',
   externals: /^[a-z\-0-9]+$/,
   output: {
     filename: '[name]-[chunkhash].js',
+    chunkFilename: '[name]-[chunkhash].js',
     path: BUILD_DIR,
     publicPath: '/',
     libraryTarget: 'commonjs'
@@ -27,49 +27,17 @@ const webpackServerSideConfig: Configuration = {
   module: {
     loaders: [
       {
-        test: /\.ts?$/,
-        exclude: /node_modules/,
+        test: /\.ts(x?)$/,
+        include: APP_DIR,
         loader: 'ts-loader'
       },
       {
         test: /\.json$/,
         loader: 'json-loader'
       },
-      {
-        test: /\.less$/,
-        loader: ExtractTextPlugin
-          .extract(
-          'style-loader',
-          `css?
-          sourceMap&
-          -minimize&
-          modules&
-          importLoaders=1&
-          sourceMap&
-          localIdentName=[local]___[hash:base64:5]
-          !postcss
-          !less?
-          outputStyle=expanded&
-          sourceMap`
-          )
-      },
-      {
-        test: /\.scss$/,
-        loader: ExtractTextPlugin
-          .extract(
-          'style-loader',
-          `css?
-           sourceMap&
-           -minimize&
-           modules&
-           importLoaders=1&
-           sourceMap&
-           localIdentName=[local]___[hash:base64:5]
-           !postcss
-           !sass?outputStyle=expanded&
-           sourceMap`
-          )
-      },
+      { test: /\.less$/, loader: 'style!css?sourceMap&-minimize&modules&importLoaders=1&sourceMap&localIdentName=[local]___[hash:base64:5]!postcss!less?outputStyle=expanded&sourceMap' },
+
+      { test: /\.scss$/, loader: ExtractTextPlugin.extract('style-loader', 'css?sourceMap&-minimize&modules&importLoaders=1&sourceMap&localIdentName=[local]___[hash:base64:5]!postcss!sass?outputStyle=expanded&sourceMap') },
       {
         test: /\.woff(\?v=\d+\.\d+\.\d+)?$/,
         loader: 'url?limit=10000&mimetype=application/font-woff'
@@ -106,7 +74,7 @@ const webpackServerSideConfig: Configuration = {
       'src',
       'node_modules'
     ],
-    extensions: ['', '.ts', '.tsx', '.js', '.jsx']
+    extensions: ['', '.ts', '.tsx', '.js', '.jsx', '.json']
   },
   plugins: [
     new CleanPlugin([BUILD_DIR], { root: PROJECT_ROOT }),
@@ -121,7 +89,7 @@ const webpackServerSideConfig: Configuration = {
       },
       __BASENAME__: JSON.stringify(process.env.BASENAME || ''),
       __DEV__: false,
-      __DEVTOOLS__: false
+      __DEVTOOLS__: DEVTOOLS
     }),
 
     new AssetsPlugin({
@@ -129,7 +97,6 @@ const webpackServerSideConfig: Configuration = {
       path: `${BUILD_DIR}`,
       prettyPrint: true
     }),
-
 
     // optimizations
     new webpack.optimize.DedupePlugin(),

@@ -3,7 +3,7 @@ var compress = require('compression');
 var path = require('path');
 const assets = require('../../public/webpack.assets.json');
 const customServerRendering = require(`../../public/${assets.main.js}`);
-//console.log(customServerRendering);
+console.log(customServerRendering);
 var server = express();
 const port = process.env.PORT || 8080;
 
@@ -21,6 +21,6 @@ server.use(function(req, res) {
 
 //TODO: utiliser an http api pour logguer les GET, POST...:
 server.listen(port, function() {
-	var host = this.address().address;
+	var host = 'localhost';
 	console.log('Server launched at http://%s:%s', host, port);
 });

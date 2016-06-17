@@ -14,14 +14,20 @@
         "noLib": false,
         "preserveConstEnums": true,
         "suppressImplicitAnyIndexErrors": true,
-        "allowSyntheticDefaultImports" : false,
-        "sourceMap": true
+        "allowSyntheticDefaultImports": false,
+        "sourceMap": true,
+        "outDir": "dist"
     },
     "compileOnSave": true,
     "buildOnSave": false,
     "atom": {
         "rewriteTsconfig": true
     },
+    "filesGlob": [
+        "./**/*.tsx",
+        "./**/*.ts",
+        "./**/*.d.ts"
+    ],
     "exclude": [
         "node_modules"
     ]

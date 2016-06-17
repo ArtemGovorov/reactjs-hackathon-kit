@@ -1,11 +1,14 @@
 import * as webpack from 'webpack';
 import {Configuration} from 'webpack';
-import {APP_DIR, BUILD_DIR, PROJECT_ROOT} from './webpack.constants';
+import {APP_DIR, BUILD_DIR, PROJECT_ROOT, DEVTOOLS} from './webpack.constants';
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const cssnano = require('cssnano');
 const AssetsPlugin = require('assets-webpack-plugin');
 const CleanPlugin = require('clean-webpack-plugin');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 const webpackProdConfig: Configuration = {
+
+  target: 'web',
   entry: [
     `bootstrap-sass!${APP_DIR}/theme/bootstrap.config.prod.js`,
     `font-awesome-webpack!${APP_DIR}/theme/font-awesome.config.prod.js`,
@@ -13,52 +16,47 @@ const webpackProdConfig: Configuration = {
   ],
   output: {
     filename: '[name]-[chunkhash].js',
-    chunkFilename: '[name]-[chunkhash].js',
     path: BUILD_DIR,
     publicPath: '/'
   },
   module: {
     loaders: [
       {
-        test: /\.ts?$/,
+        test: /\.ts(x?)$/,
+        include: APP_DIR,
         loader: 'ts-loader'
       },
       {
         test: /\.json$/,
         loader: 'json-loader'
       },
-      {
-        test: /\.less$/,
-        loader: 'style!css?sourceMap&-minimize&modules&importLoaders=1&sourceMap&localIdentName=[local]___[hash:base64:5]!postcss!less?outputStyle=expanded&sourceMap'
-      },
-      {
-        test: /\.scss$/,
-        loader: ExtractTextPlugin.extract('style-loader', 'css?sourceMap&-minimize&modules&importLoaders=1&sourceMap&localIdentName=[local]___[hash:base64:5]!postcss!sass?outputStyle=expanded&sourceMap')
-      },
+      { test: /\.less$/, loader: 'style!css?sourceMap&-minimize&modules&importLoaders=1&sourceMap&localIdentName=[local]___[hash:base64:5]!postcss!less?outputStyle=expanded&sourceMap' },
+
+      { test: /\.scss$/, loader: ExtractTextPlugin.extract('style-loader', 'css?sourceMap&-minimize&modules&importLoaders=1&sourceMap&localIdentName=[local]___[hash:base64:5]!postcss!sass?outputStyle=expanded&sourceMap') },
       {
         test: /\.woff(\?v=\d+\.\d+\.\d+)?$/,
-        loader: "url?limit=10000&mimetype=application/font-woff"
+        loader: 'url?limit=10000&mimetype=application/font-woff'
       },
       {
         test: /\.woff2(\?v=\d+\.\d+\.\d+)?$/,
-        loader: "url?limit=10000&mimetype=application/font-woff"
+        loader: 'url?limit=10000&mimetype=application/font-woff'
       },
       {
         test: /\.ttf(\?v=\d+\.\d+\.\d+)?$/,
-        loader: "url?limit=10000&mimetype=application/octet-stream"
+        loader: 'url?limit=10000&mimetype=application/octet-stream'
       },
       {
         test: /\.eot(\?v=\d+\.\d+\.\d+)?$/,
-        loader: "file"
+        loader: 'file'
       },
       {
         test: /\.svg(\?v=\d+\.\d+\.\d+)?$/,
-        loader: "url?limit=10000&mimetype=image/svg+xml"
+        loader: 'url?limit=10000&mimetype=image/svg+xml'
       },
 
       {
         test: /\.(jp[e]?g|png|gif|svg)$/i,
-        loader: 'file-loader?name=img/[name].[ext]'
+        loader: 'file-loader?name=[name].[ext]'
       },
       {
         test: /\.(html|ico)$/,
@@ -82,9 +80,17 @@ const webpackProdConfig: Configuration = {
       },
       __BASENAME__: JSON.stringify(process.env.BASENAME || ''),
       __DEV__: false,
-      __DEVTOOLS__: false
+      __DEVTOOLS__: DEVTOOLS
     }),
-
+    new HtmlWebpackPlugin({
+      template: `${APP_DIR}/client/index.ejs`,
+      hash: false,
+      filename: 'index.html',
+      inject: 'body',
+      minify: {
+        collapseWhitespace: true
+      }
+    }),
     new AssetsPlugin({
       filename: 'webpack.assets.json',
       path: `${APP_DIR}/server`,
@@ -96,12 +102,11 @@ const webpackProdConfig: Configuration = {
     new webpack.optimize.OccurenceOrderPlugin(false),
     new webpack.optimize.UglifyJsPlugin({
       compress: {
+        unused: true,
+        dead_code: true,
         warnings: false
       },
-      comments: false,
-      sourceMap: false,
-      mangle: true,
-      minimize: true
+      comments: false
     } as any)
   ]
 };

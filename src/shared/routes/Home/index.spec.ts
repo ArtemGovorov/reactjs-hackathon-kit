@@ -1,4 +1,4 @@
-import HomeRoute from '../../../src/shared/routes/Home';
+import HomeRoute from './index';
 
 describe('(Route) Home', () => {
   let route;

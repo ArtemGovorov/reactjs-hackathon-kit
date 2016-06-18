@@ -3,7 +3,7 @@ import {
   // signUp,
   logIn,
   // logOut
-} from '../../../../src/server/api/auth';
+} from './index';
 
 
 function getArguments(params: any, user?: any): {

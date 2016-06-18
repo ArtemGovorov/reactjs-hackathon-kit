@@ -5,7 +5,7 @@ import {
   increment,
   doubleAsync,
   default as counterReducer
-} from '../../../../src/shared/routes/Counter/modules/counter';
+} from './counter';
 
 
 import { ActionsObservable } from 'redux-observable';

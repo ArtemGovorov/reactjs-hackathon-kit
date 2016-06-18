@@ -69,3 +69,4 @@ declare module 'serialize-javascript' {
   };
   export = SerializeJavascript;
 }
+

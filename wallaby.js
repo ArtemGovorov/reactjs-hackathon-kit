@@ -9,7 +9,7 @@ config.module.loaders = config.module.loaders.filter(function (l) {
 })
 
 // tests + specHelper will be webpack-ed entry points
-config.entryPatterns = ['tests/**/*.spec.js*', 'src/shared/polyfill.js', 'tests/spec-helper.js'];
+config.entryPatterns = ['src/**/*.spec.js*', 'src/polyfill.js', 'src/spec-helper.js'];
 
 config.resolve = {
 
@@ -31,14 +31,15 @@ module.exports = function (wallaby) {
     return {
         debug: true,
         files: [
-            { pattern: 'tests/spec-helper.ts', load: false },
-            { pattern: 'src/shared/polyfill.ts', instrument: false },
+            { pattern: 'src/spec-helper.ts', load: false },
+            { pattern: 'src/polyfill.ts', instrument: false },
             { pattern: 'src/**/*.ts*', load: false },
             { pattern: 'src/**/*.scss', load: false },
-            { pattern: 'src/**/*.jpg', load: false }
+            { pattern: 'src/**/*.jpg', load: false },
+            { pattern: 'src/**/*.spec.ts*', ignore: true },
         ],
         tests: [
-            { pattern: 'tests/**/*.spec.ts*', load: false },
+            { pattern: 'src/**/*.spec.ts*', load: false },
         ],
 
 

@@ -17,14 +17,14 @@ module.exports = function (config) {
     files: [
       './node_modules/phantomjs-polyfill/bind-polyfill.js',
       {
-        pattern: './tests/karma.bundler.ts',
+        pattern: './src/karma.bundler.ts',
         watched: true,
         served: true,
         included: true
       }
     ],
     preprocessors: {
-      'tests/karma.bundler.ts': ['webpack', 'sourcemap'],
+      'src/karma.bundler.ts': ['webpack', 'sourcemap'],
       'src/**/!(*.spec)+(.js)': ['coverage']
     },
     webpackMiddleware: {

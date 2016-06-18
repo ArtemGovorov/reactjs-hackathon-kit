@@ -1,4 +1,4 @@
-import '../shared/polyfill';
+import '../polyfill';
 /* tslint:disable:no-unused-variable */
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';

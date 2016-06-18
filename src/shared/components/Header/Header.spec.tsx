@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { Header } from '../../../src/shared/components/Header/Header';
+import { Header } from './Header';
 import { IndexLink, Link } from 'react-router';
 import { shallow } from 'enzyme';
 

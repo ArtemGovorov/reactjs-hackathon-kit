@@ -1,4 +1,4 @@
-var express = require('express');
+/*var express = require('express');
 var compress = require('compression');
 var path = require('path');
 const assets = require('../../public/webpack.assets.json');
@@ -24,3 +24,4 @@ server.listen(port, function() {
 	var host = 'localhost';
 	console.log('Server launched at http://%s:%s', host, port);
 });
+*/

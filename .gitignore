@@ -32,19 +32,19 @@ node_modules
 # Optional REPL history
 .node_repl_history
 
-# IDEA
-.idea
-*.iml
-
 # Misc
 public
 src/**/*.js
 src/**/*.js.map
 src/**/*.jsx
 src/**/*.jsx.map
+config/**/*.js
+config/**/*.js.map
+bin/**/*.js
+bin/**/*.js.map
+
 
 # Typescript
-tsd.json
 typings
 
 # Webpack

@@ -1,6 +1,6 @@
 import * as path from 'path';
 
-export const HOST = 'localhost';
+export const HOST = process.env.HOST || 'localhost';
 export const PORT = process.env.PORT || 8080;
 
 export const BUILD_DIR = path.resolve(__dirname, '..', 'public');

@@ -1,6 +1,6 @@
 /* tslint:disable:no-unused-variable */
 import * as React from 'react';
-import { HomeView } from '../../../../src/shared/routes/Home/components/HomeView';
+import { HomeView } from './HomeView';
 import { render } from 'enzyme';
 
 describe('(View) Home', () => {

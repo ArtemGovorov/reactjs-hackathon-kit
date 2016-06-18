@@ -30,7 +30,7 @@
       }
     },
     "dev": {
-      "command": " npm run tsc:webpack && node ./bin/server/clientSideRendering.js",
+      "command": "tsc && node ./bin/server/clientSideRendering.js",
       "env": {
         "NODE_ENV": "development"
       }
@@ -94,6 +94,7 @@
     "less-loader": "^2.2.1",
     "lolex": "^1.5.0",
     "node-sass": "^3.4.2",
+      "debug": "^2.2.0",
     "parse": "^1.8.0",
     "parse-dashboard": "^1.0.13",
     "parse-server": "^2.2.11",

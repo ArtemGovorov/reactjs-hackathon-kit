@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { bindActionCreators } from 'redux';
-import { Counter } from '../../../src/shared/components/Counter/Counter';
+import { Counter } from './Counter';
 import { shallow } from 'enzyme';
 
 describe('(Component) Counter', () => {

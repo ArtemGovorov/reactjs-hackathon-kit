@@ -1,4 +1,4 @@
-/*var path = require('path');
+var path = require('path');
 var rootDir = path.resolve(__dirname, '..');
 
 global.__CLIENT__ = false;
@@ -24,4 +24,3 @@ global.webpackIsomorphicTools = new WebpackIsomorphicTools(require('../config/we
   .server(rootDir, function () {
     require('../src/server');
   });
-*/

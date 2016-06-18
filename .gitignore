@@ -42,7 +42,7 @@ config/**/*.js
 config/**/*.js.map
 bin/**/*.js
 bin/**/*.js.map
-bin/*.js
+
 
 
 # Typescript

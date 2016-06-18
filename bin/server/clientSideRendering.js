@@ -14,6 +14,15 @@ var config = require('../../config/webpack.constants');
 var host = config.HOST;
 var port = config.PORT;
 
+if (__DEV__) {
+  if (!require('piping')({
+    hook: true,
+    ignore: /(\/\.|~$|\.json|\.scss$)/i
+  })) {
+    return;
+  }
+}
+
 server.use(compress({ threshold: 0 }));
 
 if (!config.DEV) {

@@ -4,6 +4,8 @@ declare var __BASENAME__: string;
 declare var __DEV__: string;
 declare var __DEVTOOLS__: string;
 
+declare var __DEVSERVER__: string;
+
 declare var expect: Chai.ExpectStatic;
 declare var should: Chai.Should;
 
@@ -69,4 +71,25 @@ declare module 'serialize-javascript' {
   };
   export = SerializeJavascript;
 }
+
+
+declare module 'extract-text-webpack-plugin' {
+  const ExtractTextPlugin: any;
+  export default ExtractTextPlugin;
+}
+
+declare module 'inline-environment-variables-webpack-plugin' {
+  const InlineEnviromentVariablesPlugin: any;
+  export default InlineEnviromentVariablesPlugin;
+}
+
+declare module 'express-flash' {
+  const ExpressFlash: any;
+  export default ExpressFlash;
+}
+
+
+
+
+
 

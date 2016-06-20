@@ -1,26 +1,37 @@
-var path = require('path');
-var rootDir = path.resolve(__dirname, '..');
+import * as express from 'express';
+import * as webpack from 'webpack';
+import { ENV } from './config/appConfig';
+import expressConfig from './config/express';
+import parseConfig from './config/parse';
+import * as webpackDevConfig from '../webpack/webpack.config.dev-client';
+const App = require('../public/assets/server');
+const app: express.Express = express();
 
-global.__CLIENT__ = false;
-global.__SERVER__ = true;
-global.__DEVTOOLS__ = false;
-global.__BASENAME__ = JSON.stringify(process.env.BASENAME || '');
-global.__DISABLE_SSR__ = false;  // <----- DISABLES SERVER SIDE RENDERING FOR ERROR DEBUGGING
-global.__DEV__ = process.env.NODE_ENV !== 'production';
 
-if (__DEV__) {
-  if (!require('piping')({
-      hook: true,
-      ignore: /(\/\.|~$|\.json|\.scss$)/i
-    })) {
-    return;
-  }
+if (ENV === 'development') {
+  const compiler = webpack(webpackDevConfig);
+  app.use(require('webpack-dev-middleware')(compiler, {
+    noInfo: true,
+    publicPath: webpackDevConfig.output.publicPath
+  }));
+
+  app.use(require('webpack-hot-middleware')(compiler));
 }
 
-// https://github.com/halt-hammerzeit/webpack-isomorphic-tools
-var WebpackIsomorphicTools = require('webpack-isomorphic-tools');
-global.webpackIsomorphicTools = new WebpackIsomorphicTools(require('../config/webpack-isomorphic-tools'))
-  .development(__DEV__)
-  .server(rootDir, function () {
-    require('../src/server');
-  });
+/*
+ * Bootstrap application settings
+ */
+expressConfig(app);
+
+
+parseConfig(app);
+
+/*
+ * This is where the magic happens. We take the locals data we have already
+ * fetched and seed our stores with data.
+ * App is a function that requires store data and url
+ * to initialize and return the React-rendered html string
+ */
+app.get('*', App.default);
+
+app.listen(app.get('port'));

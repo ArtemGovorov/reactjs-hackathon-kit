@@ -7,7 +7,7 @@ import createRoutes from '../shared/routes';
 import * as createBrowserHistory from 'history/lib/createBrowserHistory';
 import { useRouterHistory, match } from 'react-router';
 import { syncHistoryWithStore } from 'react-router-redux';
-import createStore from '../shared/store/createStore';
+import configureStore from '../shared/store/configureStore';
 
 const MOUNT_ELEMENT = document.getElementById('root');
 
@@ -15,7 +15,7 @@ const browserHistory = useRouterHistory(createBrowserHistory as any)({
   basename: __BASENAME__
 });
 
-const store = createStore(window.__data, browserHistory);
+const store = configureStore(window.__data, browserHistory);
 let routes = createRoutes(store);
 const history = syncHistoryWithStore(browserHistory, store, {
   // Sync router history with the redux router store

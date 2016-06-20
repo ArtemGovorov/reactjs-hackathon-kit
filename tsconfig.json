@@ -28,6 +28,9 @@
     "./**/*.d.ts"
   ],
   "exclude": [
-    "node_modules"
+    "node_modules",
+    "webpack_prev",
+    "coverage",
+    "reports"
   ]
 }

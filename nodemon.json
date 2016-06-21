@@ -3,10 +3,8 @@
   "watch": [
     "src/server.js",
     "src/routes.js",
-    //"src/helmconfig.js",
-    //"src/components/Meta.js",
     "bin",
     "webpack"
   ],
-  "exec": "tsc && npm run build:dev && node bin/server.js"
+  "exec": "npm run build:dev && node bin/server.js"
 }

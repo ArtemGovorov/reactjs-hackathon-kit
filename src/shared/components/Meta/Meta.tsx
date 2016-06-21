@@ -1,7 +1,7 @@
 
-import * as  ReactDOMServer from 'react-dom/server';
+import * as ReactDOMServer from 'react-dom/server';
 import * as Helmet from 'react-helmet';
-
+import * as React from 'react';
 import config from '../../../helmet.config';
 
 // Remove stylesheets because we do not extract them into a css file
@@ -22,4 +22,4 @@ const Meta = () => (
 ReactDOMServer.renderToString(<Meta />);
 const HelmetData: ReactHelmet.HelmetData = Helmet.rewind();
 
-export  {HelmetData};
+export {HelmetData};

@@ -1,39 +1,29 @@
-import {join} from 'path';
+import {join, resolve} from 'path';
 import * as webpack from 'webpack';
 import {Configuration} from 'webpack';
 import ExtractTextPlugin from 'extract-text-webpack-plugin';
 import InlineEnviromentconstiablesPlugin from 'inline-environment-variables-webpack-plugin';
 
-
+const BUILD_DIR = resolve(__dirname, '..', 'public');
+const PROJECT_ROOT = resolve(__dirname, '..', 'public');
+const BASELINE = JSON.stringify(process.env.BASENAME || '');
+const CleanPlugin = require('clean-webpack-plugin');
 const assetsPath = join(__dirname, '..', 'public', 'assets');
 const publicPath = '/assets/';
 
 const commonLoaders = [
   {
-    /*
-     * TC39 categorises proposals for babel in 4 stages
-     * Read more http://babeljs.io/docs/usage/experimental/
-     */
-    test: /\.js$|\.jsx$/,
-    loader: 'babel-loader',
-    // Reason why we put this here instead of babelrc
-    // https://github.com/gaearon/react-transform-hmr/issues/5#issuecomment-142313637
-    query: {
-      'presets': ['es2015', 'react', 'stage-0'],
-      'plugins': [
-        'transform-decorators-legacy',
-        'transform-object-assign',
-        'transform-react-remove-prop-types',
-        'transform-react-constant-elements',
-        'transform-react-inline-elements'
-      ]
-    },
-    include: join(__dirname, '..', 'app'),
+    test: /\.tsx?$/,
+    loader: 'ts-loader',
+    include: join(__dirname, '..', 'src'),
     exclude: join(__dirname, '..', 'node_modules')
   },
-  { test: /\.json$/, loader: 'json-loader' },
   {
-    test: /\.(png|jpg|jpeg|gif|svg|woff|woff2)$/,
+    test: /\.json$/,
+    loader: 'json-loader'
+  },
+  {
+    test: /\.(png|jpg|jpeg|gif)$/,
     loader: 'url',
     query: {
       name: '[hash].[ext]',
@@ -41,9 +31,35 @@ const commonLoaders = [
     }
   },
   {
-    test: /\.css$/,
-    loader: ExtractTextPlugin.extract('style-loader', 'css-loader?module!postcss-loader')
+    test: /\.woff(\?v=\d+\.\d+\.\d+)?$/,
+    loader: 'url?limit=10000&mimetype=application/font-woff'
+  },
+  {
+    test: /\.woff2(\?v=\d+\.\d+\.\d+)?$/,
+    loader: 'url?limit=10000&mimetype=application/font-woff'
+  },
+  {
+    test: /\.ttf(\?v=\d+\.\d+\.\d+)?$/,
+    loader: 'url?limit=10000&mimetype=application/octet-stream'
+  },
+  {
+    test: /\.eot(\?v=\d+\.\d+\.\d+)?$/,
+    loader: 'file'
+  },
+  {
+    test: /\.svg(\?v=\d+\.\d+\.\d+)?$/,
+    loader: 'url?limit=10000&mimetype=image/svg+xml'
+  },
+  {
+    test: /\.(html|ico)$/,
+    loader: 'file-loader?name=[name].[ext]'
+  },
+  {
+    test: /\.(jp[e]?g|png|gif|svg)$/i,
+    loader: 'file-loader?name=img/[name].[ext]'
   }
+  ,
+  { test: /\.html$/, loader: 'html-loader' }
 ];
 
 const postCSSConfig = function () {
@@ -122,7 +138,9 @@ const webpackConfig: Configuration = [
       } as any),
       new webpack.DefinePlugin({
         __DEVCLIENT__: false,
-        __DEVSERVER__: false
+        __DEVSERVER__: false,
+        __BASENAME__: BASELINE,
+        __DEVTOOLS__: false
       }),
       new InlineEnviromentconstiablesPlugin({ NODE_ENV: 'production' })
     ],
@@ -152,6 +170,7 @@ const webpackConfig: Configuration = [
       extensions: ['', '.js', '.jsx', '.css']
     },
     plugins: [
+      new CleanPlugin([BUILD_DIR], { root: PROJECT_ROOT }),
       // Order the modules and chunks by occurrence.
       // This saves space, because often referenced modules
       // and chunks get smaller ids.
@@ -164,7 +183,9 @@ const webpackConfig: Configuration = [
       } as any),
       new webpack.DefinePlugin({
         __DEVCLIENT__: false,
-        __DEVSERVER__: false
+        __DEVSERVER__: false,
+        __BASENAME__: BASELINE,
+        __DEVTOOLS__: false
       }),
       new InlineEnviromentconstiablesPlugin({ NODE_ENV: 'production' })
     ]

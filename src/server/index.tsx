@@ -50,7 +50,7 @@ const analtyicsScript = '';
  * and pass it into the Router.run function.
  */
 export default function render(req, res) {
-  const authenticated = req.isAuthenticated();
+  const authenticated = true; //TODO Check Parse sesson req.isAuthenticated();
   const history = createMemoryHistory();
   const store = configureStore({
     user: {
@@ -87,16 +87,16 @@ export default function render(req, res) {
     if (err) {
       res.status(500).json(err);
     } else if (redirect) {
-      res.redirect(302, redirect.pathname + redirect.search);
+      //TODO res.redirect(302, redirect.pathname + redirect.search);
     } else if (props) {
-			const initialState = store.getState();
-			const componentHTML = renderToString(
-				<Provider store={store}>
-					<RouterContext {...props as any} />
-				</Provider>
-			);
+      const initialState = store.getState();
+      const componentHTML = renderToString(
+        <Provider store={store}>
+          <RouterContext {...props as any} />
+        </Provider>
+      );
 
-			res.status(200).send(`
+      res.status(200).send(`
           <!doctype html>
           <html ${header['htmlAttributes'].toString()}>
             <head>
@@ -108,7 +108,7 @@ export default function render(req, res) {
               <div id="app">${componentHTML}</div>
               <script>window.__INITIAL_STATE__ = ${JSON.stringify(initialState)};</script>
               ${analtyicsScript}
-              <script type="text/javascript" charset="utf-8" src="/assets/app.js"></script>
+              <script type="text/javascript" charset="utf-8" src="/assets/server.js"></script>
             </body>
           </html>
         `);

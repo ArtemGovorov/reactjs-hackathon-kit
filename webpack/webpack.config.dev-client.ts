@@ -1,45 +1,66 @@
-import {join} from 'path';
+import {join, resolve} from 'path';
 import * as webpack from 'webpack';
 import {Configuration} from 'webpack';
 const assetsPath = join(__dirname, '..', 'public', 'assets');
 const hotMiddlewareScript = 'webpack-hot-middleware/client?path=/__webpack_hmr&timeout=20000&reload=true';
-
+const APP_DIR = resolve(__dirname, '..', 'src');
+const DEVTOOLS = false;
+const BASELINE = JSON.stringify(process.env.BASENAME || '');
 const commonLoaders = [
   {
-    /*
-     * TC39 categorises proposals for babel in 4 stages
-     * Read more http://babeljs.io/docs/usage/experimental/
-     */
-    test: /\.js$|\.jsx$/,
-    loader: 'babel-loader',
-    // Reason why we put this here instead of babelrc
-    // https://github.com/gaearon/react-transform-hmr/issues/5#issuecomment-142313637
-    query: {
-      'presets': ['react-hmre', 'es2015', 'react', 'stage-0'],
-      'plugins': ['transform-decorators-legacy', 'transform-object-assign']
-    },
+    test: /\.tsx?$/,
+    loader: 'ts-loader',
     include: join(__dirname, '..', 'src'),
     exclude: join(__dirname, '..', 'node_modules')
   },
   {
-    test: /\.(png|jpg|jpeg|gif|svg|woff|woff2)$/,
+    test: /\.json$/,
+    loader: 'json-loader'
+  },
+  {
+    test: /\.(png|jpg|jpeg|gif)$/,
     loader: 'url',
     query: {
       name: '[hash].[ext]',
       limit: 10000,
     }
   },
+  {
+    test: /\.woff(\?v=\d+\.\d+\.\d+)?$/,
+    loader: 'url?limit=10000&mimetype=application/font-woff'
+  },
+  {
+    test: /\.woff2(\?v=\d+\.\d+\.\d+)?$/,
+    loader: 'url?limit=10000&mimetype=application/font-woff'
+  },
+  {
+    test: /\.ttf(\?v=\d+\.\d+\.\d+)?$/,
+    loader: 'url?limit=10000&mimetype=application/octet-stream'
+  },
+  {
+    test: /\.eot(\?v=\d+\.\d+\.\d+)?$/,
+    loader: 'file'
+  },
+  {
+    test: /\.svg(\?v=\d+\.\d+\.\d+)?$/,
+    loader: 'url?limit=10000&mimetype=image/svg+xml'
+  },
+  {
+    test: /\.(jp[e]?g|png|gif|svg)$/i,
+    loader: 'file-loader?name=img/[name].[ext]'
+  }
+  ,
   { test: /\.html$/, loader: 'html-loader' }
 ];
 
 const postCSSConfig = function () {
   return [
     require('postcss-import')({
-      path: join(__dirname, '..', 'src', 'css'),
+      path: join(__dirname, '..', 'src', 'theme'),
       // addDependencyTo is used for hot-reloading in webpack
       addDependencyTo: webpack
     }),
-    require('postcss-simple-consts')(),
+    require('postcss-simple-vars')(),
     // Unwrap nested rules like how Sass does it
     require('postcss-nested')(),
     //  parse CSS and add vendor prefixes to CSS rules
@@ -80,7 +101,13 @@ const webpackConfig: Configuration = {
   // Multiple entry with hot loader
   // https://github.com/glenjamin/webpack-hot-middleware/blob/master/example/webpack.config.multientry.js
   entry: {
-    app: ['./client', hotMiddlewareScript]
+    'main': [
+      'react-hot-loader/patch',
+      hotMiddlewareScript,
+      `bootstrap-sass!${APP_DIR}/theme/bootstrap.config.js`,
+      `font-awesome-webpack!${APP_DIR}/theme/font-awesome.config.js`,
+      `${APP_DIR}/client`
+    ]
   },
   output: {
     // The output directory as absolute path
@@ -93,21 +120,27 @@ const webpackConfig: Configuration = {
   module: {
     loaders: commonLoaders.concat([
       {
-        test: /\.css$/,
-        loader: 'style!css?module&localIdentName=[name]__[local]___[hash:base64:5]!postcss-loader'
+        test: /\.less$/,
+        loader: 'style!css?module&localIdentName=[name]__[local]___[hash:base64:5]!postcss!less'
+      },
+      {
+        test: /\.scss$/,
+        loader: 'style!css?module&localIdentName=[name]__[local]___[hash:base64:5]!postcss!sass'
       }
     ])
   },
   resolve: {
     root: [join(__dirname, '..', 'src')],
-    extensions: ['', '.js', '.jsx', '.css'],
+    extensions: ['', '.ts', '.tsx', '.js', '.jsx', '.css', '.scss'],
   },
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NoErrorsPlugin(),
     new webpack.DefinePlugin({
       __DEVCLIENT__: true,
-      __DEVSERVER__: false
+      __DEVSERVER__: false,
+      __BASENAME__: BASELINE,
+      __DEVTOOLS__: DEVTOOLS
     })
   ]
 

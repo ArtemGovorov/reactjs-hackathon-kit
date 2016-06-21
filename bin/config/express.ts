@@ -1,7 +1,7 @@
 import * as express from 'express';
 import * as bodyParser from 'body-parser';
 import {join} from 'path';
-import flash from 'express-flash';
+const flash = require('express-flash');
 import * as methodOverride from 'method-override';
 import { DB_TYPE, ENV } from './appConfig';
 

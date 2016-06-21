@@ -1,6 +1,8 @@
 const ParseServer = require('parse-server').ParseServer;
 const ParseDashboard = require('parse-dashboard');
 import * as express from 'express';
+import {resolve} from 'path';
+export const APP_DIR = resolve(__dirname, '../../', 'src');
 export default (app: express.Express) => {
   const databaseUri = process.env.DATABASE_URI || process.env.MONGODB_URI;
   if (!databaseUri) {
@@ -10,7 +12,7 @@ export default (app: express.Express) => {
   const api = new ParseServer({
     verbose: false,
     databaseURI: databaseUri || 'mongodb://localhost:27017/dev',
-    cloud: process.env.CLOUD_CODE_MAIN || `${__dirname}/server/cloud/main.js`,
+    cloud: process.env.CLOUD_CODE_MAIN || `${APP_DIR}/server/api/main.js`,
     appId: process.env.APP_ID || 'myAppId',
     masterKey: process.env.MASTER_KEY || 'myAppId', // Add your master key here. Keep it secret!
     serverURL: process.env.SERVER_URL || 'http://localhost:3000/api,',  // Don't forget to change to https if needed

@@ -1,11 +1,18 @@
 // Place your settings in this file to overwrite default and user settings.
 {
   "files.exclude": {
-    "node_modules/": false,
+    "node_modules/": true,
     "src/**/*.js": true,
+    "src/**/*.map": true,
     "webpack/**/*.js": true,
+    "webpack/**/*.map": true,
     "bin/**/*.js": true,
+    "bin/**/*.map": true,
     "coverage": true,
     "reports": true
-  }
+  },
+  "todoIgnore": [
+    "node_modules",
+    "typings"
+  ]
 }

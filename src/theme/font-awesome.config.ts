@@ -6,7 +6,7 @@
  *
  */
 
-module.exports = {
+export = {
   styles: {
     mixins: true,
     core: true,

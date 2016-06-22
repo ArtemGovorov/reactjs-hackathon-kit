@@ -4,10 +4,21 @@ import {Configuration} from 'webpack';
 const assetsPath = join(__dirname, '..', 'public', 'assets');
 const APP_DIR = resolve(__dirname, '..', 'src');
 const BUILD_DIR = resolve(__dirname, '..', 'public');
-const PROJECT_ROOT = resolve(__dirname, '..', 'public');
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const PROJECT_ROOT = resolve(__dirname, '..');
 const CleanPlugin = require('clean-webpack-plugin');
 const BASELINE = JSON.stringify(process.env.BASENAME || '');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const fs = require('fs');
+
+const nodeModules = {};
+fs.readdirSync('node_modules')
+  .filter(function (x) {
+    return ['.bin'].indexOf(x) === -1;
+  })
+  .forEach(function (mod) {
+    nodeModules[mod] = 'commonjs ' + mod;
+  });
+
 const commonLoaders = [
   {
     test: /\.tsx?$/,
@@ -19,7 +30,14 @@ const commonLoaders = [
     test: /\.json$/,
     loader: 'json-loader'
   },
-  {
+  { test: /\.woff(\?.*)?$/, loader: 'url?prefix=fonts/&name=[path][name].[ext]&limit=10000&mimetype=application/font-woff' },
+  { test: /\.woff2(\?.*)?$/, loader: 'url?prefix=fonts/&name=[path][name].[ext]&limit=10000&mimetype=application/font-woff2' },
+  { test: /\.otf(\?.*)?$/, loader: 'file?prefix=fonts/&name=[path][name].[ext]&limit=10000&mimetype=font/opentype' },
+  { test: /\.ttf(\?.*)?$/, loader: 'url?prefix=fonts/&name=[path][name].[ext]&limit=10000&mimetype=application/octet-stream' },
+  { test: /\.eot(\?.*)?$/, loader: 'file?prefix=fonts/&name=[path][name].[ext]' },
+  { test: /\.svg(\?.*)?$/, loader: 'url?prefix=fonts/&name=[path][name].[ext]&limit=10000&mimetype=image/svg+xml' },
+  { test: /\.(png|jpg)$/, loader: 'url?limit=8192' },
+  /*{
     test: /\.(png|jpg|jpeg|gif|svg|woff|woff2|eot)$/,
     loader: 'url',
     query: {
@@ -50,8 +68,8 @@ const commonLoaders = [
   {
     test: /\.(jp[e]?g|png|gif|svg)$/i,
     loader: 'file-loader?name=img/[name].[ext]'
-  }
-  ,
+  },*/
+
   { test: /\.html$/, loader: 'html-loader' }
 ];
 
@@ -62,7 +80,7 @@ const webpackConfig: Configuration = {
     server: [
       `bootstrap-sass!${APP_DIR}/theme/bootstrap.config.prod.js`,
       `font-awesome-webpack!${APP_DIR}/theme/font-awesome.config.prod.js`,
-      `${APP_DIR}/server`
+      './server/index.js'
     ]
   },
   target: 'node',
@@ -79,16 +97,12 @@ const webpackConfig: Configuration = {
     loaders: commonLoaders.concat([
       {
         test: /\.less$/,
-        loader: ExtractTextPlugin.extract('style-loader', 'css-loader?module!postcss!less')
+        loader: ExtractTextPlugin.extract('style-loader', 'css-loader?sourceMap&-minimize&modules&importLoaders=1&sourceMap&localIdentName=[local]___[hash:base64:5]!postcss!less?outputStyle=expanded&sourceMap')
       },
 
       {
         test: /\.scss$/,
-        loader: ExtractTextPlugin.extract('style-loader', 'css-loader?module!sass')
-      },
-      {
-        test: /\.css$/,
-        loader: ExtractTextPlugin.extract('style-loader', 'css-loader?module!postcss-loader')
+        loader: ExtractTextPlugin.extract('style-loader', 'css-loader?sourceMap&-minimize&modules&importLoaders=1&sourceMap&localIdentName=[local]___[hash:base64:5]!postcss!sass?outputStyle=expanded&sourceMap')
       }
 
     ])
@@ -97,9 +111,12 @@ const webpackConfig: Configuration = {
     root: [join(__dirname, '..', 'src')],
     extensions: ['', '.ts', '.tsx', '.js', '.jsx', '.css'],
   },
+  devtool: 'sourcemap',
   plugins: [
     new CleanPlugin([BUILD_DIR], { root: PROJECT_ROOT }),
     new ExtractTextPlugin('styles/main.css'),
+    new webpack.BannerPlugin('require("source-map-support").install();',
+      { raw: true, entryOnly: false }),
     new webpack.DefinePlugin({
       __DEVCLIENT__: false,
       __DEVSERVER__: true,
@@ -111,4 +128,5 @@ const webpackConfig: Configuration = {
 
 // The configuration for the server-side rendering
 webpackConfig['name'] = 'server-side rendering';
+webpackConfig['externals'] = nodeModules as any;
 export = webpackConfig;

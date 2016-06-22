@@ -1,10 +1,11 @@
 /// <reference path="node_modules/rxjs/Rx.d.ts" />
 
 declare var __BASENAME__: string;
-declare var __DEV__: string;
 declare var __DEVTOOLS__: string;
 
 declare var __DEVSERVER__: string;
+declare var __DEVCLIENT__: string;
+
 
 declare var expect: Chai.ExpectStatic;
 declare var should: Chai.Should;
@@ -25,7 +26,7 @@ interface ObjectConstructor {
 }
 
 interface Window {
-  __data: string;
+  __INITIAL_STATE__: string;
   devToolsExtension: {
     (): void;
     open: () => void
@@ -87,9 +88,6 @@ declare module 'express-flash' {
   const ExpressFlash: any;
   export default ExpressFlash;
 }
-
-
-
 
 
 

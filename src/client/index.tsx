@@ -14,8 +14,8 @@ const MOUNT_ELEMENT = document.getElementById('root');
 const browserHistory = useRouterHistory(createBrowserHistory as any)({
   basename: __BASENAME__
 });
-
-const store = configureStore(window.__data, browserHistory);
+const initialState = window.__INITIAL_STATE__;
+const store = configureStore(initialState, browserHistory);
 let routes = createRoutes(store);
 const history = syncHistoryWithStore(browserHistory, store, {
   // Sync router history with the redux router store
@@ -27,7 +27,7 @@ let render = (key = null) => {
   const Root = require('../shared/containers/Root').default;
   routes = require('../shared/routes/index').default(store);
   let App;
-  if (__DEV__) {
+  if (__DEVCLIENT__) {
     App = (
       <AppContainer>
         <Root routerKey={key} store={store} history={history} routes={routes} />
@@ -42,7 +42,7 @@ let render = (key = null) => {
 };
 
 // Hot reloading setup
-if (__DEV__ && module.hot) {
+if (__DEVCLIENT__ && module.hot) {
   const renderApp = render;
   const renderError = (error) => {
     const RedBox = require('redbox-react');
@@ -67,7 +67,7 @@ if (__DEVTOOLS__) {
   }
 }
 
+
 match({ history, routes }, () => {
   render();
 });
-

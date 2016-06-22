@@ -17,39 +17,13 @@ const commonLoaders = [
     test: /\.json$/,
     loader: 'json-loader'
   },
-  {
-    test: /\.(png|jpg|jpeg|gif)$/,
-    loader: 'url',
-    query: {
-      name: '[hash].[ext]',
-      limit: 10000,
-    }
-  },
-  {
-    test: /\.woff(\?v=\d+\.\d+\.\d+)?$/,
-    loader: 'url?limit=10000&mimetype=application/font-woff'
-  },
-  {
-    test: /\.woff2(\?v=\d+\.\d+\.\d+)?$/,
-    loader: 'url?limit=10000&mimetype=application/font-woff'
-  },
-  {
-    test: /\.ttf(\?v=\d+\.\d+\.\d+)?$/,
-    loader: 'url?limit=10000&mimetype=application/octet-stream'
-  },
-  {
-    test: /\.eot(\?v=\d+\.\d+\.\d+)?$/,
-    loader: 'file'
-  },
-  {
-    test: /\.svg(\?v=\d+\.\d+\.\d+)?$/,
-    loader: 'url?limit=10000&mimetype=image/svg+xml'
-  },
-  {
-    test: /\.(jp[e]?g|png|gif|svg)$/i,
-    loader: 'file-loader?name=img/[name].[ext]'
-  }
-  ,
+  { test: /\.woff(\?.*)?$/, loader: 'url?prefix=fonts/&name=[path][name].[ext]&limit=10000&mimetype=application/font-woff' },
+  { test: /\.woff2(\?.*)?$/, loader: 'url?prefix=fonts/&name=[path][name].[ext]&limit=10000&mimetype=application/font-woff2' },
+  { test: /\.otf(\?.*)?$/, loader: 'file?prefix=fonts/&name=[path][name].[ext]&limit=10000&mimetype=font/opentype' },
+  { test: /\.ttf(\?.*)?$/, loader: 'url?prefix=fonts/&name=[path][name].[ext]&limit=10000&mimetype=application/octet-stream' },
+  { test: /\.eot(\?.*)?$/, loader: 'file?prefix=fonts/&name=[path][name].[ext]' },
+  { test: /\.svg(\?.*)?$/, loader: 'url?prefix=fonts/&name=[path][name].[ext]&limit=10000&mimetype=image/svg+xml' },
+  { test: /\.(png|jpg)$/, loader: 'url?limit=8192' },
   { test: /\.html$/, loader: 'html-loader' }
 ];
 
@@ -77,7 +51,7 @@ const postCSSConfig = function () {
 
 const webpackConfig: Configuration = {
   // eval - Each module is executed with eval and //@ sourceURL.
-  devtool: 'eval',
+  devtool: 'source-map',
   /* The entry point of the bundle
    * Entry points for multi page app could be more complex
    * A good example of entry points would be:
@@ -102,8 +76,8 @@ const webpackConfig: Configuration = {
   // https://github.com/glenjamin/webpack-hot-middleware/blob/master/example/webpack.config.multientry.js
   entry: {
     'main': [
-      'react-hot-loader/patch',
       hotMiddlewareScript,
+      'react-hot-loader/patch',
       `bootstrap-sass!${APP_DIR}/theme/bootstrap.config.js`,
       `font-awesome-webpack!${APP_DIR}/theme/font-awesome.config.js`,
       `${APP_DIR}/client`
@@ -121,17 +95,17 @@ const webpackConfig: Configuration = {
     loaders: commonLoaders.concat([
       {
         test: /\.less$/,
-        loader: 'style!css?module&localIdentName=[name]__[local]___[hash:base64:5]!postcss!less'
+        loader: 'style!css-loader?sourceMap&-minimize&modules&importLoaders=1&sourceMap&localIdentName=[local]___[hash:base64:5]!postcss!less?outputStyle=expanded&sourceMap'
       },
       {
         test: /\.scss$/,
-        loader: 'style!css?module&localIdentName=[name]__[local]___[hash:base64:5]!postcss!sass'
+        loader: 'style!css-loader?sourceMap&-minimize&modules&importLoaders=1&sourceMap&localIdentName=[local]___[hash:base64:5]!postcss!sass?outputStyle=expanded&sourceMap'
       }
     ])
   },
   resolve: {
     root: [join(__dirname, '..', 'src')],
-    extensions: ['', '.ts', '.tsx', '.js', '.jsx', '.css', '.scss'],
+    extensions: ['', '.ts', '.tsx', '.js', '.jsx'],
   },
   plugins: [
     new webpack.HotModuleReplacementPlugin(),

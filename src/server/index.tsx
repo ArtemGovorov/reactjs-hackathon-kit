@@ -1,7 +1,9 @@
 import * as axios from 'axios';
 import * as React from 'react';
 import { renderToString } from 'react-dom/server';
-import { createMemoryHistory, match, RouterContext } from 'react-router';
+import { syncHistoryWithStore } from 'react-router-redux';
+import {  match, RouterContext } from 'react-router';
+const createHistory = require('react-router/lib/createMemoryHistory');
 import { Provider } from 'react-redux';
 import createRoutes from '../shared/routes';
 import configureStore from '../shared/store/configureStore';
@@ -51,7 +53,8 @@ const analtyicsScript = '';
  */
 export default function render(req, res) {
   const authenticated = true; //TODO Check Parse sesson req.isAuthenticated();
-  const history = createMemoryHistory();
+  const memoryHistory = createHistory(req.originalUrl);
+
   const store = configureStore({
     user: {
       authenticated,
@@ -59,7 +62,12 @@ export default function render(req, res) {
       message: '',
       isLogin: true
     }
-  }, history);
+  }, memoryHistory);
+
+  syncHistoryWithStore(memoryHistory, store, {
+    selectLocationState: (state) => state.router,
+  });
+
   const routes = createRoutes(store);
 
   /*
@@ -92,7 +100,9 @@ export default function render(req, res) {
       const initialState = store.getState();
       const componentHTML = renderToString(
         <Provider store={store}>
-          <RouterContext {...props as any} />
+          <div style={{ height: '100%' }}>
+            <RouterContext {...props as any} />
+          </div>
         </Provider>
       );
 
@@ -103,12 +113,13 @@ export default function render(req, res) {
               ${header.title.toString()}
               ${header.meta.toString()}
               ${header.link.toString()}
+
             </head>
             <body>
-              <div id="app">${componentHTML}</div>
+              <div id="root">${componentHTML}</div>
               <script>window.__INITIAL_STATE__ = ${JSON.stringify(initialState)};</script>
               ${analtyicsScript}
-              <script type="text/javascript" charset="utf-8" src="/assets/server.js"></script>
+              <script type="text/javascript" charset="utf-8" src="/assets/main.js"></script>
             </body>
           </html>
         `);

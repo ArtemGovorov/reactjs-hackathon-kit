@@ -11,7 +11,9 @@ const app: express.Express = express();
 if (ENV === 'development') {
   const compiler = webpack(webpackDevConfig);
   app.use(require('webpack-dev-middleware')(compiler, {
+    quiet: true,
     noInfo: true,
+    progress: true,
     publicPath: webpackDevConfig.output.publicPath
   }));
 

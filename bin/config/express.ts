@@ -8,7 +8,7 @@ import { DB_TYPE, ENV } from './appConfig';
 
 
 export default (app: express.Express) => {
-  app.set('port', (process.env.PORT || 3000));
+  app.set('port', (process.env.PORT || 3001));
 
   // X-Powered-By header has no functional value.
   // Keeping it makes it easier for an attacker to build the site's profile
@@ -18,7 +18,7 @@ export default (app: express.Express) => {
   app.use(bodyParser.json());
   app.use(bodyParser.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
   app.use(methodOverride());
-  app.use(express.static(join(__dirname, '../..', 'public')));
+  app.use(express.static(join(__dirname, '../../', 'public')));
 
   // I am adding this here so that the Heroku deploy will work
   // Indicates the app is behind a front-facing proxy,

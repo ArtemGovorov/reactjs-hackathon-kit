@@ -1,0 +1,16 @@
+{
+  "server": {
+    "js": "/assets/server.js",
+    "css": "/assets/styles/main.css"
+  },
+  "main": {
+    "js": "/assets/main.a4413b22e95407e8128e.js",
+    "css": "/assets/styles/main.css"
+  },
+  "home-view": {
+    "js": "/assets/1.home-view.a4413b22e95407e8128e.js"
+  },
+  "counter": {
+    "js": "/assets/2.counter.a4413b22e95407e8128e.js"
+  }
+}

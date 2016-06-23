@@ -1,97 +1,57 @@
-import {join, resolve} from 'path';
 import * as webpack from 'webpack';
 import {Configuration} from 'webpack';
-const assetsPath = join(__dirname, '..', 'public', 'assets');
-const APP_DIR = resolve(__dirname, '..', 'src');
-const BUILD_DIR = resolve(__dirname, '..', 'public');
-const PROJECT_ROOT = resolve(__dirname, '..');
 const CleanPlugin = require('clean-webpack-plugin');
-const BASELINE = JSON.stringify(process.env.BASENAME || '');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
+import {
+  LOADERS_COMMON,
+  SRC_DIR,
+  ASSETS_DIR,
+  BASENAME,
+  PUBLIC_PATH,
+  BUILD_DIR,
+  LOADERS_STYLES_PROD,
+  PROJECT_ROOT,
+  EXTERNALS
+} from './webpack.constants';
 
-
-
-
-const commonLoaders = [
-  {
-    test: /\.tsx?$/,
-    loader: 'ts-loader',
-    include: join(__dirname, '..', 'src'),
-    exclude: join(__dirname, '..', 'node_modules')
-  },
-  {
-    test: /\.json$/,
-    loader: 'json-loader'
-  },
-
-  {
-    test: /\.(png|jpg)$/,
-    loader: 'url-loader',
-    query: {
-      name: 'images/[name].[ext]',
-      limit: 5
-    }
-  },
-
-  { test: /\.woff(\?.*)?$/, loader: 'url?name=fonts/[name].[ext]&limit=10000&mimetype=application/font-woff' },
-  { test: /\.woff2(\?.*)?$/, loader: 'url?name=fonts/[name].[ext]&limit=10000&mimetype=application/font-woff2' },
-  { test: /\.otf(\?.*)?$/, loader: 'file?name=fonts/[name].[ext]&limit=10000&mimetype=font/opentype' },
-  { test: /\.ttf(\?.*)?$/, loader: 'url?name=fonts/[name].[ext]&limit=10000&mimetype=application/octet-stream' },
-  { test: /\.eot(\?.*)?$/, loader: 'file?name=fonts/[name].[ext]' },
-  { test: /\.svg(\?.*)?$/, loader: 'url?name=fonts/[name].[ext]&limit=10000&mimetype=image/svg+xml' },
-
-  { test: /\.html$/, loader: 'html-loader' }
-];
 
 const webpackConfig: Configuration = {
-
-  context: join(__dirname, '..', 'src'),
+  context: SRC_DIR,
   entry: {
     server: [
-      `bootstrap-sass!${APP_DIR}/theme/bootstrap.config.prod.js`,
-      `font-awesome-webpack!${APP_DIR}/theme/font-awesome.config.prod.js`,
-      './server/index.js'
+      `bootstrap-sass!${SRC_DIR}/theme/bootstrap.config.prod.js`,
+      `font-awesome-webpack!${SRC_DIR}/theme/font-awesome.config.prod.js`,
+      `${SRC_DIR}/server`
     ]
   },
   target: 'node',
   output: {
-    // The output directory as absolute path
-    path: assetsPath,
-    // The filename of the entry chunk as relative path inside the output.path directory
+    path: ASSETS_DIR,
     filename: 'server.js',
-    // The output path from the view of the Javascript
-    publicPath: '/assets/',
+    publicPath: PUBLIC_PATH,
     libraryTarget: 'commonjs2'
   },
   module: {
-    loaders: commonLoaders.concat([
-      {
-        test: /\.less$/,
-        loader: ExtractTextPlugin.extract('style-loader', 'css-loader?sourceMap&-minimize&modules&importLoaders=1&sourceMap&localIdentName=[local]___[hash:base64:5]!postcss!less?outputStyle=expanded&sourceMap')
-      },
-
-      {
-        test: /\.scss$/,
-        loader: ExtractTextPlugin.extract('style-loader', 'css-loader?sourceMap&-minimize&modules&importLoaders=1&sourceMap&localIdentName=[local]___[hash:base64:5]!postcss!sass?outputStyle=expanded&sourceMap')
-      }
-
-    ])
+    loaders: LOADERS_COMMON
+      .concat(LOADERS_STYLES_PROD)
   },
   resolve: {
-    root: [join(__dirname, '..', 'src')],
-    extensions: ['', '.ts', '.tsx', '.js', '.jsx', '.css'],
+    root: [SRC_DIR],
+    extensions: ['', '.js'],
   },
   devtool: 'sourcemap',
   plugins: [
     new CleanPlugin([BUILD_DIR], { root: PROJECT_ROOT }),
-    new ExtractTextPlugin('styles/main.css'),
+    new ExtractTextPlugin('styles/main.css', {
+      allChunks: true
+    }),
     new webpack.BannerPlugin('require("source-map-support").install();',
       { raw: true, entryOnly: false }),
     new webpack.DefinePlugin({
       __CLIENT__: false,
       __DEVCLIENT__: false,
       __DEVSERVER__: true,
-      __BASENAME__: BASELINE,
+      __BASENAME__: BASENAME,
       __DEVTOOLS__: false
     })
   ]
@@ -99,5 +59,5 @@ const webpackConfig: Configuration = {
 
 // The configuration for the server-side rendering
 webpackConfig['name'] = 'server-side rendering';
-//webpackConfig['externals'] = nodeModules as any;
+webpackConfig['externals'] = EXTERNALS as any;
 export = webpackConfig;

@@ -1,4 +1,4 @@
-import {DB_TYPES} from './constants'
+import {DB_TYPES} from './constants';
 
 /*
  * Set DB_TYPE to a database of your choice:

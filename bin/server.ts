@@ -9,6 +9,7 @@ const app: express.Express = express();
 
 
 if (ENV === 'development') {
+  console.log('FUCK!', process.env.NODE_ENV);
   const compiler = webpack(webpackDevConfig);
   app.use(require('webpack-dev-middleware')(compiler, {
     quiet: true,

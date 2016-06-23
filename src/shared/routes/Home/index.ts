@@ -3,7 +3,7 @@ export default (store) => ({
   /*  Async getComponent is only invoked when route matches   */
   getComponent(nextState, cb) {
 
-    if (__DEVCLIENT__) {
+    if (__CLIENT__) {
       require.ensure([], (require) => {
         const HomeView = require('./components/HomeView').default;
         cb(null, HomeView);

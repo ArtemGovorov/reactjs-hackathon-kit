@@ -5,7 +5,7 @@ const classes = require('./Header.scss');
 
 export const Header = () =>
   (<div>
-    <h1>Header!!!!</h1>
+    <h1>Header!!!</h1>
     <IndexLink to='/' activeClassName={classes['active-route']}>
       Home
     </IndexLink>

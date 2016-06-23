@@ -30,46 +30,13 @@ const commonLoaders = [
     test: /\.json$/,
     loader: 'json-loader'
   },
-  { test: /\.woff(\?.*)?$/, loader: 'url?prefix=fonts/&name=[path][name].[ext]&limit=10000&mimetype=application/font-woff' },
-  { test: /\.woff2(\?.*)?$/, loader: 'url?prefix=fonts/&name=[path][name].[ext]&limit=10000&mimetype=application/font-woff2' },
-  { test: /\.otf(\?.*)?$/, loader: 'file?prefix=fonts/&name=[path][name].[ext]&limit=10000&mimetype=font/opentype' },
-  { test: /\.ttf(\?.*)?$/, loader: 'url?prefix=fonts/&name=[path][name].[ext]&limit=10000&mimetype=application/octet-stream' },
-  { test: /\.eot(\?.*)?$/, loader: 'file?prefix=fonts/&name=[path][name].[ext]' },
-  { test: /\.svg(\?.*)?$/, loader: 'url?prefix=fonts/&name=[path][name].[ext]&limit=10000&mimetype=image/svg+xml' },
-  { test: /\.(png|jpg)$/, loader: 'url?limit=8192' },
-  /*{
-    test: /\.(png|jpg|jpeg|gif|svg|woff|woff2|eot)$/,
-    loader: 'url',
-    query: {
-      name: '[hash].[ext]',
-      limit: 10000,
-    }
-  },
-  {
-    test: /\.woff(\?v=\d+\.\d+\.\d+)?$/,
-    loader: 'url?limit=10000&mimetype=application/font-woff'
-  },
-  {
-    test: /\.woff2(\?v=\d+\.\d+\.\d+)?$/,
-    loader: 'url?limit=10000&mimetype=application/font-woff'
-  },
-  {
-    test: /\.ttf(\?v=\d+\.\d+\.\d+)?$/,
-    loader: 'url?limit=10000&mimetype=application/octet-stream'
-  },
-  {
-    test: /\.eot(\?v=\d+\.\d+\.\d+)?$/,
-    loader: 'file-loader'
-  },
-  {
-    test: /\.svg(\?v=\d+\.\d+\.\d+)?$/,
-    loader: 'url?limit=10000&mimetype=image/svg+xml'
-  },
-  {
-    test: /\.(jp[e]?g|png|gif|svg)$/i,
-    loader: 'file-loader?name=img/[name].[ext]'
-  },*/
-
+  { test: /\.woff(\?.*)?$/, loader: 'url?name=fonts/[name].[ext]&limit=10000&mimetype=application/font-woff' },
+  { test: /\.woff2(\?.*)?$/, loader: 'url?name=fonts/[name].[ext]&limit=10000&mimetype=application/font-woff2' },
+  { test: /\.otf(\?.*)?$/, loader: 'file?name=fonts/[name].[ext]&limit=10000&mimetype=font/opentype' },
+  { test: /\.ttf(\?.*)?$/, loader: 'url?name=fonts/[name].[ext]&limit=10000&mimetype=application/octet-stream' },
+  { test: /\.eot(\?.*)?$/, loader: 'file?name=fonts/[name].[ext]' },
+  { test: /\.svg(\?.*)?$/, loader: 'url?name=fonts/[name].[ext]&limit=10000&mimetype=image/svg+xml' },
+  { test: /\.(png|jpg)$/, loader: 'url?limit=8192&name=images/[name].[ext]' },
   { test: /\.html$/, loader: 'html-loader' }
 ];
 
@@ -118,6 +85,7 @@ const webpackConfig: Configuration = {
     new webpack.BannerPlugin('require("source-map-support").install();',
       { raw: true, entryOnly: false }),
     new webpack.DefinePlugin({
+      __CLIENT__: false,
       __DEVCLIENT__: false,
       __DEVSERVER__: true,
       __BASENAME__: BASELINE,

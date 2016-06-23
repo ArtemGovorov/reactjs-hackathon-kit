@@ -10,7 +10,7 @@ const commonLoaders = [
   {
     test: /\.tsx?$/,
     loader: 'ts-loader',
-    include: join(__dirname, '..', 'src'),
+    include: APP_DIR,
     exclude: join(__dirname, '..', 'node_modules')
   },
   {
@@ -51,29 +51,8 @@ const postCSSConfig = function () {
 
 const webpackConfig: Configuration = {
   // eval - Each module is executed with eval and //@ sourceURL.
-  devtool: 'source-map',
-  /* The entry point of the bundle
-   * Entry points for multi page app could be more complex
-   * A good example of entry points would be:
-   * entry: {
-   *   pageA: "./pageA",
-   *   pageB: "./pageB",
-   *   pageC: "./pageC",
-   *   adminPageA: "./adminPageA",
-   *   adminPageB: "./adminPageB",
-   *   adminPageC: "./adminPageC"
-   * }
-   *
-   * We can then proceed to optimize what are the common chunks
-   * plugins: [
-   *  new CommonsChunkPlugin("admin-commons.js", ["adminPageA", "adminPageB"]),
-   *  new CommonsChunkPlugin("common.js", ["pageA", "pageB", "admin-commons.js"], 2),
-   *  new CommonsChunkPlugin("c-commons.js", ["pageC", "adminPageC"]);
-   * ]
-   */
+  devtool: 'eval',
   context: join(__dirname, '..', 'src'),
-  // Multiple entry with hot loader
-  // https://github.com/glenjamin/webpack-hot-middleware/blob/master/example/webpack.config.multientry.js
   entry: {
     'main': [
       hotMiddlewareScript,
@@ -103,14 +82,15 @@ const webpackConfig: Configuration = {
       }
     ])
   },
-  resolve: {
-    root: [join(__dirname, '..', 'src')],
+  resolve: { 
+    root: [APP_DIR],
     extensions: ['', '.ts', '.tsx', '.js', '.jsx'],
   },
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NoErrorsPlugin(),
     new webpack.DefinePlugin({
+      __CLIENT__: true,
       __DEVCLIENT__: true,
       __DEVSERVER__: false,
       __BASENAME__: BASELINE,

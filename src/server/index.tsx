@@ -113,7 +113,6 @@ export default function render(req, res) {
               ${header.title.toString()}
               ${header.meta.toString()}
               ${header.link.toString()}
-
             </head>
             <body>
               <div id="root">${componentHTML}</div>

@@ -5,7 +5,7 @@ export default (store) => ({
   path: 'counter',
 
   getComponent(nextState, cb) {
-    if (__DEVCLIENT__) {
+    if (__CLIENT__) {
       require.ensure([], (require) => {
         const Counter = require('./containers/CounterContainer').default;
         const reducer = require('./modules/counter').default;

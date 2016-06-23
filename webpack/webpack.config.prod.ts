@@ -1,11 +1,11 @@
 import {join, resolve} from 'path';
 import * as webpack from 'webpack';
 import {Configuration} from 'webpack';
-import ExtractTextPlugin from 'extract-text-webpack-plugin';
-import InlineEnviromentconstiablesPlugin from 'inline-environment-variables-webpack-plugin';
-
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const InlineEnviromentconstiablesPlugin = require('inline-environment-variables-webpack-plugin');
+const APP_DIR = resolve(__dirname, '..', 'src');
 const BUILD_DIR = resolve(__dirname, '..', 'public');
-const PROJECT_ROOT = resolve(__dirname, '..', 'public');
+const PROJECT_ROOT = resolve(__dirname, '..');
 const BASELINE = JSON.stringify(process.env.BASENAME || '');
 const CleanPlugin = require('clean-webpack-plugin');
 const assetsPath = join(__dirname, '..', 'public', 'assets');
@@ -22,43 +22,13 @@ const commonLoaders = [
     test: /\.json$/,
     loader: 'json-loader'
   },
-  {
-    test: /\.(png|jpg|jpeg|gif)$/,
-    loader: 'url',
-    query: {
-      name: '[hash].[ext]',
-      limit: 10000,
-    }
-  },
-  {
-    test: /\.woff(\?v=\d+\.\d+\.\d+)?$/,
-    loader: 'url?limit=10000&mimetype=application/font-woff'
-  },
-  {
-    test: /\.woff2(\?v=\d+\.\d+\.\d+)?$/,
-    loader: 'url?limit=10000&mimetype=application/font-woff'
-  },
-  {
-    test: /\.ttf(\?v=\d+\.\d+\.\d+)?$/,
-    loader: 'url?limit=10000&mimetype=application/octet-stream'
-  },
-  {
-    test: /\.eot(\?v=\d+\.\d+\.\d+)?$/,
-    loader: 'file'
-  },
-  {
-    test: /\.svg(\?v=\d+\.\d+\.\d+)?$/,
-    loader: 'url?limit=10000&mimetype=image/svg+xml'
-  },
-  {
-    test: /\.(html|ico)$/,
-    loader: 'file-loader?name=[name].[ext]'
-  },
-  {
-    test: /\.(jp[e]?g|png|gif|svg)$/i,
-    loader: 'file-loader?name=img/[name].[ext]'
-  }
-  ,
+  { test: /\.woff(\?.*)?$/, loader: 'url?prefix=fonts/&name=[path][name].[ext]&limit=10000&mimetype=application/font-woff' },
+  { test: /\.woff2(\?.*)?$/, loader: 'url?prefix=fonts/&name=[path][name].[ext]&limit=10000&mimetype=application/font-woff2' },
+  { test: /\.otf(\?.*)?$/, loader: 'file?prefix=fonts/&name=[path][name].[ext]&limit=10000&mimetype=font/opentype' },
+  { test: /\.ttf(\?.*)?$/, loader: 'url?prefix=fonts/&name=[path][name].[ext]&limit=10000&mimetype=application/octet-stream' },
+  { test: /\.eot(\?.*)?$/, loader: 'file?prefix=fonts/&name=[path][name].[ext]' },
+  { test: /\.svg(\?.*)?$/, loader: 'url?prefix=fonts/&name=[path][name].[ext]&limit=10000&mimetype=image/svg+xml' },
+  { test: /\.(png|jpg)$/, loader: 'url?limit=8192' },
   { test: /\.html$/, loader: 'html-loader' }
 ];
 
@@ -67,7 +37,7 @@ const postCSSConfig = function () {
     require('postcss-import')(),
     // Note: you must set postcss-mixins before simple-consts and nested
     require('postcss-mixins')(),
-    require('postcss-simple-consts')(),
+    require('postcss-simple-vars')(),
     // Unwrap nested rules like how Sass does it
     require('postcss-nested')(),
     //  parse CSS and add vendor prefixes to CSS rules
@@ -86,30 +56,14 @@ const webpackConfig: Configuration = [
   {
     // The configuration for the client
     name: 'browser',
-    /* The entry point of the bundle
-     * Entry points for multi page app could be more complex
-     * A good example of entry points would be:
-     * entry: {
-     *   pageA: "./pageA",
-     *   pageB: "./pageB",
-     *   pageC: "./pageC",
-     *   adminPageA: "./adminPageA",
-     *   adminPageB: "./adminPageB",
-     *   adminPageC: "./adminPageC"
-     * }
-     *
-     * We can then proceed to optimize what are the common chunks
-     * plugins: [
-     *  new CommonsChunkPlugin("admin-commons.js", ["adminPageA", "adminPageB"]),
-     *  new CommonsChunkPlugin("common.js", ["pageA", "pageB", "admin-commons.js"], 2),
-     *  new CommonsChunkPlugin("c-commons.js", ["pageC", "adminPageC"]);
-     * ]
-     */
-    // A SourceMap is emitted.
     devtool: 'source-map',
-    context: join(__dirname, '..', 'app'),
+    context: join(__dirname, '..', 'src'),
     entry: {
-      app: './client'
+      'main': [
+        `bootstrap-sass!${APP_DIR}/theme/bootstrap.config.js`,
+        `font-awesome-webpack!${APP_DIR}/theme/font-awesome.config.js`,
+        `${APP_DIR}/client`
+      ]
     },
     output: {
       // The output directory as absolute path
@@ -122,13 +76,25 @@ const webpackConfig: Configuration = [
     },
 
     module: {
-      loaders: commonLoaders
+      loaders: commonLoaders.concat([
+        {
+          test: /\.less$/,
+          loader: ExtractTextPlugin.extract('style-loader', 'css-loader?sourceMap&-minimize&modules&importLoaders=1&sourceMap&localIdentName=[local]___[hash:base64:5]!postcss!less?outputStyle=expanded&sourceMap')
+        },
+
+        {
+          test: /\.scss$/,
+          loader: ExtractTextPlugin.extract('style-loader', 'css-loader?sourceMap&-minimize&modules&importLoaders=1&sourceMap&localIdentName=[local]___[hash:base64:5]!postcss!sass?outputStyle=expanded&sourceMap')
+        }
+
+      ])
     },
     resolve: {
-      root: [join(__dirname, '..', 'app')],
-      extensions: ['', '.js', '.jsx', '.css']
+      root: [join(__dirname, '..', 'src')],
+      extensions: ['', '.ts', '.tsx', '.js', '.jsx', '.css'],
     },
     plugins: [
+      new CleanPlugin([BUILD_DIR], { root: PROJECT_ROOT }),
       // extract inline css from modules into separate files
       new ExtractTextPlugin('styles/main.css'),
       new webpack.optimize.UglifyJsPlugin({
@@ -137,6 +103,7 @@ const webpackConfig: Configuration = [
         }
       } as any),
       new webpack.DefinePlugin({
+        __CLIENT__: true,
         __DEVCLIENT__: false,
         __DEVSERVER__: false,
         __BASENAME__: BASELINE,
@@ -148,9 +115,13 @@ const webpackConfig: Configuration = [
   }, {
     // The configuration for the server-side rendering
     name: 'server-side rendering',
-    context: join(__dirname, '..', 'app'),
+    context: join(__dirname, '..', 'src'),
     entry: {
-      server: './server'
+      server: [
+        `bootstrap-sass!${APP_DIR}/theme/bootstrap.config.prod.js`,
+        `font-awesome-webpack!${APP_DIR}/theme/font-awesome.config.prod.js`,
+        './server/index.js'
+      ]
     },
     target: 'node',
     output: {
@@ -163,14 +134,26 @@ const webpackConfig: Configuration = [
       libraryTarget: 'commonjs2'
     },
     module: {
-      loaders: commonLoaders
+      loaders: commonLoaders.concat([
+        {
+          test: /\.less$/,
+          loader: ExtractTextPlugin.extract('style-loader', 'css-loader?sourceMap&-minimize&modules&importLoaders=1&sourceMap&localIdentName=[local]___[hash:base64:5]!postcss!less?outputStyle=expanded&sourceMap')
+        },
+
+        {
+          test: /\.scss$/,
+          loader: ExtractTextPlugin.extract('style-loader', 'css-loader?sourceMap&-minimize&modules&importLoaders=1&sourceMap&localIdentName=[local]___[hash:base64:5]!postcss!sass?outputStyle=expanded&sourceMap')
+        }
+
+      ])
     },
     resolve: {
-      root: [join(__dirname, '..', 'app')],
-      extensions: ['', '.js', '.jsx', '.css']
+      root: [join(__dirname, '..', 'src')],
+      extensions: ['', '.ts', '.tsx', '.js', '.jsx', '.css'],
     },
     plugins: [
-      new CleanPlugin([BUILD_DIR], { root: PROJECT_ROOT }),
+      new webpack.BannerPlugin('require("source-map-support").install();',
+        { raw: true, entryOnly: false }),
       // Order the modules and chunks by occurrence.
       // This saves space, because often referenced modules
       // and chunks get smaller ids.
@@ -182,6 +165,7 @@ const webpackConfig: Configuration = [
         }
       } as any),
       new webpack.DefinePlugin({
+        __CLIENT__: false,
         __DEVCLIENT__: false,
         __DEVSERVER__: false,
         __BASENAME__: BASELINE,

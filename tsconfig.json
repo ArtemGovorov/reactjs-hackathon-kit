@@ -17,11 +17,6 @@
     "allowSyntheticDefaultImports": true,
     "sourceMap": true
   },
-  "compileOnSave": true,
-  "buildOnSave": false,
-  "atom": {
-    "rewriteTsconfig": true
-  },
   "filesGlob": [
     "./**/*.tsx",
     "./**/*.ts",

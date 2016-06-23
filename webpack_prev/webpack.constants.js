@@ -10,3 +10,4 @@ exports.PROD = process.env.NODE_ENV === 'production';
 exports.TEST = process.env.NODE_ENV === 'test';
 exports.BASENAME = JSON.stringify(process.env.BASENAME || '');
 exports.DEVTOOLS = false;
+//# sourceMappingURL=webpack.constants.js.map

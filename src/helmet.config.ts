@@ -2,6 +2,14 @@ const chromecon = require('images/chrome-ninja192-precomposed.png');
 const applecon = require('images/apple-ninja152-precomposed.png');
 const mscon = require('images/ms-ninja144-precomposed.png');
 const favicon = require('images/favicon.png');
+let assets;
+if (!__CLIENT__) {
+  const fs = require('fs');
+  console.log('\n *START* \n');
+  assets = JSON.parse(fs.readFileSync('webpack-assets.json'));
+  console.log('Output css assets : \n' + assets);
+  console.log('\n *EXIT* \n');
+}
 
 const config = {
   link: [
@@ -10,7 +18,7 @@ const config = {
     { rel: 'icon', sizes: '192x192', href: chromecon },
     // Add to homescreen for Safari on IOS
     { rel: 'apple-touch-icon', sizes: '152x152', applecon },
-    { rel: 'stylesheet', href: '/assets/styles/main.css' }
+    { rel: 'stylesheet', href: assets.main.css }
     // SEO: If your mobile URL is different from the desktop URL,
     // add a canonical link to the desktop page https://developers.google.com/webmasters/smartphone-sites/feature-phones
     // { 'rel': 'canonical', 'href': 'http://www.example.com/' }

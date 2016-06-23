@@ -51,7 +51,7 @@ const webpackConfig: Configuration = [
     plugins: [
       new CleanPlugin([BUILD_DIR], { root: PROJECT_ROOT }),
       // extract inline css from modules into separate files
-      new ExtractTextPlugin('styles/main.css', {
+      new ExtractTextPlugin('styles/[name].[contenthash].css', {
         allChunks: true
       }),
       new webpack.optimize.UglifyJsPlugin({
@@ -103,7 +103,7 @@ const webpackConfig: Configuration = [
       // This saves space, because often referenced modules
       // and chunks get smaller ids.
       new webpack.optimize.OccurenceOrderPlugin(true),
-      new ExtractTextPlugin('styles/main.css', {
+      new ExtractTextPlugin('styles/[name].[contenthash].css', {
         allChunks: true
       }),
       new webpack.optimize.UglifyJsPlugin({

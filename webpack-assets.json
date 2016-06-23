@@ -1,11 +1,11 @@
 {
   "server": {
     "js": "/assets/server.js",
-    "css": "/assets/styles/main.css"
+    "css": "/assets/styles/server.fc0283fe5dc0350acb3d62de670c8060.css"
   },
   "main": {
     "js": "/assets/main.a4413b22e95407e8128e.js",
-    "css": "/assets/styles/main.css"
+    "css": "/assets/styles/main.fc0283fe5dc0350acb3d62de670c8060.css"
   },
   "home-view": {
     "js": "/assets/1.home-view.a4413b22e95407e8128e.js"

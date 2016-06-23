@@ -12,7 +12,8 @@ import {
   FILE_NAME,
   LOADERS_STYLES_DEV
 } from './webpack.constants';
-
+const AssetsPlugin = require('assets-webpack-plugin');
+const assetsPluginInstance = new AssetsPlugin();
 const webpackConfig: Configuration = {
   devtool: 'eval',
   context: SRC_DIR,
@@ -46,7 +47,8 @@ const webpackConfig: Configuration = {
       __DEVSERVER__: false,
       __BASENAME__: BASENAME,
       __DEVTOOLS__: DEVTOOLS
-    })
+    }),
+    assetsPluginInstance
   ]
 
 };

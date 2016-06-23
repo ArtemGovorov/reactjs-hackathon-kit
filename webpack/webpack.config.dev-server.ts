@@ -2,6 +2,7 @@ import * as webpack from 'webpack';
 import {Configuration} from 'webpack';
 const CleanPlugin = require('clean-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
+
 import {
   LOADERS_COMMON,
   SRC_DIR,
@@ -42,7 +43,7 @@ const webpackConfig: Configuration = {
   devtool: 'sourcemap',
   plugins: [
     new CleanPlugin([BUILD_DIR], { root: PROJECT_ROOT }),
-    new ExtractTextPlugin('styles/main.css', {
+    new ExtractTextPlugin('styles/[name].[contenthash].css', {
       allChunks: true
     }),
     new webpack.BannerPlugin('require("source-map-support").install();',

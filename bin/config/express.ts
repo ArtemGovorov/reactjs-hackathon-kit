@@ -8,7 +8,7 @@ import { DB_TYPE, ENV } from './appConfig';
 
 
 export default (app: express.Express) => {
-  app.set('port', (process.env.PORT || 3001));
+  app.set('port', (process.env.PORT || 3000));
 
   // X-Powered-By header has no functional value.
   // Keeping it makes it easier for an attacker to build the site's profile

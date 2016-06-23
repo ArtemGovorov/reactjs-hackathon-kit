@@ -9,6 +9,11 @@ import createRoutes from '../shared/routes';
 import configureStore from '../shared/store/configureStore';
 //import preRenderMiddleware from 'middlewares/preRenderMiddleware';
 import header from '../shared/components/Meta';
+const fs = require('fs');
+console.log('\n *START* \n');
+const assets = JSON.parse(fs.readFileSync('webpack-assets.json'));
+console.log('Output assets : \n' + assets);
+console.log('\n *EXIT* \n');
 
 /*const clientConfig = {
   host: process.env.HOSTNAME || 'localhost',
@@ -118,7 +123,7 @@ export default function render(req, res) {
               <div id="root">${componentHTML}</div>
               <script>window.__INITIAL_STATE__ = ${JSON.stringify(initialState)};</script>
               ${analtyicsScript}
-              <script type="text/javascript" charset="utf-8" src="/assets/main.js"></script>
+              <script type="text/javascript" charset="utf-8" src="${assets.main.js}"></script>
             </body>
           </html>
         `);

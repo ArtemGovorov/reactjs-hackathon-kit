@@ -8,16 +8,9 @@ const PROJECT_ROOT = resolve(__dirname, '..');
 const CleanPlugin = require('clean-webpack-plugin');
 const BASELINE = JSON.stringify(process.env.BASENAME || '');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
-const fs = require('fs');
 
-const nodeModules = {};
-fs.readdirSync('node_modules')
-  .filter(function (x) {
-    return ['.bin'].indexOf(x) === -1;
-  })
-  .forEach(function (mod) {
-    nodeModules[mod] = 'commonjs ' + mod;
-  });
+
+
 
 const commonLoaders = [
   {
@@ -30,13 +23,23 @@ const commonLoaders = [
     test: /\.json$/,
     loader: 'json-loader'
   },
+
+  {
+    test: /\.(png|jpg)$/,
+    loader: 'url-loader',
+    query: {
+      name: 'images/[name].[ext]',
+      limit: 5
+    }
+  },
+
   { test: /\.woff(\?.*)?$/, loader: 'url?name=fonts/[name].[ext]&limit=10000&mimetype=application/font-woff' },
   { test: /\.woff2(\?.*)?$/, loader: 'url?name=fonts/[name].[ext]&limit=10000&mimetype=application/font-woff2' },
   { test: /\.otf(\?.*)?$/, loader: 'file?name=fonts/[name].[ext]&limit=10000&mimetype=font/opentype' },
   { test: /\.ttf(\?.*)?$/, loader: 'url?name=fonts/[name].[ext]&limit=10000&mimetype=application/octet-stream' },
   { test: /\.eot(\?.*)?$/, loader: 'file?name=fonts/[name].[ext]' },
   { test: /\.svg(\?.*)?$/, loader: 'url?name=fonts/[name].[ext]&limit=10000&mimetype=image/svg+xml' },
-  { test: /\.(png|jpg)$/, loader: 'url?limit=8192&name=images/[name].[ext]' },
+
   { test: /\.html$/, loader: 'html-loader' }
 ];
 
@@ -96,5 +99,5 @@ const webpackConfig: Configuration = {
 
 // The configuration for the server-side rendering
 webpackConfig['name'] = 'server-side rendering';
-webpackConfig['externals'] = nodeModules as any;
+//webpackConfig['externals'] = nodeModules as any;
 export = webpackConfig;

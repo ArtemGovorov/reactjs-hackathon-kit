@@ -1,6 +1,7 @@
 import {join, resolve} from 'path';
 import * as webpack from 'webpack';
 import {Configuration} from 'webpack';
+import {EXTERNALS} from './webpack.constants';
 const assetsPath = join(__dirname, '..', 'public', 'assets');
 const hotMiddlewareScript = 'webpack-hot-middleware/client?path=/__webpack_hmr&timeout=20000&reload=true';
 const APP_DIR = resolve(__dirname, '..', 'src');
@@ -23,7 +24,7 @@ const commonLoaders = [
   { test: /\.ttf(\?.*)?$/, loader: 'url?prefix=fonts/&name=[path][name].[ext]&limit=10000&mimetype=application/octet-stream' },
   { test: /\.eot(\?.*)?$/, loader: 'file?prefix=fonts/&name=[path][name].[ext]' },
   { test: /\.svg(\?.*)?$/, loader: 'url?prefix=fonts/&name=[path][name].[ext]&limit=10000&mimetype=image/svg+xml' },
-  { test: /\.(png|jpg)$/, loader: 'url?limit=8192' },
+  { test: /\.(png|jpg)$/, loader: 'url?limit=5&name=images/[name].[ext]' },
   { test: /\.html$/, loader: 'html-loader' }
 ];
 
@@ -82,7 +83,7 @@ const webpackConfig: Configuration = {
       }
     ])
   },
-  resolve: { 
+  resolve: {
     root: [APP_DIR],
     extensions: ['', '.ts', '.tsx', '.js', '.jsx'],
   },

@@ -128,7 +128,7 @@ const LOADER_SVG =
     'image/svg+xml');
 
 const LOADER_IMAGES = {
-  test: /\.(png|jpg)$/,
+  test: /\.(jp[e]?g|png|gif|svg)$/i,
   loader: 'url-loader',
   query: {
     name: IMAGES_LOADER_NAME,

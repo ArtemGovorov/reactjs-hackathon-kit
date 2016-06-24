@@ -38,7 +38,15 @@ const webpackConfig: Configuration = {
     ]
       .concat(
       LOADERS_COMMON,
-      LOADERS_STYLES_DEV)
+      LOADERS_STYLES_DEV),
+
+    postLoaders: [
+      {
+        test: /^((?!\.spec\.ts).)*.ts$/,
+        exclude: /(node_modules|bower_components)/,
+        loader: 'istanbul-instrumenter'
+      }
+    ]
   },
   resolve: {
     root: __dirname,
@@ -74,11 +82,5 @@ webpackConfig['name'] = 'test';
 webpackConfig['noParse'] = [
   /\/sinon\.js/
 ];
-webpackConfig['postLoaders'] = [
-  {
-    test: /^((?!\.spec\.ts).)*.ts$/,
-    exclude: /(node_modules|bower_components)/,
-    loader: 'istanbul-instrumenter'
-  }
-];
+
 export = webpackConfig;

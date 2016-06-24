@@ -8,8 +8,8 @@
     "webpack/**/*.map": true,
     "bin/**/*.js": true,
     "bin/**/*.map": true,
-    "coverage": true,
-    "reports": true
+    "coverage": false,
+    "reports": false
   },
   "todoIgnore": [
     "node_modules",

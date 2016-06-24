@@ -1,15 +1,31 @@
 const del = require('del');
 
-const items = ['dist/**', 'src/**/*.js', 'src/**/*.js.map', 'src/**/*.jsx', 'src/**/*.jsx.map'];
+const items = [
+  'public/**',
+  'src/**/*.js',
+  'src/**/*.js.map',
+  'src/**/*.jsx',
+  'src/**/*.jsx.map',
+  'webpack/**/*.js',
+  'webpack/**/*.js.map',
+  'webpack/**/*.jsx',
+  'webpack/**/*.jsx.map',
+  'bin/**/*.js',
+  'bin/**/*.js.map',
+  'bin/**/*.jsx',
+  'bin/**/*.jsx.map'
+];
 
-items.forEach(function (toDelete, index, array) {
-  del([toDelete]).then(
-    function (paths) {
-      if (paths.length > 0) {
-        console.log(toDelete + ' successfully removed');
-      } else {
-        console.log('Error while deleting ' + toDelete + ' (empty?)');
+items.forEach(
+  toDelete => {
+    del([toDelete]).then(
+      paths => {
+        if (paths.length > 0) {
+          console.log(toDelete + ' successfully removed');
+        } else {
+          console.log('Error while deleting ' + toDelete + ' (empty?)');
+        }
       }
-    }
-  );
-});
+    );
+  }
+);

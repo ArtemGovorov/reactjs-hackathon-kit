@@ -1,8 +1,0 @@
-{
-  "main": {
-    "": "/_karma_webpack_//main"
-  },
-  "src/karma.bundler.ts": {
-    "ts": "/_karma_webpack_//src/karma.bundler.ts"
-  }
-}

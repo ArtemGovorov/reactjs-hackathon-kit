@@ -2,12 +2,12 @@
 {
   "files.exclude": {
     "node_modules/": true,
-    "src/**/*.js": true,
-    "src/**/*.map": true,
-    "webpack/**/*.js": true,
-    "webpack/**/*.map": true,
-    "bin/**/*.js": true,
-    "bin/**/*.map": true,
+    "src/**/*.js": false,
+    "src/**/*.map": false,
+    "webpack/**/*.js": false,
+    "webpack/**/*.map": false,
+    "bin/**/*.js": false,
+    "bin/**/*.map": false,
     "coverage": false,
     "reports": false
   },

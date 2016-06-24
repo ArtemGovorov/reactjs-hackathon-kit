@@ -1,6 +1,8 @@
 const del = require('del');
 
 const items = [
+  'coverage/**',
+  'reports/**',
   'public/**',
   'src/**/*.js',
   'src/**/*.js.map',
@@ -13,7 +15,8 @@ const items = [
   'bin/**/*.js',
   'bin/**/*.js.map',
   'bin/**/*.jsx',
-  'bin/**/*.jsx.map'
+  'bin/**/*.jsx.map',
+  'webpack-assets.json'
 ];
 
 items.forEach(

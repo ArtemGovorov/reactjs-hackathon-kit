@@ -7,7 +7,7 @@
     "babel-node": "babel-node --presets es2015,stage-0 --ignore node_modules,public",
     "sequelize": "node_modules/.bin/sequelize",
     "lint": "eslint app server",
-    "clean": "rimraf public && rimraf compiled",
+    "clean": "node ./bin/clean.js",
     "start": "cross-env NODE_ENV=production node bin/server.js",
     "dev": "tsc && npm run build:dev && node bin/server.js",
     "build:dev": "tsc && cross-env NODE_ENV=development webpack --colors --config ./webpack/webpack.config.dev-server.js",

@@ -13,7 +13,7 @@ import {
   LOADERS_STYLES_DEV
 } from './webpack.constants';
 const AssetsPlugin = require('assets-webpack-plugin');
-const assetsPluginInstance = new AssetsPlugin();
+const assetsPluginInstance = new AssetsPlugin({prettyPrint: true});
 const webpackConfig: Configuration = {
   devtool: 'eval',
   context: SRC_DIR,

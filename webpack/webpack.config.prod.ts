@@ -4,7 +4,7 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const InlineEnviromentconstiablesPlugin = require('inline-environment-variables-webpack-plugin');
 const CleanPlugin = require('clean-webpack-plugin');
 const AssetsPlugin = require('assets-webpack-plugin');
-const assetsPluginInstance = new AssetsPlugin();
+const assetsPluginInstance = new AssetsPlugin({prettyPrint: true});
 
 import {
   SRC_DIR,

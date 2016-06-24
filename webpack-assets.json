@@ -1,16 +1,8 @@
 {
-  "server": {
-    "js": "/assets/server.js",
-    "css": "/assets/styles/server.fc0283fe5dc0350acb3d62de670c8060.css"
-  },
   "main": {
-    "js": "/assets/main.a4413b22e95407e8128e.js",
-    "css": "/assets/styles/main.fc0283fe5dc0350acb3d62de670c8060.css"
+    "": "/_karma_webpack_//main"
   },
-  "home-view": {
-    "js": "/assets/1.home-view.a4413b22e95407e8128e.js"
-  },
-  "counter": {
-    "js": "/assets/2.counter.a4413b22e95407e8128e.js"
+  "src/karma.bundler.ts": {
+    "ts": "/_karma_webpack_//src/karma.bundler.ts"
   }
 }

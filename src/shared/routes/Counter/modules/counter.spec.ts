@@ -9,11 +9,11 @@ import {
 
 
 import { ActionsObservable } from 'redux-observable';
-import * as Rx  from 'rxjs/Rx';
+import {Subject, Scheduler}   from '@reactivex/rxjs';
 
 
 describe('(Redux Module) Counter', () => {
-  const scheduler = Rx.Scheduler.asap;
+  const scheduler = Scheduler.asap;
 
   let globalState = {
     counter: counterReducer(undefined, {})
@@ -23,7 +23,7 @@ describe('(Redux Module) Counter', () => {
       counter: counterReducer(globalState.counter, action)
     };
   };
-  const actions = new Rx.Subject();
+  const actions = new Subject();
   const actionsObs = new ActionsObservable(actions);
   const store = { getState: () => globalState };
   const getStateSpy: Sinon.SinonSpy = sinon.spy(store, 'getState');

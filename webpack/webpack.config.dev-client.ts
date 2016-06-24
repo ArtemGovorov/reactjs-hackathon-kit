@@ -9,13 +9,11 @@ import {
   DEVTOOLS,
   BASENAME,
   PUBLIC_PATH,
-  FILE_NAME,
-  LOADERS_STYLES_DEV
+  LOADERS_STYLES_DEV,
+  NODE_MODULES
 } from './webpack.constants';
-const AssetsPlugin = require('assets-webpack-plugin');
-const assetsPluginInstance = new AssetsPlugin({prettyPrint: true});
 const webpackConfig: Configuration = {
-  devtool: 'eval',
+  devtool: 'source-map',
   context: SRC_DIR,
   entry: {
     'main': [
@@ -28,7 +26,7 @@ const webpackConfig: Configuration = {
   },
   output: {
     path: ASSETS_DIR,
-    filename: FILE_NAME,
+    filename: '[name].js',
     publicPath: PUBLIC_PATH
   },
   module: {
@@ -39,6 +37,9 @@ const webpackConfig: Configuration = {
     root: [SRC_DIR],
     extensions: ['', '.ts', '.tsx', '.js'],
   },
+  resolveLoader: {
+    modulesDirectories: [NODE_MODULES]
+  },
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
     new webpack.DefinePlugin({
@@ -47,8 +48,7 @@ const webpackConfig: Configuration = {
       __DEVSERVER__: false,
       __BASENAME__: BASENAME,
       __DEVTOOLS__: DEVTOOLS
-    }),
-    assetsPluginInstance
+    })
   ]
 
 };

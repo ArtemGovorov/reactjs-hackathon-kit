@@ -24,7 +24,6 @@ const webpackConfig: Configuration = [
   {
     // The configuration for the client
     name: 'browser',
-    devtool: 'source-map',
     context: SRC_DIR,
     entry: {
       'main': [

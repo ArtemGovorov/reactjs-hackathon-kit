@@ -18,6 +18,7 @@ if (ENV === 'development') {
   }));
 
   app.use(require('webpack-hot-middleware')(compiler));
+
 }
 
 /*

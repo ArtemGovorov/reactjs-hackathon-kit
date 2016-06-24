@@ -1,4 +1,4 @@
-const del = require('del');
+import * as del from 'del';
 
 const items = [
   'coverage/**',
@@ -10,7 +10,9 @@ const items = [
   'webpack/**/*.js.map',
   'bin/**/*.js',
   'bin/**/*.js.map',
-  'webpack-assets.json'
+  'webpack-assets.json',
+  'webpack-assets-server.json',
+  'logs/**'
 ];
 
 items.forEach(

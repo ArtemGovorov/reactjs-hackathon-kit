@@ -1,4 +1,3 @@
-/// <reference path="node_modules/rxjs/Rx.d.ts" />
 
 declare var __BASENAME__: string;
 declare var __DEVTOOLS__: boolean;
@@ -8,8 +7,10 @@ declare var __DEVCLIENT__: boolean;
 declare var __CLIENT__: boolean;
 
 
-  declare var expect: Chai.ExpectStatic;
+declare var expect: Chai.ExpectStatic;
 declare var should: Chai.Should;
+
+
 
 declare namespace NodeJS {
   export interface Global {
@@ -19,6 +20,7 @@ declare namespace NodeJS {
     sinon: any;
     expect: any;
     should: any;
+    Rx: any;
   }
 }
 

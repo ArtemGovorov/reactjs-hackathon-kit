@@ -10,7 +10,14 @@ module.exports = function (config) {
         logLevel: config.LOG_INFO,
         autoWatch: true,
         autoWatchBatchDelay: 300,
-        browsers: ['PhantomJS'],
+        browsers: ['Chrome'],
+        client: {
+            mocha: {
+            reporter: 'html', // change Karma's debug.html to the mocha web reporter
+            ui: 'bdd',
+            timeout: 15000
+            }
+        },
         singleRun: !argv.watch,
         files: [
             './node_modules/phantomjs-polyfill/bind-polyfill.js',
@@ -22,7 +29,7 @@ module.exports = function (config) {
             }
         ],
         preprocessors: {
-            'src/karma.bundler.ts': ['webpack', 'sourcemap'],
+            'src/**/*.ts*': ['webpack', 'sourcemap'],
             'src/**/!(*.spec)+(.js)': ['coverage']
         },
         webpackMiddleware: {

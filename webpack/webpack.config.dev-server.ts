@@ -43,7 +43,7 @@ const webpackConfig: Configuration = {
   devtool: 'sourcemap',
   plugins: [
     new CleanPlugin([BUILD_DIR], { root: PROJECT_ROOT }),
-    new ExtractTextPlugin('styles/[name].[contenthash].css', {
+    new ExtractTextPlugin('styles/main.css', {
       allChunks: true
     }),
     new webpack.BannerPlugin('require("source-map-support").install();',

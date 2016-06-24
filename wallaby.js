@@ -1,7 +1,7 @@
 'use strict';
 
 var wallabyWebpack = require('wallaby-webpack');
-var config = require('./config/webpack.test.js')
+var config = require('./webpack/webpack.config.test.js')
 
 
 config.module.loaders = config.module.loaders.filter(function (l) {

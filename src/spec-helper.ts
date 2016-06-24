@@ -8,6 +8,8 @@ import * as sinonChai from 'sinon-chai';
 import * as chaiAsPromised from 'chai-as-promised';
 import * as When from 'when';
 
+import Rx  from '@reactivex/rxjs';
+
 const parse = require('parse');
 const chaiEnzyme = require('chai-enzyme');
 require('es6-promise').Promise;
@@ -16,7 +18,7 @@ require('es6-promise').Promise;
 chai.use(sinonChai);
 chai.use(chaiAsPromised);
 chai.use(chaiEnzyme());
- // https://github.com/wallabyjs/typescript-tsx-jsx/issues/2#issuecomment-226433637
+// https://github.com/wallabyjs/typescript-tsx-jsx/issues/2#issuecomment-226433637
 global.should = undefined;
 global.When = When;
 global.Parse = parse;
@@ -24,6 +26,8 @@ global.chai = chai;
 global.sinon = sinon;
 global.expect = chai.expect;
 global.should = chai.should();
+global.Rx = Rx;
+
 
 
 

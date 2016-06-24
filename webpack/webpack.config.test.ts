@@ -3,30 +3,20 @@ import {Configuration} from 'webpack';
 import {
   LOADERS_COMMON,
   SRC_DIR,
-  HOT_MIDDLEWARE,
   ASSETS_DIR,
   BASENAME,
   PUBLIC_PATH,
   FILE_NAME,
-  LOADERS_STYLES_DEV
+  LOADERS_STYLES_DEV,
 } from './webpack.constants';
-const AssetsPlugin = require('assets-webpack-plugin');
-const assetsPluginInstance = new AssetsPlugin({ prettyPrint: true });
+
 const webpackConfig: Configuration = {
-  devtool: 'source-map-inline',
+  devtool: 'inline-source-map',
   context: SRC_DIR,
-  entry: {
-    'main': [
-      HOT_MIDDLEWARE,
-      'react-hot-loader/patch',
-      `bootstrap-sass!${SRC_DIR}/theme/bootstrap.config.js`,
-      `font-awesome-webpack!${SRC_DIR}/theme/font-awesome.config.js`,
-      `${SRC_DIR}/client`
-    ]
-  },
   output: {
     path: ASSETS_DIR,
     filename: FILE_NAME,
+    sourceMapFilename: '[name].js.map',
     publicPath: PUBLIC_PATH
   },
   module: {
@@ -49,16 +39,17 @@ const webpackConfig: Configuration = {
     ]
   },
   resolve: {
-    root: __dirname,
+    root: SRC_DIR,
     extensions: ['', '.ts', '.tsx', '.js', '.json'],
     alias: {
       sinon: 'sinon/pkg/sinon.js'
     }
   },
-  resolveLoader: {
-    modulesDirectories: ['node_modules']
-  },
   plugins: [
+  new webpack.SourceMapDevToolPlugin({
+    filename: null, // if no value is provided the sourcemap is inlined
+    test: /\.(ts|js)($|\?)/i // process .js and .ts files only
+  }),
     new webpack.DefinePlugin({
       'process.env': {
         NODE_ENV: '"test"'
@@ -69,7 +60,7 @@ const webpackConfig: Configuration = {
       __BASENAME__: BASENAME,
       __DEVTOOLS__: false
     }),
-    assetsPluginInstance
+
   ],
   externals: {
     'react/addons': true,

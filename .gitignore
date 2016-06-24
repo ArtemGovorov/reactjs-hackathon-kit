@@ -20,4 +20,5 @@ bin/**/*.js.map
 compiled
 typings
 reports
+webpack-assets.json
 

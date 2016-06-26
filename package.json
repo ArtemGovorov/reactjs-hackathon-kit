@@ -53,8 +53,8 @@
   ],
   "config": {
     "ghooks": {
-      "pre-commit": "npm run lint",
-      "pre-push": "npm run test"
+      "pre-commit": "",
+      "pre-push": ""
     },
     "commitizen": {
       "path": "./node_modules/cz-customizable"

@@ -3,7 +3,6 @@ import * as assert from 'assert';
 import * as React from 'react';
 import { mount, render, shallow } from 'enzyme';
 
-
 const Fixture = () =>
   <div>
     <input id = 'checked' defaultChecked />
@@ -26,7 +25,6 @@ describe('(Framework) Karma Plugins', () => {
   it('Should expose "should" globally.', () => {
     assert.ok(should);
   });
-
 
   it('Should have chai-as-promised helpers.', () => {
     const pass = new Promise(res => res('test'));

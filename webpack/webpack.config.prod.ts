@@ -19,7 +19,6 @@ import {
   POST_CSS_CONFIG_PROD,
 } from './webpack.constants';
 
-
 const webpackConfig: Configuration = [
   {
     // The configuration for the client

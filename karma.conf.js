@@ -10,7 +10,7 @@ module.exports = function (config) {
         logLevel: config.LOG_INFO,
         autoWatch: true,
         autoWatchBatchDelay: 300,
-        browsers: ['Chrome'],
+        browsers: ['PhantomJS'],
         client: {
             mocha: {
             reporter: 'html', // change Karma's debug.html to the mocha web reporter
@@ -37,14 +37,11 @@ module.exports = function (config) {
                 chunkModules: false,
                 colors: true,
                 quiet: false,
-                noInfo: false
+                noInfo: true
             }
         },
         webpack: webpackConfig,
         reporters: [
-            'dots',
-            'spec',
-            'coverage',
             'mocha'
         ],
         coverageReporter: {

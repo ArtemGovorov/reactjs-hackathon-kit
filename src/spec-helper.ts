@@ -14,7 +14,6 @@ const parse = require('parse');
 const chaiEnzyme = require('chai-enzyme');
 require('es6-promise').Promise;
 
-
 chai.use(sinonChai);
 chai.use(chaiAsPromised);
 chai.use(chaiEnzyme());
@@ -27,8 +26,5 @@ global.sinon = sinon;
 global.expect = chai.expect;
 global.should = chai.should();
 global.Rx = Rx;
-
-
-
 
 chai.config.includeStack = true;

@@ -136,12 +136,10 @@ const LOADER_IMAGES = {
   }
 };
 
-
 const LOADER_HTML = {
   test: /\.html$/,
   loader: 'html-loader'
 };
-
 
 export const LOADERS_FONTS = [
   LOADER_WOFF,
@@ -234,8 +232,3 @@ function postCSSConfigProd() {
     })
   ];
 };
-
-
-
-
-

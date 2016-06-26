@@ -1,11 +1,83 @@
 {
-  // See https://go.microsoft.com/fwlink/?LinkId=733558
-  // for the documentation about the tasks.json format
   "version": "0.1.0",
-  "command": "node_modules/typescript/bin/tsc",
+  "command": "bash",
   "isShellCommand": true,
-  "args": ["-w", "-p", "."],
   "showOutput": "silent",
-  "isWatching": true,
-  "problemMatcher": "$tsc-watch"
+  "args": [
+    "-c"
+  ],
+  "tasks": [
+    {
+      "taskName": "build",
+      "suppressTaskName": true,
+      "isBuildCommand": true,
+      "isWatching": true,
+      "args": [
+        "node_modules/typescript/bin/tsc -w -p ."
+      ],
+      "problemMatcher": "$tsc-watch"
+    },
+    {
+      "taskName": "My Command Requiring .bash_profile",
+      "suppressTaskName": true,
+      "args": [
+        "source ~/.bash_profile && echo cmd2"
+      ]
+    },
+    {
+      "taskName": "My Python task",
+      "suppressTaskName": true,
+      "args": [
+        "/usr/bin/python ${file}"
+      ]
+    },
+    {
+      "taskName": "lint",
+      "suppressTaskName": true,
+      "args": [
+        "npm run lint:vscode"
+      ],
+      "problemMatcher": {
+        "owner": "tslint",
+        "fileLocation": [
+          "relative",
+          "${workspaceRoot}"
+        ],
+        "severity": "warning",
+        "pattern": {
+          "regexp": "^\\[tslint\\] (.*):(\\d+):(\\d+):\\s+(.*)$",
+          "file": 1,
+          "line": 2,
+          "column": 3,
+          "message": 4
+        }
+      },
+      "showOutput": "never"
+    },
+    {
+      "taskName": "test",
+      "suppressTaskName": true,
+      "args": [
+        "npm run test"
+      ],
+      "isTestCommand": true,
+      "showOutput": "always",
+      "problemMatcher": {
+        "severity": "error",
+        "fileLocation": [
+          "relative",
+          "${workspaceRoot}/src"
+        ],
+        "pattern": [
+          {
+            "regexp": "(shared.*\\.tsx):(\\d+):(\\d+)$",
+            "file": 1,
+            "line": 2,
+            "column": 3,
+            "message": 1
+          }
+        ]
+      }
+    }
+  ]
 }

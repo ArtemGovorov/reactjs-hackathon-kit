@@ -15,7 +15,6 @@ import {
   EXTERNALS
 } from './webpack.constants';
 
-
 const webpackConfig: Configuration = {
   context: SRC_DIR,
   entry: {

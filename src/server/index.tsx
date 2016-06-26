@@ -1,4 +1,6 @@
+/* tslint:disable:no-unused-variable */
 import * as axios from 'axios';
+/* tslint:disable:no-unused-variable */
 import * as React from 'react';
 import { renderToString } from 'react-dom/server';
 import { syncHistoryWithStore } from 'react-router-redux';
@@ -19,7 +21,6 @@ if (__DEVSERVER__) {
   javascript = assets.main.js;
 }
 
-
 /*const clientConfig = {
   host: process.env.HOSTNAME || 'localhost',
   port: process.env.PORT || '3000'
@@ -27,7 +28,6 @@ if (__DEVSERVER__) {
 */
 // configure baseURL for axios requests (for serverside API calls)
 //axios.defaults.baseURL = `http://${clientConfig.host}:${clientConfig.port}`;
-
 
 const analtyicsScript = '';
 /* typeof trackingID === "undefined" ? ``
@@ -41,7 +41,6 @@ const analtyicsScript = '';
 	 ga('send', 'pageview');
  </script>`;*/
 
-
 /*
  * To Enable Google analytics simply replace the hashes with your tracking ID
  * and move the constant to above the analtyicsScript constant.
@@ -52,9 +51,6 @@ const analtyicsScript = '';
  * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/var#var_hoisting
  */
 //const trackingID = "'UA-########-#'";
-
-
-
 
 /*
  * Export render function to be used in server/config/routes.js

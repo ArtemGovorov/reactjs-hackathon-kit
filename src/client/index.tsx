@@ -67,7 +67,6 @@ if (__DEVTOOLS__) {
   }
 }
 
-
 match({ history, routes }, () => {
   render();
 });

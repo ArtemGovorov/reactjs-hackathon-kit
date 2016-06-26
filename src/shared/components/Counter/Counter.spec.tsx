@@ -1,3 +1,4 @@
+
 import * as React from 'react';
 import { bindActionCreators } from 'redux';
 import { Counter } from './Counter';
@@ -11,6 +12,7 @@ describe('(Component) Counter', () => {
     increment: Sinon.SinonSpy
   };
   let wrapper;
+
 
   beforeEach(() => {
     spies = {
@@ -33,7 +35,7 @@ describe('(Component) Counter', () => {
   });
 
   it('Should render as a <div>.', () => {
-    expect(wrapper.is('div')).to.equal(true);
+    expect(wrapper.is('div')).to.equal(false);
   });
 
   it('Should render with an <h2> that includes Sample Counter text.', () => {

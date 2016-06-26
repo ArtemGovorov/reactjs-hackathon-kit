@@ -7,7 +7,6 @@ import {DB_TYPES} from './constants';
  * - NONE: There is no DB connection
  */
 
-
 const DB_TYPE = process.env.DB_TYPE || DB_TYPES.MONGO;
 const ENV = process.env.NODE_ENV || 'development';
 

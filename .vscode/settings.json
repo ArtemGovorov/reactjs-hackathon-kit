@@ -16,7 +16,7 @@
     "typings"
   ],
   "search.exclude": {
-    "**/node_modules": false,
+    "**/node_modules": true,
     "**/bower_components": true
   }
 }

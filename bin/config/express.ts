@@ -5,8 +5,6 @@ const flash = require('express-flash');
 import * as methodOverride from 'method-override';
 import { DB_TYPE, ENV } from './appConfig';
 
-
-
 export default (app: express.Express) => {
   app.set('port', (process.env.PORT || 3000));
 

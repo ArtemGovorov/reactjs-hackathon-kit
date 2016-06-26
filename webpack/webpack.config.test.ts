@@ -11,12 +11,11 @@ import {
 } from './webpack.constants';
 
 const webpackConfig: Configuration = {
-  devtool: 'inline-source-map',
+  devtool: 'cheap-module-source-map',
   context: SRC_DIR,
   output: {
     path: ASSETS_DIR,
     filename: FILE_NAME,
-    sourceMapFilename: '[name].js.map',
     publicPath: PUBLIC_PATH
   },
   module: {
@@ -46,10 +45,10 @@ const webpackConfig: Configuration = {
     }
   },
   plugins: [
-  new webpack.SourceMapDevToolPlugin({
-    filename: null, // if no value is provided the sourcemap is inlined
-    test: /\.(ts|js)($|\?)/i // process .js and .ts files only
-  }),
+    new webpack.SourceMapDevToolPlugin({
+      filename: null, // if no value is provided the sourcemap is inlined
+      test: /\.(ts|js)($|\?)/i // process .js and .ts files only
+    }),
     new webpack.DefinePlugin({
       'process.env': {
         NODE_ENV: '"test"'

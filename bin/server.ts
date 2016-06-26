@@ -6,8 +6,6 @@ import parseConfig from './config/parse';
 import * as webpackDevConfig from '../webpack/webpack.config.dev-client';
 const App = require('../public/assets/server');
 const app: express.Express = express();
-
-
 if (ENV === 'development') {
   const compiler = webpack(webpackDevConfig);
   app.use(require('webpack-dev-middleware')(compiler, {
@@ -25,8 +23,6 @@ if (ENV === 'development') {
  * Bootstrap application settings
  */
 expressConfig(app);
-
-
 parseConfig(app);
 
 /*

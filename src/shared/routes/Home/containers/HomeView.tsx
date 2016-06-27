@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 export const HomeView = () => (
-  <div className='loginColumns animated fadeInDown'>
+  <div className='loginColumns animated fadeInDow'>
         <div className='row'>
 
             <div className='col-md-6'>

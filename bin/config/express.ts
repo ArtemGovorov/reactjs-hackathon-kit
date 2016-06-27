@@ -41,5 +41,5 @@ export default (app: express.Express) => {
   }
   console.log('--------------------------');
 
-  app.use(flash());
+ // app.use(flash());
 };

@@ -35,7 +35,7 @@ describe('(Component) Counter', () => {
   });
 
   it('Should render as a <div>.', () => {
-    expect(wrapper.is('div')).to.equal(false);
+    expect(wrapper.is('div')).to.equal(true);
   });
 
   it('Should render with an <h2> that includes Sample Counter text.', () => {

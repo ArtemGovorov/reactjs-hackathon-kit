@@ -18,20 +18,6 @@
       "problemMatcher": "$tsc-watch"
     },
     {
-      "taskName": "My Command Requiring .bash_profile",
-      "suppressTaskName": true,
-      "args": [
-        "source ~/.bash_profile && echo cmd2"
-      ]
-    },
-    {
-      "taskName": "My Python task",
-      "suppressTaskName": true,
-      "args": [
-        "/usr/bin/python ${file}"
-      ]
-    },
-    {
       "taskName": "lint",
       "suppressTaskName": true,
       "args": [
@@ -70,7 +56,7 @@
         ],
         "pattern": [
           {
-            "regexp": "(shared.*\\.tsx):(\\d+):(\\d+)$",
+            "regexp": "webpack:\\/\\/\\/(.*\\.tsx?):(\\d+):(\\d+)$",
             "file": 1,
             "line": 2,
             "column": 3,

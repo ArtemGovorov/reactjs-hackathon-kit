@@ -3,7 +3,6 @@ import { routerMiddleware } from 'react-router-redux';
 import { reduxObservable } from 'redux-observable';
 import reducers from './reducers';
 
-
 export default (initialState = {}, history) => {
 
   const middleware: any = [reduxObservable(), routerMiddleware(history)];

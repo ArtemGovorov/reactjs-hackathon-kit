@@ -38,7 +38,7 @@
           "message": 4
         }
       },
-      "showOutput": "silent"
+      "showOutput": "never"
     },
     {
       "taskName": "test",

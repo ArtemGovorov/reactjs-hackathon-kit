@@ -46,15 +46,10 @@
     "node": "4.4.0",
     "npm": "3.8.7"
   },
-  "pre-push": [
-    "lint:fix",
-    "lint",
-    "test"
-  ],
   "config": {
     "ghooks": {
-      "pre-commit": "",
-      "pre-push": ""
+      "pre-commit": "npm run lint",
+      "pre-push": "npm run test"
     },
     "commitizen": {
       "path": "./node_modules/cz-customizable"

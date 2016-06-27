@@ -9,6 +9,19 @@ export const LOGOUT_USER = 'LOGOUT_USER';
 export const LOGOUT_SUCCESS_USER = 'LOGOUT_SUCCESS_USER';
 export const LOGOUT_ERROR_USER = 'LOGOUT_ERROR_USER';
 
+export function logIn() {
+  return dispatch => {
+
+    Parse.Cloud.run('logIn', {
+      username: 'nathanvale',
+      password: 'password'
+    })
+      .then(response => {
+        console.log(response);
+      });
+  };
+}
+
 export default function userReducer(
   state = {
     isLogin: true,

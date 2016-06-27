@@ -1,4 +1,3 @@
-/* tslint:disable:no-unused-variable */
 import * as React from 'react';
 import Header from '../../components/Header';
 const classes = require('./CoreLayout.scss');

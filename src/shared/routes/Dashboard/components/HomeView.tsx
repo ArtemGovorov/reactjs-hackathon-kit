@@ -1,6 +1,4 @@
-/* tslint:disable:no-unused-variable */
 import * as React from 'react';
-
 
 const DuckImage = require('../assets/Duck.jpg');
 const classes = require('./HomeView.scss');

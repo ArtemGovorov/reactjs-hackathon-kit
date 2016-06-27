@@ -21,12 +21,10 @@ export const endLoading = (path) =>
     return {};
   };
 
-
 export const actions = {
   endLoading,
   startLoading,
 };
-
 
 const initialState = {
   loading: false,

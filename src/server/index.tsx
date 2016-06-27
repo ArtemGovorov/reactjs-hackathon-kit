@@ -1,6 +1,6 @@
 /* tslint:disable:no-unused-variable */
 import * as axios from 'axios';
-/* tslint:disable:no-unused-variable */
+/* tslint:enable:no-unused-variable */
 import * as React from 'react';
 import { renderToString } from 'react-dom/server';
 import { syncHistoryWithStore } from 'react-router-redux';

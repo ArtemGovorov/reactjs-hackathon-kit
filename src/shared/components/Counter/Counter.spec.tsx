@@ -1,4 +1,3 @@
-
 import * as React from 'react';
 import { bindActionCreators } from 'redux';
 import { Counter } from './Counter';
@@ -12,7 +11,6 @@ describe('(Component) Counter', () => {
     increment: Sinon.SinonSpy
   };
   let wrapper;
-
 
   beforeEach(() => {
     spies = {

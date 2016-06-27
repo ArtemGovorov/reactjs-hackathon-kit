@@ -7,10 +7,8 @@ import {
   default as counterReducer
 } from './counter';
 
-
 import { ActionsObservable } from 'redux-observable';
 import {Subject, Scheduler}   from '@reactivex/rxjs';
-
 
 describe('(Redux Module) Counter', () => {
   const scheduler = Scheduler.asap;

@@ -5,7 +5,6 @@ import {
   // logOut
 } from './index';
 
-
 function getArguments(params: any, user?: any): {
   res: { success: any, error: any },
   req: { [key: string]: any }
@@ -60,7 +59,6 @@ describe('(Cloud) Auth', () => {
     );
     const stub = sinon.stub(Parse.User, 'logIn')
       .returns(When(expectedResponse));
-
 
     logIn(req, res)
       .then(

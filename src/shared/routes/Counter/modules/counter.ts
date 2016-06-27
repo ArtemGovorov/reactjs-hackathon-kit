@@ -4,7 +4,6 @@ export const COUNTER_INCREMENT = 'COUNTER_INCREMENT';
 export const DOUBLE_ASYNC_PENDING = 'DOUBLE_ASYNC_PENDING';
 export const DOUBLE_ASYNC_ABORTED = 'DOUBLE_ASYNC_ABORTED';
 
-
 export function increment(value = 1) {
   return {
     type: COUNTER_INCREMENT,

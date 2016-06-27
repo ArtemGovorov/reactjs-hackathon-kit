@@ -5,11 +5,11 @@ export default (store) => ({
 
     if (__CLIENT__) {
       require.ensure([], (require) => {
-        const HomeView = require('./containers/HomeView').default;
+        const HomeView = require('./components/HomeView').default;
         cb(null, HomeView);
       }, 'home-view');
     } else {
-      const HomeView = require('./containers/HomeView').default;
+      const HomeView = require('./components/HomeView').default;
       cb(null, HomeView);
     }
   }

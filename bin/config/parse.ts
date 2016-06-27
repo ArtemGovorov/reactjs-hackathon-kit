@@ -36,7 +36,6 @@ export default (app: express.Express) => {
 
   }, true);
 
-
   // Serve the Parse API on the /parse URL prefix
   const mountPath = process.env.PARSE_MOUNT || '/api';
   app.use(mountPath, api);

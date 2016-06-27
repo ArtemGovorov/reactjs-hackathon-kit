@@ -30,8 +30,6 @@ export default (app: express.Express) => {
   // loopback - 127.0.0.1/8, ::1/128
   app.set('trust proxy', 'loopback');
 
-
-
   console.log('--------------------------');
   console.log('===> 😊  Starting Server . . .');
   console.log(`===>  Environment: ${ENV}`);
@@ -42,8 +40,6 @@ export default (app: express.Express) => {
     console.log('===>           you will need a secure HTTPS connection');
   }
   console.log('--------------------------');
-
-
 
   app.use(flash());
 };

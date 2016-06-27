@@ -1,4 +1,3 @@
-/* tslint:disable:no-unused-variable */
 import * as React from 'react';
 import { IndexLink, Link } from 'react-router';
 const classes = require('./Header.scss');

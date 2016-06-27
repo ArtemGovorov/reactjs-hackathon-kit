@@ -1,4 +1,3 @@
-/* tslint:disable:no-unused-variable */
 import * as React from 'react';
 const classes = require('./Counter.scss');
 
@@ -20,16 +19,5 @@ export const Counter = (props) => (
     </button>
   </div>
 );
-
-
-
-
-
-
-/*Counter.propTypes = {
-  counter: React.PropTypes.number.isRequired,
-  doubleAsync: React.PropTypes.func.isRequired,
-  increment: React.PropTypes.func.isRequired
-};*/
 
 export default Counter;

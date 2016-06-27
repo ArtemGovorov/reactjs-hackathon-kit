@@ -1,6 +1,5 @@
 import { injectReducer } from '../../store/reducers';
 
-
 export default (store) => ({
   path: 'counter',
 

@@ -1,4 +1,3 @@
-/* tslint:disable:no-unused-variable */
 import * as React from 'react';
 import { HomeView } from './HomeView';
 import { render } from 'enzyme';

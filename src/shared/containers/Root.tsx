@@ -3,7 +3,6 @@ import { PropTypes } from 'react';
 import { Router } from 'react-router';
 import { Provider } from 'react-redux';
 
-
 /**
  * Callback function handling frontend route changes.
  */
@@ -20,7 +19,6 @@ function onUpdate() {
   }
 }
 
-
 export class Root extends React.Component<any, any> {
 
   static propTypes = {
@@ -29,8 +27,6 @@ export class Root extends React.Component<any, any> {
     routerKey: PropTypes.number,
     store: PropTypes.object.isRequired
   };
-
-
 
   render() {
     const { history, routes, routerKey, store } = this.props;

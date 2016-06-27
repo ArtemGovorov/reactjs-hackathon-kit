@@ -55,7 +55,7 @@
       "path": "./node_modules/cz-customizable"
     },
     "cz-customizable": {
-      "config": "config/cz-customizable.js"
+      "config": "cz-customizable.js"
     }
   },
   "author": "Ayoub ADIB <ayoub.development@gmail.com>",

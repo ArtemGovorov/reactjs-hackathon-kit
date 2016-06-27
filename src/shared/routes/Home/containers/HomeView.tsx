@@ -1,5 +1,31 @@
 import * as React from 'react';
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 export const HomeView = () => (
   <div className='loginColumns animated fadeInDown'>
         <div className='row'>

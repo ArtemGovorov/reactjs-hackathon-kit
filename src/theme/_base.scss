@@ -597,7 +597,9 @@ table.table-mail tr td {
   margin: 0 0 7px;
   padding: 0;
   text-overflow: ellipsis;
+  /* tslint:disable */
   float: left;
+  /* tslint:enable */
 }
 
 .ibox-title .label {

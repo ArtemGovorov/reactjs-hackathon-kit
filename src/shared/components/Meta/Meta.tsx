@@ -1,5 +1,4 @@
 import * as React from 'react';
-
 import * as ReactDOMServer from 'react-dom/server';
 import * as Helmet from 'react-helmet';
 import config from '../../../helmet.config';

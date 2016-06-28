@@ -1,3 +1,4 @@
+#!/usr/bin/env node
 import * as del from 'del';
 
 const items = [

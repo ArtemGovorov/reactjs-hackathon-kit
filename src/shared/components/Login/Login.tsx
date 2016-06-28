@@ -1,7 +1,11 @@
 import * as React from 'react';
-
-export const HomeView = () => (
-  <div className='loginColumns animated fadeInDow'>
+//const classes = require('./Login.scss');
+export interface LoginProps {
+    logIn: () => void;
+    user: any;
+}
+export const Login = (props: LoginProps) =>
+    (<div className='loginColumns animated fadeInDow'>
         <div className='row'>
 
             <div className='col-md-6'>
@@ -13,7 +17,7 @@ export const HomeView = () => (
 
                 <p>
                     Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-                     Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.
+                    Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.
                 </p>
 
                 <p>
@@ -22,8 +26,8 @@ export const HomeView = () => (
 
                 <p>
                     <small>It has survived not only five centuries,
-                     but also the leap into electronic typesetting,
-                      remaining essentially unchanged.</small>
+                        but also the leap into electronic typesetting,
+                        remaining essentially unchanged.</small>
                 </p>
 
             </div>
@@ -36,7 +40,7 @@ export const HomeView = () => (
                         <div className='form-group'>
                             <input type='password' className='form-control' placeholder='Password' required=''/>
                         </div>
-                        <button type='submit' className='btn btn-primary block full-width m-b'>Login</button>
+                        <button type='submit' className='btn btn-primary block full-width m-b' onClick={props.logIn}>Login!!!</button>
 
                         <a href='#'>
                             <small>Forgot password?</small>
@@ -48,7 +52,7 @@ export const HomeView = () => (
                         <a className='btn btn-sm btn-white btn-block' href='register.html'>Create an account</a>
                     </form>
                     <p className='m-t'>
-                        <small>Inspinia we app framework base on Bootstrap 3 &copy; 2014</small>
+                        <small>Inspinia!!!! we app framework base on Bootstrap 3 &copy; 2014</small>
                     </p>
                 </div>
             </div>
@@ -59,9 +63,10 @@ export const HomeView = () => (
                 Copyright Example Company
             </div>
             <div className='col-md-6 text-right'>
-               <small>© 2014-2015</small>
+                <small>© 2014-2015</small>
             </div>
         </div>
     </div>
-);
-export default HomeView;
+    );
+
+export default Login;

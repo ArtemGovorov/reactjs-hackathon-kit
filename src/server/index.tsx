@@ -15,7 +15,7 @@ const fs = require('fs');
 
 let javascript = {};
 if (__DEVSERVER__) {
-  javascript = '/assets/main.js';
+  javascript = 'http://localhost:3001/assets/main.js';
 } else {
   const assets = JSON.parse(fs.readFileSync('webpack-assets.json'));
   javascript = assets.main.js;

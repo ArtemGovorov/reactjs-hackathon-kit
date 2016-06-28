@@ -1,23 +1,10 @@
 import * as express from 'express';
-import * as webpack from 'webpack';
-import { ENV } from './config/appConfig';
+
 import expressConfig from './config/express';
 import parseConfig from './config/parse';
-import * as webpackDevConfig from '../webpack/webpack.config.dev-client';
+
 const App = require('../public/assets/server');
 const app: express.Express = express();
-if (ENV === 'development') {
-  const compiler = webpack(webpackDevConfig);
-  app.use(require('webpack-dev-middleware')(compiler, {
-    quiet: true,
-    noInfo: true,
-    progress: true,
-    publicPath: webpackDevConfig.output.publicPath
-  }));
-
-  app.use(require('webpack-hot-middleware')(compiler));
-
-}
 
 /*
  * Bootstrap application settings

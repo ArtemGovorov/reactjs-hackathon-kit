@@ -5,12 +5,12 @@ export default (store) => ({
 
     if (__CLIENT__) {
       require.ensure([], (require) => {
-        const HomeView = require('./containers/HomeView').default;
-        cb(null, HomeView);
+        const HomeContainer = require('./containers/HomeContainer').default;
+        cb(null, HomeContainer);
       }, 'home-view');
     } else {
-      const HomeView = require('./containers/HomeView').default;
-      cb(null, HomeView);
+      const HomeContainer = require('./containers/HomeContainer').default;
+      cb(null, HomeContainer);
     }
   }
 });

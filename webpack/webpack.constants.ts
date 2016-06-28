@@ -28,7 +28,7 @@ export const PROD = process.env.NODE_ENV === 'production';
 export const TEST = process.env.NODE_ENV === 'test';
 export const BASENAME = JSON.stringify(process.env.BASENAME || '');
 export const DEVTOOLS: boolean = false;
-export const HOT_MIDDLEWARE = 'webpack-hot-middleware/client?path=/__webpack_hmr&timeout=20000&reload=true';
+export const HOT_MIDDLEWARE = 'webpack-hot-middleware/client?path=http://' + 'localhost' + ':' + '3001' + '/__webpack_hmr';
 
 export const EXTERNALS = getExternals();
 const URL_BYTE_LIMIT: number = 10000;

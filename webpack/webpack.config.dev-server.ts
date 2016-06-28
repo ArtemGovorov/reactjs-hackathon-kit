@@ -28,7 +28,7 @@ const webpackConfig: Configuration = {
   output: {
     path: ASSETS_DIR,
     filename: 'server.js',
-    publicPath: PUBLIC_PATH,
+    publicPath: `http://localhost:3001${PUBLIC_PATH}`,
     libraryTarget: 'commonjs2'
   },
   module: {
@@ -60,4 +60,5 @@ const webpackConfig: Configuration = {
 // The configuration for the server-side rendering
 webpackConfig['name'] = 'server-side rendering';
 webpackConfig['externals'] = EXTERNALS as any;
+
 export = webpackConfig;

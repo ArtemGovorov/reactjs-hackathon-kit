@@ -27,7 +27,7 @@ const webpackConfig: Configuration = {
   output: {
     path: ASSETS_DIR,
     filename: '[name].js',
-    publicPath: PUBLIC_PATH
+    publicPath: `http://localhost:3001${PUBLIC_PATH}`,
   },
   module: {
     loaders: LOADERS_COMMON

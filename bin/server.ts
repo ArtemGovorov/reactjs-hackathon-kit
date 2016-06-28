@@ -4,7 +4,24 @@ import expressConfig from './config/express';
 import parseConfig from './config/parse';
 
 const App = require('../public/assets/server');
+
+function piping() {
+
+  if (1 === 1) {
+    if (!require('piping')({
+      hook: true,
+      ignore: /(\/\.|~$|\.ts\.tsx\.json|\.scss$)/i
+    })) {
+      return;
+    }
+  }
+}
+
+//piping();
+
+
 const app: express.Express = express();
+
 
 /*
  * Bootstrap application settings
@@ -13,7 +30,7 @@ expressConfig(app);
 parseConfig(app);
 
 /*
- * This is where the magic happens. We take the locals data we have already
+ * This is where the magic happens. We take the locals data we have already2
  * fetched and seed our stores with data.
  * App is a function that requires store data and url
  * to initialize and return the React-rendered html string

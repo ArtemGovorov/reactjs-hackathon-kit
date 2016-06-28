@@ -40,7 +40,7 @@ export const Login = (props: LoginProps) =>
                         <div className='form-group'>
                             <input type='password' className='form-control' placeholder='Password' required=''/>
                         </div>
-                        <button type='submit' className='btn btn-primary block full-width m-b' onClick={props.logIn}>Login!!!</button>
+                        <button type='submit' className='btn btn-primary block full-width m-b' onClick={props.logIn}>Login!</button>
 
                         <a href='#'>
                             <small>Forgot password?</small>
@@ -52,7 +52,7 @@ export const Login = (props: LoginProps) =>
                         <a className='btn btn-sm btn-white btn-block' href='register.html'>Create an account</a>
                     </form>
                     <p className='m-t'>
-                        <small>Inspinia!!!! we app framework base on Bootstrap 3 &copy; 2014</small>
+                        <small>Inspinia we app framework base on Bootstrap 3 &copy; 2014</small>
                     </p>
                 </div>
             </div>
@@ -60,7 +60,7 @@ export const Login = (props: LoginProps) =>
         <hr/>
         <div className='row'>
             <div className='col-md-6'>
-                Copyright Example Company
+                Copyright Example Companyjjjj
             </div>
             <div className='col-md-6 text-right'>
                 <small>© 2014-2015</small>

@@ -6,7 +6,7 @@
     "src/**/*.map": true,
     "webpack/**/*.js": true,
     "webpack/**/*.map": true,
-    "bin/**/*.js": false,
+    "bin/**/*.js": true,
     "bin/**/*.map": true,
     "coverage": true,
     "reports": true

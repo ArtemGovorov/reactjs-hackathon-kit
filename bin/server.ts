@@ -5,23 +5,7 @@ import parseConfig from './config/parse';
 
 const App = require('../public/assets/server');
 
-function piping() {
-
-  if (1 === 1) {
-    if (!require('piping')({
-      hook: true,
-      ignore: /(\/\.|~$|\.ts\.tsx\.json|\.scss$)/i
-    })) {
-      return;
-    }
-  }
-}
-
-//piping();
-
-
 const app: express.Express = express();
-
 
 /*
  * Bootstrap application settings

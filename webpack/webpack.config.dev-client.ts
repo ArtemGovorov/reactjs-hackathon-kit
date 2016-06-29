@@ -13,7 +13,7 @@ import {
   NODE_MODULES
 } from './webpack.constants';
 const webpackConfig: Configuration = {
-  devtool: 'source-map',
+  devtool: 'eval',
   context: SRC_DIR,
   entry: {
     'main': [

@@ -60,7 +60,7 @@ export const Login = (props: LoginProps) =>
         <hr/>
         <div className='row'>
             <div className='col-md-6'>
-                Copyright Example Companyjjjj
+                Copyright Example Company
             </div>
             <div className='col-md-6 text-right'>
                 <small>© 2014-2015</small>

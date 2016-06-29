@@ -15,7 +15,7 @@ export const Counter = (props) => (
     </button>
     {' '}
     <button className='btn btn-default' onClick={props.doubleAsync}>
-      Double (Async!)
+      Double (Async)
     </button>
   </div>
 );

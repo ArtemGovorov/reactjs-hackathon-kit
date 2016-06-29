@@ -158,6 +158,10 @@ export const LOADERS_COMMON = [
 ]
   .concat(LOADERS_FONTS);
 
+
+export const POST_CSS_CONFIG_DEV = postCSSConfigDev;
+export const POST_CSS_CONFIG_PROD = postCSSConfigProd;
+
 function fileLoaderFactory(
   test: RegExp,
   name: string,
@@ -174,10 +178,6 @@ function fileLoaderFactory(
     }
   };
 }
-
-export const POST_CSS_CONFIG_DEV = postCSSConfigDev;
-
-export const POST_CSS_CONFIG_PROD = postCSSConfigProd;
 
 function getExternals() {
   const nodeModules = {};

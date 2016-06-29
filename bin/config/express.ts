@@ -1,7 +1,7 @@
 import * as express from 'express';
 import * as bodyParser from 'body-parser';
 import {join} from 'path';
-const flash = require('express-flash');
+
 import * as methodOverride from 'method-override';
 import { DB_TYPE, ENV } from './appConfig';
 
@@ -41,5 +41,4 @@ export default (app: express.Express) => {
   }
   console.log('--------------------------');
 
-  app.use(flash());
 };

@@ -37,7 +37,7 @@ const webpackConfig: Configuration = {
   },
   resolve: {
     root: [SRC_DIR],
-    extensions: ['', '.js'],
+    extensions: ['', '.ts', '.tsx', '.js', '.jsx', '.css'],
   },
   devtool: 'sourcemap',
   plugins: [

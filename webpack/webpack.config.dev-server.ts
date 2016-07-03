@@ -28,7 +28,7 @@ const webpackConfig: Configuration = {
   output: {
     path: ASSETS_DIR,
     filename: 'server.js',
-    publicPath: `http://localhost:3001${PUBLIC_PATH}`,
+    publicPath: `http://localhost:4000${PUBLIC_PATH}`,
     libraryTarget: 'commonjs2'
   },
   module: {
@@ -39,7 +39,7 @@ const webpackConfig: Configuration = {
     root: [SRC_DIR],
     extensions: ['', '.ts', '.tsx', '.js', '.jsx', '.css'],
   },
-  devtool: 'sourcemap',
+  devtool: 'cheap-module-source-map',
   plugins: [
     new CleanPlugin([BUILD_DIR], { root: PROJECT_ROOT }),
     new ExtractTextPlugin('styles/main.css', {

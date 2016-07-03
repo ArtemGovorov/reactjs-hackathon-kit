@@ -27,8 +27,8 @@ export const DEV = process.env.NODE_ENV === 'development';
 export const PROD = process.env.NODE_ENV === 'production';
 export const TEST = process.env.NODE_ENV === 'test';
 export const BASENAME = JSON.stringify(process.env.BASENAME || '');
-export const DEVTOOLS: boolean = false;
-export const HOT_MIDDLEWARE = 'webpack-hot-middleware/client?path=http://' + 'localhost' + ':' + '3001' + '/__webpack_hmr';
+export const DEVTOOLS: boolean = true;
+export const HOT_MIDDLEWARE = 'webpack-hot-middleware/client?path=http://' + 'localhost' + ':' + '4000' + '/__webpack_hmr';
 
 export const EXTERNALS = getExternals();
 const URL_BYTE_LIMIT: number = 10000;
@@ -157,7 +157,6 @@ export const LOADERS_COMMON = [
   LOADER_HTML
 ]
   .concat(LOADERS_FONTS);
-
 
 export const POST_CSS_CONFIG_DEV = postCSSConfigDev;
 export const POST_CSS_CONFIG_PROD = postCSSConfigProd;

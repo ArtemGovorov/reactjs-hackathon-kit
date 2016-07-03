@@ -1,34 +1,58 @@
+import {Observable}  from '@reactivex/rxjs';
+import { push } from 'react-router-redux';
+
+export const LOGIN_FULFILLED = 'LOGIN_FULFILLED ';
+export const LOGIN_ERROR = 'LOGIN_ERROR';
+export const LOGIN_PENDING = 'LOGIN_PENDING';
+export const LOGIN_ABORTED = 'LOGIN_ABORTED';
+
 export const TOGGLE_LOGIN_MODE = 'TOGGLE_LOGIN_MODE';
-export const MANUAL_LOGIN_USER = 'MANUAL_LOGIN_USER';
-export const LOGIN_SUCCESS_USER = 'LOGIN_SUCCESS_USER';
-export const LOGIN_ERROR_USER = 'LOGIN_ERROR_USER';
-export const SIGNUP_USER = 'SIGNUP_USER';
-export const SIGNUP_SUCCESS_USER = 'SIGNUP_SUCCESS_USER';
-export const SIGNUP_ERROR_USER = 'SIGNUP_ERROR_USER';
-export const LOGOUT_USER = 'LOGOUT_USER';
-export const LOGOUT_SUCCESS_USER = 'LOGOUT_SUCCESS_USER';
-export const LOGOUT_ERROR_USER = 'LOGOUT_ERROR_USER';
 
-export function logIn() {
-  return dispatch => {
+export const cancelLogin = () => ({
+  type: LOGIN_ABORTED
+});
 
-    Parse.Cloud.run('logIn', {
-      username: 'nathanvale',
-      password: 'password'
-    })
-      .then(response => {
-        console.log(response);
-      });
-  };
-}
+export const logIn = (user) =>
+  (actions, store) =>
+    Observable
+      .of({ type: LOGIN_FULFILLED, payload: user })
+      .concat(Observable.of(push('/')))
+      .do(x => { console.log(x); });
+
+export const attemptLogin = (
+  username: string,
+  password: string
+) => (
+    (actions, store) => Observable
+      .defer(
+      () =>
+        Observable
+          .fromPromise(
+          Parse.Cloud.run('logIn', {
+            username: username,
+            password: password
+          }) as any
+          )
+      )
+      .delay(3000)
+      .takeUntil(actions.ofType(LOGIN_ABORTED))
+      .map(payload => logIn(payload))
+      .catch(error => Observable.of({ type: 'LOGIN_ERROR', error }))
+      .startWith({ type: LOGIN_PENDING } as any)
+      .do(x => { console.log(x); })
+  );
+
+const initialState = {
+  isLogin: true,
+  isLoggingIn: false,
+  message: '',
+  isWaiting: false,
+  authenticated: false,
+  username: 'waiting'
+};
 
 export default function userReducer(
-  state = {
-    isLogin: true,
-    message: '',
-    isWaiting: false,
-    authenticated: false
-  },
+  state = initialState,
   action: any = {}) {
   switch (action.type) {
     case TOGGLE_LOGIN_MODE:
@@ -36,24 +60,25 @@ export default function userReducer(
         isLogin: !state.isLogin,
         message: ''
       });
-    case MANUAL_LOGIN_USER:
-      return Object.assign({}, state, {
-        isWaiting: true,
-        message: ''
-      });
-    case LOGIN_SUCCESS_USER:
+    case LOGIN_FULFILLED:
+      const user = action.payload as Parse.User;
       return Object.assign({}, state, {
         isWaiting: false,
         authenticated: true,
-        message: ''
+        message: '',
+        username: user.getUsername()
       });
-    case LOGIN_ERROR_USER:
+    case LOGIN_ERROR:
       return Object.assign({}, state, {
         isWaiting: false,
         authenticated: false,
         message: action.message
       });
-    case SIGNUP_USER:
+    case LOGIN_PENDING:
+      return Object.assign({}, state, {
+        isLoggingIn: true,
+      });
+    /*case SIGNUP_USER:
       return Object.assign({}, state, {
         isWaiting: true,
         message: ''
@@ -84,7 +109,7 @@ export default function userReducer(
         isWaiting: false,
         authenticated: true,
         isLogin: true
-      });
+      });*/
     default:
       return state;
   }

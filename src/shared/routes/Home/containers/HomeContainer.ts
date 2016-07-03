@@ -1,13 +1,16 @@
 import { connect } from 'react-redux';
-import { logIn } from '../../../store/modules/user';
+import { attemptLogin,
+  cancelLogin
+} from '../../../store/modules/user';
 import Login from '../../../components/Login';
 
 export const mapActionCreators = {
-  logIn,
+  attemptLogin,
+  cancelLogin
 };
 
 const mapStateToProps = (state) => ({
-  user: state.counter,
+  user: state.user,
 });
 
 /*  Note: mapStateToProps is where you should use `reselect` to create selectors, ie:

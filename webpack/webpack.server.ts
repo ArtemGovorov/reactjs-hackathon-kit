@@ -8,7 +8,7 @@ import {
 } from './webpack.constants';
 
 //const host = 'localhost';
-const port = 3001;
+const port = 4000;
 const serverOptions = {
 	contentBase: 'http://' + 'localhost' + ':' + port,
 	quiet: true, // don’t output anything to the console
@@ -23,7 +23,7 @@ const serverOptions = {
 	lazy: false,
 
 	// network path for static files: fetch all statics from webpack development server
-	 publicPath: `http://localhost:3001${PUBLIC_PATH}`,
+	 publicPath: `http://localhost:4000${PUBLIC_PATH}`,
 
 	headers: { 'Access-Control-Allow-Origin': '*' },
 	stats: { colors: true }

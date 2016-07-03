@@ -13,7 +13,7 @@ import {
   NODE_MODULES
 } from './webpack.constants';
 const webpackConfig: Configuration = {
-  devtool: 'eval',
+  devtool: 'cheap-module-source-map',
   context: SRC_DIR,
   entry: {
     'main': [
@@ -27,7 +27,7 @@ const webpackConfig: Configuration = {
   output: {
     path: ASSETS_DIR,
     filename: '[name].js',
-    publicPath: `http://localhost:3001${PUBLIC_PATH}`,
+    publicPath: `http://localhost:4000${PUBLIC_PATH}`,
   },
   module: {
     loaders: LOADERS_COMMON

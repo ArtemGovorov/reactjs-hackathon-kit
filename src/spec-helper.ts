@@ -10,7 +10,7 @@ import * as When from 'when';
 
 import Rx  from '@reactivex/rxjs';
 
-const parse = require('parse');
+const Parse = require('parse');
 const chaiEnzyme = require('chai-enzyme');
 require('es6-promise').Promise;
 
@@ -20,7 +20,7 @@ chai.use(chaiEnzyme());
 // https://github.com/wallabyjs/typescript-tsx-jsx/issues/2#issuecomment-226433637
 global.should = undefined;
 global.When = When;
-global.Parse = parse;
+global.Parse = Parse;
 global.chai = chai;
 global.sinon = sinon;
 global.expect = chai.expect;

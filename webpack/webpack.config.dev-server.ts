@@ -1,6 +1,5 @@
 import * as webpack from 'webpack';
 import {Configuration} from 'webpack';
-const CleanPlugin = require('clean-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 import {
@@ -9,9 +8,7 @@ import {
   ASSETS_DIR,
   BASENAME,
   PUBLIC_PATH,
-  BUILD_DIR,
   LOADERS_STYLES_PROD,
-  PROJECT_ROOT,
   EXTERNALS,
   PORT
 } from './webpack.constants';
@@ -20,8 +17,8 @@ const webpackConfig: Configuration = {
   context: SRC_DIR,
   entry: {
     server: [
-     // `bootstrap-loader`,
-     // `font-awesome-webpack!${SRC_DIR}/theme/font-awesome.config.prod.js`,
+      // `bootstrap-loader`,
+      // `font-awesome-webpack!${SRC_DIR}/theme/font-awesome/font-awesome.config.prod.js`,
       `${SRC_DIR}/server`
     ]
   },
@@ -49,6 +46,8 @@ const webpackConfig: Configuration = {
     new webpack.BannerPlugin('require("source-map-support").install();',
       { raw: true, entryOnly: false }),
     new webpack.DefinePlugin({
+      $: 'jquery',
+      jQuery: 'jquery',
       __CLIENT__: false,
       __DEVCLIENT__: false,
       __DEVSERVER__: true,

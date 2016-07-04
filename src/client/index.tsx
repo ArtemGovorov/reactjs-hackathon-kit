@@ -11,6 +11,7 @@ import { useRouterHistory, match } from 'react-router';
 import { syncHistoryWithStore } from 'react-router-redux';
 import configureStore from '../shared/store/configureStore';
 
+
 const MOUNT_ELEMENT = document.getElementById('root');
 
 const browserHistory = useRouterHistory(createBrowserHistory as any)({

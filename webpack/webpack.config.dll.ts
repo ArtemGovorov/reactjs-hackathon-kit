@@ -1,23 +1,16 @@
 import * as webpack from 'webpack';
-import {Configuration} from 'webpack';
 import {
   LOADERS_COMMON,
   SRC_DIR,
-  HOT_MIDDLEWARE,
   ASSETS_DIR,
-  DEVTOOLS,
-  BASENAME,
   PUBLIC_PATH,
   LOADERS_STYLES_DEV,
-  NODE_MODULES,
   PROJECT_ROOT,
   PORT
 } from './webpack.constants';
-// Webpack config for development
 
-import {resolve, join}  from 'path';
-const host = (process.env.HOST || 'localhost');
 
+import { join}  from 'path';
 
 const WebpackNotifierPlugin = require('webpack-notifier');
 
@@ -48,7 +41,7 @@ module.exports = {
   output: {
     path: ASSETS_DIR,
     filename: '[name].dll.js',
-    library: '[name]', // added?
+    library: '[name]',
     publicPath: `http://localhost:${PORT}${PUBLIC_PATH}`,
   },
   module: {

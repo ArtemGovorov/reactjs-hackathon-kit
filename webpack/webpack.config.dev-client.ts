@@ -16,15 +16,14 @@ import {
 const WebpackNotifierPlugin = require('webpack-notifier');
 import {join} from 'path';
 const webpackConfig: Configuration = {
-  cache: false,
+  cache: true,
   devtool: '#cheap-module-eval-source-map',
   context: SRC_DIR,
   entry: {
     'main': [
       'react-hot-loader/patch',
       HOT_MIDDLEWARE,
-      `bootstrap-loader`,
-     // `font-awesome-webpack!${SRC_DIR}/theme/font-awesome.config.js`,
+      '../node_modules/bootstrap/dist/css/bootstrap.css',
       `${SRC_DIR}/client`
     ]
   },
@@ -57,6 +56,10 @@ const webpackConfig: Configuration = {
       'process.env': {
         NODE_ENV: '"production"'
       },
+
+      $: 'jquery',
+      jQuery: 'jquery',
+
       __CLIENT__: true,
       __DEVCLIENT__: true,
       __DEVSERVER__: false,

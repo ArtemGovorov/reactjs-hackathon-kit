@@ -54,7 +54,7 @@ const LOADER_LESS_PROD = {
 
 const LOADER_SCSS_DEV = {
   test: /\.scss$/,
-  loader: 'style-loader!' +  'css-loader?'
+  loader: 'style-loader!' + 'css-loader?'
   + 'sourceMap&&modules&importLoaders=1&sourceMap&localIdentName=[local]___[hash:base64:5]!postcss!sass?outputStyle=expanded&sourceMap'
 };
 
@@ -137,6 +137,12 @@ const LOADER_IMAGES = {
   }
 };
 
+const LOADER_CSS = {
+  test: /\.css$/,
+  loaders: ['style', 'css']
+};
+
+
 const LOADER_HTML = {
   test: /\.html$/,
   loader: 'html-loader'
@@ -155,7 +161,8 @@ export const LOADERS_COMMON = [
   LOADER_TS,
   LOADER_JSON,
   LOADER_IMAGES,
-  LOADER_HTML
+  LOADER_HTML,
+  LOADER_CSS
 ]
   .concat(LOADERS_FONTS);
 

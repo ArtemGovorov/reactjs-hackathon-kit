@@ -54,7 +54,8 @@ const LOADER_LESS_PROD = {
 
 const LOADER_SCSS_DEV = {
   test: /\.scss$/,
-  loader: 'style-loader!' + LOADER_SCSS_QUERY
+  loader: 'style-loader!' +  'css-loader?'
+  + 'sourceMap&&modules&importLoaders=1&sourceMap&localIdentName=[local]___[hash:base64:5]!postcss!sass?outputStyle=expanded&sourceMap'
 };
 
 const LOADER_SCSS_PROD = {

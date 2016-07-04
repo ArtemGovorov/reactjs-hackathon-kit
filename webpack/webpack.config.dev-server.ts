@@ -20,8 +20,8 @@ const webpackConfig: Configuration = {
   context: SRC_DIR,
   entry: {
     server: [
-      `bootstrap-sass!${SRC_DIR}/theme/bootstrap.config.prod.js`,
-      `font-awesome-webpack!${SRC_DIR}/theme/font-awesome.config.prod.js`,
+     // `bootstrap-loader`,
+     // `font-awesome-webpack!${SRC_DIR}/theme/font-awesome.config.prod.js`,
       `${SRC_DIR}/server`
     ]
   },
@@ -37,12 +37,12 @@ const webpackConfig: Configuration = {
       .concat(LOADERS_STYLES_PROD)
   },
   resolve: {
-    root: [SRC_DIR],
+    root: [SRC_DIR, 'node_modules'],
     extensions: ['', '.ts', '.tsx', '.js', '.jsx', '.css'],
   },
-  devtool: 'cheap-module-source-map',
+  devtool: '#cheap-module-eval-source-map',
   plugins: [
-    new CleanPlugin([BUILD_DIR], { root: PROJECT_ROOT }),
+
     new ExtractTextPlugin('styles/main.css', {
       allChunks: true
     }),

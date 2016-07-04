@@ -15,8 +15,10 @@ const PORT = 3000;
 const fs = require('fs');
 
 let javascript = {};
+let vendor = {};
 if (__DEVSERVER__) {
   javascript = `http://localhost:${PORT + 1}/assets/main.js`;
+  vendor = 'assets/vendor.dll.js';
 } else {
   const assets = JSON.parse(fs.readFileSync('webpack-assets.json'));
   javascript = assets.main.js;
@@ -125,6 +127,7 @@ export default function render(req, res) {
               <div id="root">${componentHTML}</div>
               <script>window.__INITIAL_STATE__ = ${JSON.stringify(initialState)};</script>
               ${analtyicsScript}
+              <script type="text/javascript" charset="utf-8" src="${vendor}"></script>
               <script type="text/javascript" charset="utf-8" src="${javascript}"></script>
             </body>
           </html>

@@ -2,7 +2,6 @@ import * as webpack from 'webpack';
 import {Configuration} from 'webpack';
 import {
   LOADERS_COMMON,
-  POST_CSS_CONFIG_DEV,
   SRC_DIR,
   HOT_MIDDLEWARE,
   ASSETS_DIR,

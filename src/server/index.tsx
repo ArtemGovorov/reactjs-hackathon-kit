@@ -11,11 +11,12 @@ import createRoutes from '../shared/routes';
 import configureStore from '../shared/store/configureStore';
 //import preRenderMiddleware from 'middlewares/preRenderMiddleware';
 import header from '../shared/components/Meta';
+const PORT = 3000;
 const fs = require('fs');
 
 let javascript = {};
 if (__DEVSERVER__) {
-  javascript = 'http://localhost:4000/assets/main.js';
+  javascript = `http://localhost:${PORT + 1}/assets/main.js`;
 } else {
   const assets = JSON.parse(fs.readFileSync('webpack-assets.json'));
   javascript = assets.main.js;

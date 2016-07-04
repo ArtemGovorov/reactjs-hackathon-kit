@@ -1,6 +1,6 @@
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 import {resolve, join} from 'path';
-import * as webpack from 'webpack';
+const cssnano = require('cssnano');
 const fs = require('fs');
 
 interface FileLoader {
@@ -28,10 +28,10 @@ export const PROD = process.env.NODE_ENV === 'production';
 export const TEST = process.env.NODE_ENV === 'test';
 export const BASENAME = JSON.stringify(process.env.BASENAME || '');
 export const DEVTOOLS: boolean = true;
-export const HOT_MIDDLEWARE = 'webpack-hot-middleware/client?path=http://' + 'localhost' + ':' + '4000' + '/__webpack_hmr';
+export const HOT_MIDDLEWARE = 'webpack-hot-middleware/client?path=http://' + 'localhost' + ':' + (PORT + 1) + '/__webpack_hmr';
 
 export const EXTERNALS = getExternals();
-const URL_BYTE_LIMIT: number = 10000;
+const URL_BYTE_LIMIT: number = 5;
 const IMAGES_LOADER_NAME = 'images/[name].[ext]';
 const FONTS_LOADER_NAME = 'fonts/[name].[ext]';
 
@@ -192,42 +192,40 @@ function getExternals() {
 
 function postCSSConfigDev() {
   return [
-    require('postcss-import')({
-      path: join(__dirname, '..', 'src', 'theme'),
-      // addDependencyTo is used for hot-reloading in webpack
-      addDependencyTo: webpack
-    }),
-    require('postcss-simple-vars')(),
-    // Unwrap nested rules like how Sass does it
-    require('postcss-nested')(),
-    //  parse CSS and add vendor prefixes to CSS rules
-    require('autoprefixer')({
-      browsers: ['last 2 versions', 'IE > 8']
-    }),
-    // A PostCSS plugin to console.log() the messages registered by other
-    // PostCSS plugins
-    require('postcss-reporter')({
-      clearMessages: true
+    cssnano({
+      autoprefixer: {
+        add: true,
+        remove: true,
+        browsers: ['last 2 versions']
+      },
+      discardComments: {
+        removeAll: true
+      },
+      discardUnused: false,
+      mergeIdents: false,
+      reduceIdents: false,
+      safe: true,
+      sourcemap: true
     })
   ];
 };
 
 function postCSSConfigProd() {
   return [
-    require('postcss-import')(),
-    // Note: you must set postcss-mixins before simple-consts and nested
-    require('postcss-mixins')(),
-    require('postcss-simple-vars')(),
-    // Unwrap nested rules like how Sass does it
-    require('postcss-nested')(),
-    //  parse CSS and add vendor prefixes to CSS rules
-    require('autoprefixer')({
-      browsers: ['last 2 versions', 'IE > 8']
-    }),
-    // A PostCSS plugin to console.log() the messages registered by other
-    // PostCSS plugins
-    require('postcss-reporter')({
-      clearMessages: true
+    cssnano({
+      autoprefixer: {
+        add: true,
+        remove: true,
+        browsers: ['last 2 versions']
+      },
+      discardComments: {
+        removeAll: true
+      },
+      discardUnused: false,
+      mergeIdents: false,
+      reduceIdents: false,
+      safe: true,
+      sourcemap: true
     })
   ];
 };

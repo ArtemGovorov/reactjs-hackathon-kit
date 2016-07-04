@@ -12,7 +12,8 @@ import {
   BUILD_DIR,
   LOADERS_STYLES_PROD,
   PROJECT_ROOT,
-  EXTERNALS
+  EXTERNALS,
+  PORT
 } from './webpack.constants';
 
 const webpackConfig: Configuration = {
@@ -28,7 +29,7 @@ const webpackConfig: Configuration = {
   output: {
     path: ASSETS_DIR,
     filename: 'server.js',
-    publicPath: `http://localhost:4000${PUBLIC_PATH}`,
+    publicPath: `http://localhost:${PORT + 1}${PUBLIC_PATH}`,
     libraryTarget: 'commonjs2'
   },
   module: {

@@ -10,15 +10,17 @@ import {
   BASENAME,
   PUBLIC_PATH,
   LOADERS_STYLES_DEV,
-  NODE_MODULES
+  NODE_MODULES,
+  PORT
 } from './webpack.constants';
 const webpackConfig: Configuration = {
-  devtool: 'cheap-module-source-map',
+  cache: false,
+  devtool: 'inline-eval-cheap-source-map',
   context: SRC_DIR,
   entry: {
     'main': [
-      HOT_MIDDLEWARE,
       'react-hot-loader/patch',
+      HOT_MIDDLEWARE,
       `bootstrap-sass!${SRC_DIR}/theme/bootstrap.config.js`,
       `font-awesome-webpack!${SRC_DIR}/theme/font-awesome.config.js`,
       `${SRC_DIR}/client`
@@ -27,7 +29,7 @@ const webpackConfig: Configuration = {
   output: {
     path: ASSETS_DIR,
     filename: '[name].js',
-    publicPath: `http://localhost:4000${PUBLIC_PATH}`,
+    publicPath: `http://localhost:${PORT + 1}${PUBLIC_PATH}`,
   },
   module: {
     loaders: LOADERS_COMMON
@@ -55,5 +57,5 @@ const webpackConfig: Configuration = {
 
 // The configuration for the client
 webpackConfig['name'] = 'browser';
-webpackConfig['postcss'] = POST_CSS_CONFIG_DEV;
+//webpackConfig['postcss'] = POST_CSS_CONFIG_DEV;
 export = webpackConfig;

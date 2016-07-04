@@ -46,7 +46,7 @@ export const Login = (props: LoginProps) =>
               <input type='password' className='form-control' placeholder='Password' required=''/>
             </div>
             <button className='btn btn-primary block full-width m-b'
-            onClick={props.attemptLogin.bind(this, 'nathanvale', 'password') }>Login!!!!</button>
+            onClick={props.attemptLogin.bind(this, 'nathanvale', 'password') }>Login!</button>
 
             <a >
               <small>Forgot password?</small>

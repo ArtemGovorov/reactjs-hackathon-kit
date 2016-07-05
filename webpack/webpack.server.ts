@@ -11,9 +11,9 @@ import {
 //const host = 'localhost';
 const serverOptions = {
 	contentBase: 'http://' + 'localhost' + ':' + (PORT + 1),
-	quiet: true, // don’t output anything to the console
+	quiet: false, // don’t output anything to the console
 	noInfo: true, // suppress boring information
-	hot: true, // adds the HotModuleReplacementPlugin
+	hot: false, // adds the HotModuleReplacementPlugin
   //and switch the server to hot mode. Note: make sure you don’t add HotModuleReplacementPlugin twice
 	inline: true, // also adds the webpack/hot/dev-server entry
 

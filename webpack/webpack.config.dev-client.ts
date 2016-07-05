@@ -17,6 +17,7 @@ import {
 const WebpackNotifierPlugin = require('webpack-notifier');
 import {join} from 'path';
 const webpackConfig: Configuration = {
+  cache: true,
   devtool: 'eval',
   context: PROJECT_ROOT,
   entry: {
@@ -47,7 +48,7 @@ const webpackConfig: Configuration = {
   plugins: [
     new webpack['DllReferencePlugin']({
       context: PROJECT_ROOT,
-      manifest: require(ASSETS_DIR + 'vendor-manifest.json'),
+      manifest: require(ASSETS_DIR + '/vendor-manifest.json'),
     }),
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NoErrorsPlugin(),

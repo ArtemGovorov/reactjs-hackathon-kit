@@ -40,6 +40,6 @@
     "underscore": "registry:dt/underscore#1.7.0+20160505190121",
     "webpack": "registry:dt/webpack#1.12.9+20160321060707",
     "when": "registry:dt/when#2.4.0+20160317120654",
-    "yargs": "registry:dt/yargs#0.0.0+20160326124407"
+    "yargs": "registry:dt/yargs#0.0.0+20160619033636"
   }
 }

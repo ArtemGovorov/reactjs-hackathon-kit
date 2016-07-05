@@ -14,6 +14,7 @@ import {
 } from './webpack.constants';
 
 const webpackConfig: Configuration = {
+  cache: true,
   context: SRC_DIR,
   entry: {
     server: [
@@ -22,6 +23,7 @@ const webpackConfig: Configuration = {
       `${SRC_DIR}/server`
     ]
   },
+  watch: true,
   target: 'node',
   output: {
     path: ASSETS_DIR,
@@ -59,6 +61,7 @@ const webpackConfig: Configuration = {
 
 // The configuration for the server-side rendering
 webpackConfig['name'] = 'server-side rendering';
+webpackConfig['progress'] = true;
 webpackConfig['externals'] = EXTERNALS as any;
 
 export = webpackConfig;

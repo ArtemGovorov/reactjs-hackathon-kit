@@ -1,7 +1,6 @@
 import * as webpack from 'webpack';
 import {
   LOADERS_COMMON,
-  SRC_DIR,
   ASSETS_DIR,
   PUBLIC_PATH,
   LOADERS_STYLES_DEV,
@@ -18,24 +17,37 @@ module.exports = {
   devtool: 'inline-source-map',
   context: PROJECT_ROOT,
   entry: {
-    app_assets: [`${SRC_DIR}/client`],
     vendor: [
       'react',
       'react-dom',
       'react-dom/server',
       'react-hot-loader',
       'redux',
+      'react-redux',
       'history/lib/createBrowserHistory',
       'react-router',
       'react-helmet',
       'react-proxy',
       'react-router',
       'history',
+      'querystring',
+      'strip-ansi',
+      'ansi-regex',
+      'ansi-html',
+      'html-entities',
+      'bootstrap',
+      'es6-object-assign',
+      'es6-promise',
+      'process',
+      'parse',
       '@reactivex/rxjs',
       'react-router-redux',
-      'parse',
       'redux-observable',
-      'classnames'
+      'rxjs',
+      'redbox-react',
+      'error-stack-parser',
+      'stackframe',
+      'bootstrap/dist/css/bootstrap.css'
     ]
   },
   output: {
@@ -55,7 +67,7 @@ module.exports = {
       'assets',
       'node_modules'
     ],
-    extensions: ['', '.json', '.js', '.jsx']
+    extensions: ['', '.json', '.js', '.jsx', '.ts', '.tsx']
   },
   plugins: [
     new webpack['DllPlugin']({

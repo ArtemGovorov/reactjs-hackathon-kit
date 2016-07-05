@@ -3,9 +3,10 @@
   "version": "1.0.0",
   "description": "A React.js stack typescript isomorphic template with Webpack and react-router",
   "scripts": {
-    "dev": "npm-run-all --parallel compile build:dev-client build:dev-server start:dev-server",
-    "dll": "webpack --colors --progress --config webpack/webpack.config.dll.js",
-    "build:dev-server": "cross-env NODE_ENV=development webpack --colors --config ./webpack/webpack.config.dev-server.js  --watch --colors --display-error-details",
+    "dev": "npm-run-all compile build:dev-dll build:dev-servers",
+    "build:dev-servers": "npm-run-all --parallel build:dev-client build:dev-server start:dev-server",
+    "build:dev-dll": "webpack --colors --progress --config webpack/webpack.config.dll.js",
+    "build:dev-server": "cross-env NODE_ENV=development webpack  --config ./webpack/webpack.config.dev-server.js --no-info --quiet --progress --watch --colors --display-error-details ",
     "build:dev-client": "node ./webpack/webpack.server.js",
     "start:dev-server": "npm run delay && nodemon",
     "development-server": "npm-run-all delay development-server-start",

@@ -11,19 +11,19 @@ import {
   LOADERS_STYLES_DEV,
   NODE_MODULES,
   PORT,
+  PROJECT_ROOT,
   POST_CSS_CONFIG_DEV
 } from './webpack.constants';
 const WebpackNotifierPlugin = require('webpack-notifier');
 import {join} from 'path';
 const webpackConfig: Configuration = {
-  cache: true,
-  devtool: '#cheap-module-eval-source-map',
-  context: SRC_DIR,
+  devtool: 'eval',
+  context: PROJECT_ROOT,
   entry: {
     'main': [
       'react-hot-loader/patch',
       HOT_MIDDLEWARE,
-      '../node_modules/bootstrap/dist/css/bootstrap.css',
+      './node_modules/bootstrap/dist/css/bootstrap.css',
       `${SRC_DIR}/client`
     ]
   },
@@ -45,20 +45,18 @@ const webpackConfig: Configuration = {
     modulesDirectories: [NODE_MODULES]
   },
   plugins: [
+    new webpack['DllReferencePlugin']({
+      context: PROJECT_ROOT,
+      manifest: require(ASSETS_DIR + 'vendor-manifest.json'),
+    }),
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NoErrorsPlugin(),
     new webpack.IgnorePlugin(/webpack-stats\.json$/),
-    new webpack['DllReferencePlugin']({
-      context: join(__dirname, '../'),
-      manifest: require(join(ASSETS_DIR, 'vendor-manifest.json')),
-    }),
+
     new webpack.DefinePlugin({
       'process.env': {
         NODE_ENV: '"production"'
       },
-
-      $: 'jquery',
-      jQuery: 'jquery',
 
       __CLIENT__: true,
       __DEVCLIENT__: true,
@@ -73,6 +71,6 @@ const webpackConfig: Configuration = {
 
 // The configuration for the client
 webpackConfig['name'] = 'browser';
-webpackConfig['progress'] = true;
+webpackConfig['progress'] = 'true';
 webpackConfig['postcss'] = POST_CSS_CONFIG_DEV;
 export = webpackConfig;

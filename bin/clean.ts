@@ -4,7 +4,7 @@ import * as del from 'del';
 const items = [
   'coverage/**',
   'reports/**',
-  //  'public/**',
+  'public/**',
   'src/**/*.js',
   'src/**/*.js.map',
   'webpack/**/*.js',

@@ -14,8 +14,8 @@ import {
   PROJECT_ROOT,
   POST_CSS_CONFIG_DEV
 } from './webpack.constants';
-const WebpackNotifierPlugin = require('webpack-notifier');
-import {join} from 'path';
+
+
 const webpackConfig: Configuration = {
   cache: true,
   devtool: 'eval',
@@ -65,7 +65,7 @@ const webpackConfig: Configuration = {
       __BASENAME__: BASENAME,
       __DEVTOOLS__: DEVTOOLS
     }),
-    new WebpackNotifierPlugin()
+
   ]
 
 };

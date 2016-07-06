@@ -20,6 +20,5 @@ const webpackConfig = require(resolve('./', config));
   } catch (e) {
     debug('Compiler encountered an error.', e);
     console.log('Compiler encountered an error.', e);
-    process.exit(1);
   }
 })();

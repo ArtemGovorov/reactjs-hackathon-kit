@@ -11,7 +11,6 @@ import {
 
 import { join}  from 'path';
 
-const WebpackNotifierPlugin = require('webpack-notifier');
 
 module.exports = {
   devtool: 'inline-source-map',
@@ -85,6 +84,6 @@ module.exports = {
       __DEVELOPMENT__: true,
       __DEVTOOLS__: false  // <-------- DISABLE redux-devtools HERE
     }),
-    new WebpackNotifierPlugin(),
+
   ]
 };

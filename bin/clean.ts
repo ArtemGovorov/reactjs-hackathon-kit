@@ -23,7 +23,7 @@ items.forEach(
     del([toDelete]).then(
       paths => {
         if (paths.length > 0) {
-          debug(toDelete + ' successfully removed');
+          debug('🚿  ' + toDelete + ' successfully removed');
         }
       }
     );

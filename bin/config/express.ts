@@ -4,7 +4,7 @@ import {join} from 'path';
 import * as _debug from 'debug';
 import * as methodOverride from 'method-override';
 import {  ENV } from './appConfig';
-const debug = _debug('app:bin:server');
+const debug = _debug('app:bin:config:express');
 
 export default (app: express.Express) => {
   app.set('port', (process.env.PORT || 3000));
@@ -30,8 +30,7 @@ export default (app: express.Express) => {
   // The trust proxy setting is implemented using the proxy-addr package. For more information, see its documentation.
   // loopback - 127.0.0.1/8, ::1/128
   app.set('trust proxy', 'loopback');
-  debug(`Starting server`);
-  debug(`Environment: ${ENV}`);
-  debug(`Listening on port: ${app.get('port')}`);
-
+  debug(`🖥${ENV ? '  🚧' : ''}  Starting ${ENV ? 'development ' : ''}server at localhost:${app.get('port')}`);
+  debug(`🌳  NODE_ENV: ${ENV}`);
 };
+

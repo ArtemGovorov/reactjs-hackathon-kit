@@ -9,13 +9,13 @@ const watch = argv.watch;
 const webpackConfig = require(resolve('./', config));
 ; (async function () {
   try {
-    debug('Running compiler on ' + config );
+    debug(`🏃${watch ? ' ⏱' : ''}  Running webpack ${watch ? 'watch ' : ''}compiler on ${config}` );
     const stats = await webpackCompiler(webpackConfig, watch);
     if (stats['warnings'].length && compiler_fail_on_warning) {
-      debug('Config set to fail on warning, exiting with status code "1".');
+      debug('⚠️  Config set to fail on warning, exiting with status code "1"');
       process.exit(1);
     }
   } catch (e) {
-    debug('Compiler encountered an error.', e);
+    debug('❌  Wepack compiler encountered an error', e);
   }
 })();

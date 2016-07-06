@@ -17,26 +17,25 @@ export default function webpackCompiler(webpackConfig, watch = false) {
 
       debug('Webpack compile completed for webpack config: ' + webpackConfig['name']);
       debug('\n\n' + stats.toString({
-        chunks: true,
+        chunks: true ,
         chunkModules: false,
         colors: true,
-        hash: true,
+        hash: true && !watch,
         version: true,
         timings: true
       }) + '\n');
       if (err) {
-        debug('Webpack compiler encountered a fatal error.', err);
-        console.log('Webpack compiler encountered a fatal error.', err);
+        debug('☠️  Webpack compiler encountered a fatal error.', err);
         return reject(err);
       } else if (jsonStats.errors.length > 0) {
-        debug('Webpack compiler encountered errors.');
+        debug('❌  Webpack compiler encountered errors.');
         debug(jsonStats.errors.join('\n'));
         return reject(new Error('Webpack compiler encountered errors'));
       } else if (jsonStats.warnings.length > 0) {
-        debug('Webpack compiler encountered warnings.');
+        debug('⚠️  Webpack compiler encountered warnings.');
         debug(jsonStats.warnings.join('\n'));
       } else {
-        debug('No errors or warnings encountered.');
+        debug('👍  No errors or warnings encountered.');
       }
       resolve(jsonStats);
     };

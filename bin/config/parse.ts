@@ -2,11 +2,14 @@ const ParseServer = require('parse-server').ParseServer;
 const ParseDashboard = require('parse-dashboard');
 import * as express from 'express';
 import {resolve} from 'path';
+import * as _debug from 'debug';
+const debug = _debug('app:bin:config:parse');
+
 export const APP_DIR = resolve(__dirname, '../../', 'src');
 export default (app: express.Express) => {
   const databaseUri = process.env.DATABASE_URI || process.env.MONGODB_URI;
   if (!databaseUri) {
-    console.log('DATABASE_URI not specified, falling back to localhost.');
+    debug('DATABASE_URI not specified, falling back to localhost');
   }
 
   const api = new ParseServer({
@@ -39,6 +42,8 @@ export default (app: express.Express) => {
   // Serve the Parse API on the /parse URL prefix
   const mountPath = process.env.PARSE_MOUNT || '/api';
   app.use(mountPath, api);
-
+  debug('Serving parse server at ' + mountPath);
   app.use('/parse-dashboard', dashboard);
+  debug('Serving parse dashboard ' + '/parse-dashboard');
+
 };

@@ -1,4 +1,6 @@
 #!/usr/bin/env node
+import * as _debug from 'debug';
+const debug = _debug('app:bin:clean');
 import * as del from 'del';
 
 const items = [
@@ -21,7 +23,7 @@ items.forEach(
     del([toDelete]).then(
       paths => {
         if (paths.length > 0) {
-          console.log(toDelete + ' successfully removed');
+          debug(toDelete + ' successfully removed');
         }
       }
     );

@@ -23,8 +23,8 @@ const webpackConfig: Configuration = {
       `${SRC_DIR}/server`
     ]
   },
-  watch: true,
   target: 'node',
+  watch: true,
   output: {
     path: ASSETS_DIR,
     filename: 'server.js',
@@ -60,8 +60,7 @@ const webpackConfig: Configuration = {
 };
 
 // The configuration for the server-side rendering
-webpackConfig['name'] = 'server-side rendering';
-webpackConfig['progress'] = true;
+webpackConfig['name'] = 'dev-server';
 webpackConfig['externals'] = EXTERNALS as any;
 
 export = webpackConfig;

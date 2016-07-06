@@ -71,7 +71,6 @@ const webpackConfig: Configuration = {
 };
 
 // The configuration for the client
-webpackConfig['name'] = 'browser';
-webpackConfig['progress'] = 'true';
+webpackConfig['name'] = 'dev-client';
 webpackConfig['postcss'] = POST_CSS_CONFIG_DEV;
 export = webpackConfig;

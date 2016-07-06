@@ -15,6 +15,7 @@ import { join}  from 'path';
 module.exports = {
   devtool: 'inline-source-map',
   context: PROJECT_ROOT,
+  name: 'dll',
   entry: {
     vendor: [
       'react',

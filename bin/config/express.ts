@@ -1,9 +1,10 @@
 import * as express from 'express';
 import * as bodyParser from 'body-parser';
 import {join} from 'path';
-
+import * as _debug from 'debug';
 import * as methodOverride from 'method-override';
-import { DB_TYPE, ENV } from './appConfig';
+import {  ENV } from './appConfig';
+const debug = _debug('app:bin:server');
 
 export default (app: express.Express) => {
   app.set('port', (process.env.PORT || 3000));
@@ -29,16 +30,8 @@ export default (app: express.Express) => {
   // The trust proxy setting is implemented using the proxy-addr package. For more information, see its documentation.
   // loopback - 127.0.0.1/8, ::1/128
   app.set('trust proxy', 'loopback');
-
-  console.log('--------------------------');
-  console.log('===> 😊  Starting Server . . .');
-  console.log(`===>  Environment: ${ENV}`);
-  console.log(`===>  Listening on port: ${app.get('port')}`);
-  console.log(`===>  Using DB TYPE: ${DB_TYPE}`);
-  if (ENV === 'production') {
-    console.log('===> 🚦  Note: In order for authentication to work in production');
-    console.log('===>           you will need a secure HTTPS connection');
-  }
-  console.log('--------------------------');
+  debug(`Starting server`);
+  debug(`Environment: ${ENV}`);
+  debug(`Listening on port: ${app.get('port')}`);
 
 };

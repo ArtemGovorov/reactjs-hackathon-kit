@@ -47,7 +47,9 @@ module.exports = {
       'redbox-react',
       'error-stack-parser',
       'stackframe',
-      'bootstrap/dist/css/bootstrap.css'
+      'bootstrap/dist/css/bootstrap.css',
+      'jquery',
+      'bootstrap-loader',
     ]
   },
   output: {
@@ -58,7 +60,12 @@ module.exports = {
   },
   module: {
     loaders: LOADERS_COMMON
-      .concat(LOADERS_STYLES_DEV)
+      .concat(LOADERS_STYLES_DEV,
+      [
+        // Bootstrap 3
+        { test: /bootstrap-sass\/assets\/javascripts\//, loader: 'imports?jQuery=jquery' },
+      ]
+      )
   },
   progress: true,
   resolve: {

@@ -30,7 +30,7 @@ export default (app: express.Express) => {
   // The trust proxy setting is implemented using the proxy-addr package. For more information, see its documentation.
   // loopback - 127.0.0.1/8, ::1/128
   app.set('trust proxy', 'loopback');
-  debug(`🖥${ENV ? '  🚧' : ''}  Starting ${ENV ? 'development ' : ''}server at localhost:${app.get('port')}`);
+  debug(`\n  ${ENV ? '🚧' : '🖥'}  Starting ${ENV ? 'development ' : ''}server at http://localhost:${app.get('port')}`);
   debug(`🌳  NODE_ENV: ${ENV}`);
 };
 

@@ -18,7 +18,8 @@ const webpackConfig: Configuration = {
   context: SRC_DIR,
   entry: {
     server: [
-      // `bootstrap-loader`,
+      '../node_modules/bootstrap-loader/no-op.js',
+      `bootstrap-loader`,
       // `font-awesome-webpack!${SRC_DIR}/theme/font-awesome/font-awesome.config.prod.js`,
       `${SRC_DIR}/server`
     ]
@@ -36,6 +37,9 @@ const webpackConfig: Configuration = {
       .concat(LOADERS_STYLES_PROD)
   },
   resolve: {
+    alias: {
+      './lib/bootstrap.loader!./no-op.js': 'jquery',
+    },
     root: [SRC_DIR, 'node_modules'],
     extensions: ['', '.ts', '.tsx', '.js', '.jsx', '.css'],
   },
@@ -48,8 +52,6 @@ const webpackConfig: Configuration = {
     new webpack.BannerPlugin('require("source-map-support").install();',
       { raw: true, entryOnly: false }),
     new webpack.DefinePlugin({
-      $: 'jquery',
-      jQuery: 'jquery',
       __CLIENT__: false,
       __DEVCLIENT__: false,
       __DEVSERVER__: true,

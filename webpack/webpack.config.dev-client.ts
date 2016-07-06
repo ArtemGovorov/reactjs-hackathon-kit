@@ -24,7 +24,8 @@ const webpackConfig: Configuration = {
     'main': [
       'react-hot-loader/patch',
       HOT_MIDDLEWARE,
-      './node_modules/bootstrap/dist/css/bootstrap.css',
+      'bootstrap-loader',
+      /*     './node_modules/bootstrap/dist/css/bootstrap.css',*/
       `${SRC_DIR}/client`
     ]
   },
@@ -35,7 +36,13 @@ const webpackConfig: Configuration = {
   },
   module: {
     loaders: LOADERS_COMMON
-      .concat(LOADERS_STYLES_DEV)
+      .concat(
+      LOADERS_STYLES_DEV,
+      [
+        // Bootstrap 3
+        { test: /bootstrap-sass\/assets\/javascripts\//, loader: 'imports?jQuery=jquery' },
+      ]
+      )
   },
   resolve: {
     root: [SRC_DIR],
@@ -58,7 +65,6 @@ const webpackConfig: Configuration = {
       'process.env': {
         NODE_ENV: '"production"'
       },
-
       __CLIENT__: true,
       __DEVCLIENT__: true,
       __DEVSERVER__: false,

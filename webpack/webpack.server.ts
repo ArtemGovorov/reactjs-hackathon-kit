@@ -39,7 +39,7 @@ app.listen((PORT + 1), function onAppListening(err) {
   if (err) {
     debug(err);
   } else {
-		debug(`🖥  🔥  Starting hot reload server at localhost:${(PORT + 1)}`);
+		debug(`\n  🔥  Starting hot reload server at http://localhost:${(PORT + 1)}`);
   }
 });
 

@@ -13,10 +13,10 @@ export const Login = (props: LoginProps) =>
     <div className='row'>
 
       <div className='col-md-6'>
-        <h2 className='font-bold'>Welcome!!! to IN+</h2>
+        <h2 className='font-bold'>Welcome to IN+</h2>
 
         <p>
-          Perfectly designed and precisely prepared admin theme with over 50 pages with extra new web app views.
+        Perfectly designed and precisely prepared admin theme with over 50 pages with extra new web app views.
         </p>
 
         <p>
@@ -25,7 +25,7 @@ export const Login = (props: LoginProps) =>
         </p>
 
         <p>
-          When an unknown printer took a galley of type and scrambled it to make a type specimen book.
+          When vvvan unknown printer took a galley of type and scrambled it to make a type specimen book.
         </p>
 
         <p>
@@ -40,7 +40,7 @@ export const Login = (props: LoginProps) =>
           <div className='m-t' role='form'>
             <div className='form-group'>
               <input type='text' className='form-control' placeholder='Username' required='' />
-              {props.user.username} arse?
+              {props.user.username}
             </div>
             <div className='form-group'>
               <input type='password' className='form-control' placeholder='Password' required=''/>

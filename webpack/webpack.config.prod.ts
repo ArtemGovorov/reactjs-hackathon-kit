@@ -95,8 +95,8 @@ const webpackConfig: Configuration = [
       extensions: ['', '.ts', '.tsx', '.js', '.jsx', '.css'],
     },
     plugins: [
-      new webpack.BannerPlugin('require("source-map-support").install();',
-        { raw: true, entryOnly: false }),
+     /* new webpack.BannerPlugin('require("source-map-support").install();',
+        { raw: true, entryOnly: false }),*/
       // Order the modules and chunks by occurrence.
       // This saves space, because often referenced modules
       // and chunks get smaller ids.

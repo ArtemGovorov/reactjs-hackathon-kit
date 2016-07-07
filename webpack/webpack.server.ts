@@ -24,7 +24,7 @@ const serverOptions = {
 		chunks: true,
 		chunkModules: false,
 		colors: true,
-		hash: true,
+		hash: false,
 		version: true,
 		timings: true
 	}

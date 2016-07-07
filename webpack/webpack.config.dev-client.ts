@@ -17,7 +17,7 @@ import {
 
 
 const webpackConfig: Configuration = {
-  cache: true,
+
   devtool: 'eval',
   context: PROJECT_ROOT,
   entry: {
@@ -25,8 +25,7 @@ const webpackConfig: Configuration = {
       'react-hot-loader/patch',
       HOT_MIDDLEWARE,
       'bootstrap-loader',
-      /*     './node_modules/bootstrap/dist/css/bootstrap.css',*/
-      `${SRC_DIR}/client`
+      `${SRC_DIR}/client`,
     ]
   },
   output: {
@@ -37,29 +36,24 @@ const webpackConfig: Configuration = {
   module: {
     loaders: LOADERS_COMMON
       .concat(
-      LOADERS_STYLES_DEV,
-      [
-        // Bootstrap 3
-        { test: /bootstrap-sass\/assets\/javascripts\//, loader: 'imports?jQuery=jquery' },
-      ]
+      LOADERS_STYLES_DEV
       )
   },
   resolve: {
     root: [SRC_DIR],
-    extensions: ['', '.ts', '.tsx', '.js'],
+    extensions: ['', '.ts', '.tsx', '.js', '.scss'],
 
   },
   resolveLoader: {
     modulesDirectories: [NODE_MODULES]
   },
   plugins: [
+    new webpack.HotModuleReplacementPlugin(),
     new webpack['DllReferencePlugin']({
       context: PROJECT_ROOT,
       manifest: require(ASSETS_DIR + '/vendor-manifest.json'),
     }),
-    new webpack.HotModuleReplacementPlugin(),
     new webpack.NoErrorsPlugin(),
-    new webpack.IgnorePlugin(/webpack-stats\.json$/),
 
     new webpack.DefinePlugin({
       'process.env': {

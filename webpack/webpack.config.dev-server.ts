@@ -10,42 +10,38 @@ import {
   PUBLIC_PATH,
   LOADERS_STYLES_PROD,
   EXTERNALS,
-  PORT
+  PROJECT_ROOT
 } from './webpack.constants';
 
 const webpackConfig: Configuration = {
-  cache: true,
-  context: SRC_DIR,
+  context: PROJECT_ROOT,
   entry: {
     server: [
-      '../node_modules/bootstrap-loader/no-op.js',
-      `bootstrap-loader`,
+      'bootstrap-loader/extractStyles',
       // `font-awesome-webpack!${SRC_DIR}/theme/font-awesome/font-awesome.config.prod.js`,
-      `${SRC_DIR}/server`
+      `${SRC_DIR}/server`,
     ]
   },
   target: 'node',
-  watch: true,
+
   output: {
     path: ASSETS_DIR,
     filename: 'server.js',
-    publicPath: `http://localhost:${PORT + 1}${PUBLIC_PATH}`,
+    publicPath: PUBLIC_PATH,
     libraryTarget: 'commonjs2'
   },
   module: {
     loaders: LOADERS_COMMON
-      .concat(LOADERS_STYLES_PROD)
+      .concat(
+      LOADERS_STYLES_PROD
+      )
   },
   resolve: {
-    alias: {
-      './lib/bootstrap.loader!./no-op.js': 'jquery',
-    },
-    root: [SRC_DIR, 'node_modules'],
-    extensions: ['', '.ts', '.tsx', '.js', '.jsx', '.css'],
+    root: [SRC_DIR],
+    extensions: ['', '.ts', '.tsx', '.js', '.css'],
   },
   devtool: '#cheap-module-eval-source-map',
   plugins: [
-
     new ExtractTextPlugin('styles/main.css', {
       allChunks: true
     }),
@@ -64,5 +60,6 @@ const webpackConfig: Configuration = {
 // The configuration for the server-side rendering
 webpackConfig['name'] = 'dev-server';
 webpackConfig['externals'] = EXTERNALS as any;
+
 
 export = webpackConfig;

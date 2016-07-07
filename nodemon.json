@@ -1,9 +1,0 @@
-{
-  "verbose": false,
-  "watch": [
-    "public",
-    "webpack",
-    "bin"
-  ],
-  "exec": "node ./bin/server.js"
-}

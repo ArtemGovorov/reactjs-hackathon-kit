@@ -20,7 +20,7 @@ export default function webpackCompiler(webpackConfig, watch = false) {
         chunks: true ,
         chunkModules: false,
         colors: true,
-        hash: true && !watch,
+        hash: true,
         version: true,
         timings: true
       }) + '\n');
@@ -44,7 +44,7 @@ export default function webpackCompiler(webpackConfig, watch = false) {
       compiler.watch(
         {
           /** After a change the watcher waits that time (in milliseconds) for more changes. Default: 300. */
-          aggregateTimeout: 1000,
+          aggregateTimeout: 0,
           /** The watcher uses polling instead of native watchers.
            * true uses the default interval, a number specifies a interval in milliseconds.
            * Default: undefined (automatic). */

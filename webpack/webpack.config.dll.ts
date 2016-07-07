@@ -47,8 +47,6 @@ module.exports = {
       'redbox-react',
       'error-stack-parser',
       'stackframe',
-      'bootstrap/dist/css/bootstrap.css',
-      'jquery',
       'bootstrap-loader',
     ]
   },

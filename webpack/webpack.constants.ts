@@ -31,7 +31,7 @@ export const DEVTOOLS: boolean = true;
 export const HOT_MIDDLEWARE = 'webpack-hot-middleware/client?path=http://' + 'localhost' + ':' + (PORT + 1) + '/__webpack_hmr';
 
 export const EXTERNALS = getExternals();
-const URL_BYTE_LIMIT: number = 5;
+const URL_BYTE_LIMIT: number = 20000;
 const IMAGES_LOADER_NAME = 'images/[name].[ext]';
 const FONTS_LOADER_NAME = 'fonts/[name].[ext]';
 
@@ -62,7 +62,6 @@ const LOADER_SCSS_PROD = {
   test: /\.scss$/,
   loader: ExtractTextPlugin.extract('style-loader', LOADER_SCSS_QUERY)
 };
-
 export const LOADERS_STYLES_DEV = []
   .concat(
   LOADER_LESS_DEV,

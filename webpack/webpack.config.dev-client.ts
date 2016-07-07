@@ -26,6 +26,9 @@ const webpackConfig: Configuration = {
       HOT_MIDDLEWARE,
       'bootstrap-loader',
       `${SRC_DIR}/client`,
+    ],
+    'theme': [
+      'bootstrap-loader'
     ]
   },
   output: {

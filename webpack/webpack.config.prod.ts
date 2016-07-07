@@ -2,21 +2,20 @@ import * as webpack from 'webpack';
 import {Configuration} from 'webpack';
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const InlineEnviromentconstiablesPlugin = require('inline-environment-variables-webpack-plugin');
-const CleanPlugin = require('clean-webpack-plugin');
 const AssetsPlugin = require('assets-webpack-plugin');
-const assetsPluginInstance = new AssetsPlugin({prettyPrint: true});
+const assetsPluginInstance = new AssetsPlugin({ prettyPrint: true });
 
 import {
   SRC_DIR,
   ASSETS_DIR,
   BASENAME,
   PUBLIC_PATH,
-  BUILD_DIR,
   LOADERS_STYLES_PROD,
   PROJECT_ROOT,
   LOADERS_COMMON,
   FILE_NAME,
   POST_CSS_CONFIG_PROD,
+  EXTERNALS
 } from './webpack.constants';
 
 const webpackConfig: Configuration = [
@@ -26,8 +25,7 @@ const webpackConfig: Configuration = [
     context: SRC_DIR,
     entry: {
       'main': [
-        `bootstrap-sass!${SRC_DIR}/theme/bootstrap.config.js`,
-        `font-awesome-webpack!${SRC_DIR}/theme/font-awesome.config.js`,
+        'bootstrap-loader/extractStyles',
         `${SRC_DIR}/client`
       ]
     },
@@ -47,7 +45,6 @@ const webpackConfig: Configuration = [
       extensions: ['', '.ts', '.tsx', '.js', '.jsx', '.css'],
     },
     plugins: [
-      new CleanPlugin([BUILD_DIR], { root: PROJECT_ROOT }),
       // extract inline css from modules into separate files
       new ExtractTextPlugin('styles/[name].[contenthash].css', {
         allChunks: true
@@ -71,13 +68,13 @@ const webpackConfig: Configuration = [
   }, {
     // The configuration for the server-side rendering
     name: 'server-side rendering',
-    context: SRC_DIR,
+    context: PROJECT_ROOT,
     entry: {
       server: [
-        `bootstrap-sass!${SRC_DIR}/theme/bootstrap.config.prod.js`,
-        `font-awesome-webpack!${SRC_DIR}/theme/font-awesome.config.prod.js`,
+        'bootstrap-loader/extractStyles',
         `${SRC_DIR}/server`
       ]
+
     },
     target: 'node',
     output: {
@@ -92,23 +89,24 @@ const webpackConfig: Configuration = [
     },
     resolve: {
       root: [SRC_DIR],
-      extensions: ['', '.ts', '.tsx', '.js', '.jsx', '.css'],
+         extensions: ['', '.ts', '.tsx', '.js', '.css']
     },
+    externals: EXTERNALS as any,
     plugins: [
-     /* new webpack.BannerPlugin('require("source-map-support").install();',
-        { raw: true, entryOnly: false }),*/
+      /* new webpack.BannerPlugin('require("source-map-support").install();',
+         { raw: true, entryOnly: false }),*/
       // Order the modules and chunks by occurrence.
       // This saves space, because often referenced modules
       // and chunks get smaller ids.
-      new webpack.optimize.OccurenceOrderPlugin(true),
+      /*    new webpack.optimize.OccurenceOrderPlugin(true),
+          new webpack.optimize.UglifyJsPlugin({
+            compressor: {
+              warnings: false
+            }
+          } as any),*/
       new ExtractTextPlugin('styles/[name].[contenthash].css', {
         allChunks: true
       }),
-      new webpack.optimize.UglifyJsPlugin({
-        compressor: {
-          warnings: false
-        }
-      } as any),
       new webpack.DefinePlugin({
         __CLIENT__: false,
         __DEVCLIENT__: false,

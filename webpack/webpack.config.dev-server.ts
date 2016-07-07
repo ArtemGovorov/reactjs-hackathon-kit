@@ -18,12 +18,10 @@ const webpackConfig: Configuration = {
   entry: {
     server: [
       'bootstrap-loader/extractStyles',
-      // `font-awesome-webpack!${SRC_DIR}/theme/font-awesome/font-awesome.config.prod.js`,
       `${SRC_DIR}/server`,
     ]
   },
   target: 'node',
-
   output: {
     path: ASSETS_DIR,
     filename: 'server.js',

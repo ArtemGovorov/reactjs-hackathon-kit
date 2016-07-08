@@ -15,14 +15,15 @@ import {
   LOADERS_COMMON,
   FILE_NAME,
   POST_CSS_CONFIG_PROD,
-  EXTERNALS
+  EXTERNALS,
+  NODE_MODULES
 } from './webpack.constants';
 
 const webpackConfig: Configuration = [
   {
     // The configuration for the client
     name: 'browser',
-    context: SRC_DIR,
+    context: PROJECT_ROOT,
     entry: {
       'main': [
         'bootstrap-loader/extractStyles',
@@ -43,6 +44,9 @@ const webpackConfig: Configuration = [
     resolve: {
       root: [SRC_DIR],
       extensions: ['', '.ts', '.tsx', '.js', '.jsx', '.css'],
+    },
+    resolveLoader: {
+      modulesDirectories: [NODE_MODULES]
     },
     plugins: [
       // extract inline css from modules into separate files
@@ -89,7 +93,7 @@ const webpackConfig: Configuration = [
     },
     resolve: {
       root: [SRC_DIR],
-         extensions: ['', '.ts', '.tsx', '.js', '.css']
+      extensions: ['', '.ts', '.tsx', '.js', '.css']
     },
     externals: EXTERNALS as any,
     plugins: [

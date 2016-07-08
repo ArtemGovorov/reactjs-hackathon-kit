@@ -44,7 +44,7 @@ const webpackConfig: Configuration = {
   },
   resolve: {
     root: [SRC_DIR],
-    extensions: ['', '.ts', '.tsx', '.js', '.scss'],
+    extensions: ['', '.ts', '.tsx', '.js', '.jsx', '.css'],
 
   },
   resolveLoader: {

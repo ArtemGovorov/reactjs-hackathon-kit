@@ -14,7 +14,6 @@ const items = [
   'bin/**/*.js',
   'bin/**/*.js.map',
   'webpack-assets.json',
-  'webpack-assets-server.json',
   'logs/**'
 ];
 

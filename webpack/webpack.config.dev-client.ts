@@ -26,9 +26,6 @@ const webpackConfig: Configuration = {
       HOT_MIDDLEWARE,
       'bootstrap-loader',
       `${SRC_DIR}/client`,
-    ],
-    'theme': [
-      'bootstrap-loader'
     ]
   },
   output: {
@@ -44,7 +41,7 @@ const webpackConfig: Configuration = {
   },
   resolve: {
     root: [SRC_DIR],
-    extensions: ['', '.ts', '.tsx', '.js', '.jsx', '.css'],
+    extensions: ['', '.ts', '.tsx', '.js', '.scss'],
 
   },
   resolveLoader: {

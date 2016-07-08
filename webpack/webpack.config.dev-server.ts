@@ -14,6 +14,7 @@ import {
 } from './webpack.constants';
 
 const webpackConfig: Configuration = {
+  cache: false,
   context: PROJECT_ROOT,
   entry: {
     server: [
@@ -38,8 +39,9 @@ const webpackConfig: Configuration = {
     root: [SRC_DIR],
     extensions: ['', '.ts', '.tsx', '.js', '.css'],
   },
-  devtool: '#cheap-module-eval-source-map',
+  devtool: 'eval',
   plugins: [
+
     new ExtractTextPlugin('styles/main.css', {
       allChunks: true
     }),

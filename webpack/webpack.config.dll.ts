@@ -11,7 +11,6 @@ import {
 
 import { join}  from 'path';
 
-
 module.exports = {
   devtool: 'inline-source-map',
   context: PROJECT_ROOT,
@@ -75,6 +74,7 @@ module.exports = {
     extensions: ['', '.json', '.js', '.jsx', '.ts', '.tsx']
   },
   plugins: [
+
     new webpack['DllPlugin']({
       name: '[name]',
       path: join(ASSETS_DIR, '[name]-manifest.json'),

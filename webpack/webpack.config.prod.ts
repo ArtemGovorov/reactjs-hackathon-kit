@@ -36,7 +36,7 @@ const webpackConfig: Configuration = [
       publicPath: PUBLIC_PATH
 
     },
-
+    progress: true,
     module: {
       loaders: LOADERS_COMMON
         .concat(LOADERS_STYLES_PROD)
@@ -49,10 +49,11 @@ const webpackConfig: Configuration = [
       modulesDirectories: [NODE_MODULES]
     },
     plugins: [
-      // extract inline css from modules into separate files
+
       new ExtractTextPlugin('styles/[name].[contenthash].css', {
         allChunks: true
       }),
+      new webpack.optimize.OccurenceOrderPlugin(true),
       new webpack.optimize.UglifyJsPlugin({
         compressor: {
           warnings: false
@@ -87,6 +88,7 @@ const webpackConfig: Configuration = [
       publicPath: PUBLIC_PATH,
       libraryTarget: 'commonjs2'
     },
+    progress: true,
     module: {
       loaders: LOADERS_COMMON
         .concat(LOADERS_STYLES_PROD)
@@ -97,17 +99,8 @@ const webpackConfig: Configuration = [
     },
     externals: EXTERNALS as any,
     plugins: [
-      /* new webpack.BannerPlugin('require("source-map-support").install();',
-         { raw: true, entryOnly: false }),*/
-      // Order the modules and chunks by occurrence.
-      // This saves space, because often referenced modules
-      // and chunks get smaller ids.
-      /*    new webpack.optimize.OccurenceOrderPlugin(true),
-          new webpack.optimize.UglifyJsPlugin({
-            compressor: {
-              warnings: false
-            }
-          } as any),*/
+      new webpack.BannerPlugin('require("source-map-support").install();',
+        { raw: true, entryOnly: false }),
       new ExtractTextPlugin('styles/[name].[contenthash].css', {
         allChunks: true
       }),
@@ -126,4 +119,3 @@ const webpackConfig: Configuration = [
 ];
 
 export = webpackConfig;
-

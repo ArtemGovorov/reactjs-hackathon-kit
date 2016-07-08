@@ -13,20 +13,15 @@ import {
 //const host = 'localhost';
 const serverOptions = {
 	contentBase: 'http://' + 'localhost' + ':' + (PORT + 1),
-	quiet: false,
-	noInfo: false,
+	quiet: true,
+	noInfo: true,
 	hot: false,
 	inline: false,
 	lazy: false,
 	publicPath: `http://localhost:${PORT + 1}${PUBLIC_PATH}`,
 	headers: { 'Access-Control-Allow-Origin': '*' },
 	stats: {
-		chunks: true,
-		chunkModules: false,
-		colors: true,
-		hash: false,
-		version: true,
-		timings: true
+		colors: false
 	}
 };
 

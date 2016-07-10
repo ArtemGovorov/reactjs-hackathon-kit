@@ -16,6 +16,7 @@ export default function webpackCompiler(webpackConfig, watch = false) {
     }
     config.plugins.push(new ProgressBarPlugin({
       clear: true,
+      width: 60,
       format: '  building [:bar] ' + chalk.green.bold(':percent'),
     }));
   }
@@ -42,7 +43,7 @@ export default function webpackCompiler(webpackConfig, watch = false) {
         return '  ' + str.replace(/\n/g, '\n    ');
       }
 
-      debug('Webpack compile completed for webpack config: ' + webpackConfig['name']);
+      debug('\n  ✅  Webpack compile completed for webpack config: ' + webpackConfig['name']);
       if (!watch) {
         debug('\n\n' + preetfy(stats.toString({
           chunks: false,
@@ -54,17 +55,17 @@ export default function webpackCompiler(webpackConfig, watch = false) {
         })) + '\n');
       }
       if (err) {
-        debug('☠️  Webpack compiler encountered a fatal error.', err);
+        debug('\n  ☠️  Webpack compiler encountered a fatal error.: ' + webpackConfig['name'], err);
         return reject(err);
       } else if (jsonStats.errors.length > 0) {
-        debug('❌  Webpack compiler encountered errors.');
+        debug('\n  ❌  Webpack compiler encountered errors.: ' + webpackConfig['name']);
         debug(jsonStats.errors.join('\n'));
-        return reject(new Error('Webpack compiler encountered errors'));
+        return reject(new Error('Webpack compiler encountered errors: ' + webpackConfig['name']));
       } else if (jsonStats.warnings.length > 0) {
-        debug('⚠️  Webpack compiler encountered warnings.');
+        debug('\n  ⚠️  Webpack compiler encountered warnings: ' + webpackConfig['name']);
         debug(jsonStats.warnings.join('\n'));
       } else {
-        debug('👍  No errors or warnings encountered.');
+        debug('\n  👍  No errors or warnings encountered: ' + webpackConfig['name']);
       }
       resolve(jsonStats);
     };

@@ -2,7 +2,8 @@
 import * as _debug from 'debug';
 const debug = _debug('app:bin:kill');
 const kill = require('kill3k');
+import {PORT} from '../webpack/webpack.constants';
 
-debug('\n  🔫  Terminating ports 3000 and 3001');
-kill(3000);
-kill(3001);
+debug(`\n  🔫  Terminating ports ${PORT} and ${PORT + 1}`);
+kill(PORT);
+kill(PORT + 1);

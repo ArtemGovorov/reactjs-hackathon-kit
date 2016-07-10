@@ -15,14 +15,14 @@ interface FileLoader {
 
 export const HOST = process.env.HOST || 'localhost';
 export const PORT = process.env.PORT || 3000;
-export const BUILD_DIR = resolve(__dirname, '..', 'public');
-export const ASSETS_DIR = join(__dirname, '..', 'public', 'assets');
+export const BUILD_DIR = resolve(__dirname, '../../', 'public');
+export const ASSETS_DIR = join(__dirname, '../../', 'public', 'assets');
 // The output path from the view of the Javascript
 export const PUBLIC_PATH = '/assets/';
 export const FILE_NAME = '[name].[hash].js';
-export const SRC_DIR = resolve(__dirname, '..', 'src');
-export const NODE_MODULES = resolve(__dirname, '..', 'node_modules');
-export const PROJECT_ROOT = resolve(__dirname, '..');
+export const SRC_DIR = resolve(__dirname, '../../', 'src');
+export const NODE_MODULES = resolve(__dirname, '../../', 'node_modules');
+export const PROJECT_ROOT = resolve(__dirname, '../../');
 export const DEV = process.env.NODE_ENV === 'development';
 export const PROD = process.env.NODE_ENV === 'production';
 export const TEST = process.env.NODE_ENV === 'test';
@@ -165,8 +165,8 @@ export const LOADERS_COMMON = [
 ]
   .concat(LOADERS_FONTS);
 
-export const POST_CSS_CONFIG_DEV = postCSSConfigDev;
-export const POST_CSS_CONFIG_PROD = postCSSConfigProd;
+export const POST_CSS_CONFIG_DEV = postCSSConfig;
+export const POST_CSS_CONFIG_PROD = postCSSConfig;
 
 function fileLoaderFactory(
   test: RegExp,
@@ -197,27 +197,7 @@ function getExternals() {
   return nodeModules;
 };
 
-function postCSSConfigDev() {
-  return [
-    cssnano({
-      autoprefixer: {
-        add: true,
-        remove: true,
-        browsers: ['last 2 versions']
-      },
-      discardComments: {
-        removeAll: true
-      },
-      discardUnused: false,
-      mergeIdents: false,
-      reduceIdents: false,
-      safe: true,
-      sourcemap: true
-    })
-  ];
-};
-
-function postCSSConfigProd() {
+function postCSSConfig() {
   return [
     cssnano({
       autoprefixer: {

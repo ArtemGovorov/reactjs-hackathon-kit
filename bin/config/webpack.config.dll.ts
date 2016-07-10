@@ -6,7 +6,7 @@ import {
   LOADERS_STYLES_DEV,
   PROJECT_ROOT,
   PORT
-} from './webpack.constants';
+} from './constants';
 
 
 import { join}  from 'path';

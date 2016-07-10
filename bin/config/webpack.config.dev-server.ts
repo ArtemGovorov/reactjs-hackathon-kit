@@ -11,7 +11,7 @@ import {
   LOADERS_STYLES_PROD,
   EXTERNALS,
   PROJECT_ROOT
-} from './webpack.constants';
+} from './constants';
 
 const webpackConfig: Configuration = {
   cache: false,

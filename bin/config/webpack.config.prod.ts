@@ -53,7 +53,7 @@ const webpackConfig: Configuration = [
       new ExtractTextPlugin('styles/[name].[contenthash].css', {
         allChunks: true
       }),
-      new webpack.optimize.OccurenceOrderPlugin(true),
+      new (webpack as any).optimize.OccurrenceOrderPlugin(true),
       new webpack.optimize.UglifyJsPlugin({
         compressor: {
           warnings: false
@@ -99,9 +99,13 @@ const webpackConfig: Configuration = [
     },
     externals: EXTERNALS as any,
     plugins: [
-      new webpack.BannerPlugin('require("source-map-support").install();',
-        { raw: true, entryOnly: false }),
-      new ExtractTextPlugin('styles/[name].[contenthash].css', {
+        new (webpack as any).BannerPlugin(
+      {
+        banner: 'require("source-map-support").install();',
+        raw: true,
+        entryOnly: false
+      }),
+            new ExtractTextPlugin('styles/[name].[contenthash].css', {
         allChunks: true
       }),
       new webpack.DefinePlugin({

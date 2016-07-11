@@ -13,10 +13,11 @@ export const Login = (props: LoginProps) =>
     <div className='row'>
 
       <div className='col-md-6'>
-        <h2 className='font-bold'>Holy fucking cow this is amazingWelcome to IN+</h2>
+
+        <h2 className='font-bold'>Welcome to IN+</h2>
 
         <p>
-        Perfectly designed and precisely prepared admin theme with over 50 pages with extra new web app views.
+          Perfectly designed and precisely prepared admin theme with over 50 pages with extra new web app views.
         </p>
 
         <p>
@@ -46,7 +47,7 @@ export const Login = (props: LoginProps) =>
               <input type='password' className='form-control' placeholder='Password' required=''/>
             </div>
             <button className='btn btn-primary block full-width m-b'
-            onClick={props.attemptLogin.bind(this, 'nathanvale', 'password') }>Login!</button>
+              onClick={props.attemptLogin.bind(this, 'nathanvale', 'password') }>Login!</button>
 
             <a >
               <small>Forgot password?</small>

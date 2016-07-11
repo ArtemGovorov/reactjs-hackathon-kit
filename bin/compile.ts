@@ -24,11 +24,8 @@ webpackCompiler(webpackConfig, watch)
   } catch (e) {
     debug(`\n  ❌  Wepack compiler encountered an error (${config})`, e);
   }
-<<<<<<< HEAD
 })();*/
-=======
-})();
->>>>>>> a2e9545d8501cfbb99649773887c875475d419ff
+
 
 
 function webpackCompiler(webpackConfig, watch = false) {

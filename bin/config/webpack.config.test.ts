@@ -19,15 +19,17 @@ const webpackConfig: Configuration = {
     publicPath: PUBLIC_PATH
   },
   module: {
-    loaders: [
-      {
+
+    loaders: LOADERS_COMMON
+      .concat(
+      LOADERS_STYLES_DEV,
+      [{
         test: /sinon(\\|\/)pkg(\\|\/)sinon\.js/,
         loader: 'imports?define=>false,require=>false'
-      }
-    ]
-      .concat(
-      LOADERS_COMMON,
-      LOADERS_STYLES_DEV),
+      }]
+      )
+
+    ,
 
     postLoaders: [
       {

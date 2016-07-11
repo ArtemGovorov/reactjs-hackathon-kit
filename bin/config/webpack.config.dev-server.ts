@@ -45,8 +45,12 @@ const webpackConfig: Configuration = {
     new ExtractTextPlugin('styles/main.css', {
       allChunks: true
     }),
-    new webpack.BannerPlugin('require("source-map-support").install();',
-      { raw: true, entryOnly: false }),
+    new (webpack as any).BannerPlugin(
+      {
+        banner: 'require("source-map-support").install();',
+        raw: true,
+        entryOnly: false
+      }),
     new webpack.DefinePlugin({
       __CLIENT__: false,
       __DEVCLIENT__: false,

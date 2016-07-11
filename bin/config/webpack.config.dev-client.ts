@@ -15,6 +15,7 @@ import {
   POST_CSS_CONFIG_DEV
 } from './constants';
 
+const ForkCheckerPlugin = require('awesome-typescript-loader').ForkCheckerPlugin;
 
 const webpackConfig: Configuration = {
 
@@ -54,7 +55,7 @@ const webpackConfig: Configuration = {
       manifest: require(ASSETS_DIR + '/vendor-manifest.json'),
     }),
     new webpack.NoErrorsPlugin(),
-
+    new ForkCheckerPlugin(),
     new webpack.DefinePlugin({
       'process.env': {
         NODE_ENV: '"production"'

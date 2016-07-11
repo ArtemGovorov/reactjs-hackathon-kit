@@ -27,5 +27,9 @@
     "webpack_prev",
     "coverage",
     "reports"
-  ]
+  ],
+
+  "awesomeTypescriptLoaderOptions": {
+    "forkChecker":true
+  }
 }

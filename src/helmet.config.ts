@@ -1,7 +1,7 @@
-const chromecon = require('images/chrome-ninja192-precomposed.png');
-const applecon = require('images/apple-ninja152-precomposed.png');
-const mscon = require('images/ms-ninja144-precomposed.png');
-const favicon = require('images/favicon.png');
+const chromecon = require('./images/chrome-ninja192-precomposed.png');
+const applecon = require('./images/apple-ninja152-precomposed.png');
+const mscon = require('./images/ms-ninja144-precomposed.png');
+const favicon = require('./images/favicon.png');
 let assets;
 const fs = require('fs');
 

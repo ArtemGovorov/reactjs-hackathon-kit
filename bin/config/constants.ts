@@ -76,7 +76,7 @@ export const LOADERS_STYLES_PROD = []
 
 const LOADER_TS = {
   test: /\.tsx?$/,
-  loader: 'ts-loader?silent=true',
+  loader: 'awesome-typescript-loader',
   include: SRC_DIR,
   exclude: NODE_MODULES
 };

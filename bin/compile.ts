@@ -10,7 +10,10 @@ const debug = _debug('app:bin:compile');
 const config = argv.config;
 const watch = argv.watch;
 const webpackConfig = require(resolve('./', config));
-; (async function () {
+
+webpackCompiler(webpackConfig, watch)
+
+/*; (async function () {
   try {
     debug(`\n  ${watch ? '⏱' : '🏃'}  Running webpack ${watch ? 'watch ' : ''}compiler (${config})` );
     const stats = await webpackCompiler(webpackConfig, watch);
@@ -21,7 +24,7 @@ const webpackConfig = require(resolve('./', config));
   } catch (e) {
     debug(`\n  ❌  Wepack compiler encountered an error (${config})`, e);
   }
-})();
+})();*/
 
 
 function webpackCompiler(webpackConfig, watch = false) {
@@ -92,7 +95,7 @@ function webpackCompiler(webpackConfig, watch = false) {
       compiler.watch(
         {
           /** After a change the watcher waits that time (in milliseconds) for more changes. Default: 300. */
-          aggregateTimeout: 0,
+          aggregateTimeout: 300,
           /** The watcher uses polling instead of native watchers.
            * true uses the default interval, a number specifies a interval in milliseconds.
            * Default: undefined (automatic). */

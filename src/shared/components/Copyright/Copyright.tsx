@@ -4,7 +4,7 @@ import * as React from 'react';
 export const Copyright = () =>
   (
     <div>
-      Copyright 2-5-1
+      Copyright 2-5-1;
     </div>
   );
 

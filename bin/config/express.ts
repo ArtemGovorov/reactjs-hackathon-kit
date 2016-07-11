@@ -5,7 +5,7 @@ import * as _debug from 'debug';
 import * as methodOverride from 'method-override';
 const ENV = process.env.NODE_ENV || 'development';
 const debug = _debug('app:bin:config:express');
-import {PORT} from '../../webpack/webpack.constants';
+import {PORT} from './constants';
 
 export default (app: express.Express) => {
   app.set('port', (process.env.PORT || PORT));

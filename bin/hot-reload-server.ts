@@ -1,14 +1,14 @@
 #!/usr/bin/env Node
 import * as express from 'express';
 import * as webpack from 'webpack';
-import * as webpackDevConfig from '../webpack/webpack.config.dev-client';
+import * as webpackDevConfig from './config/webpack.config.dev-client';
 const compiler = webpack(webpackDevConfig);
 const _debug = require('debug');
 const debug = _debug('app:webpack:webpack.server');
 import {
   PUBLIC_PATH,
 	PORT
-} from './webpack.constants';
+} from './config/constants';
 
 //const host = 'localhost';
 const serverOptions = {

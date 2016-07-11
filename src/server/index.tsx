@@ -105,7 +105,7 @@ export default function render(req, res) {
     if (err) {
       res.status(500).json(err);
     } else if (redirect) {
-      //TODO res.redirect(302, redirect.pathname + redirect.search);
+      res.redirect(302, redirect.pathname + redirect.search);
     } else if (props) {
       const initialState = store.getState();
       const componentHTML = renderToString(

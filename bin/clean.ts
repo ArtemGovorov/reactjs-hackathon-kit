@@ -2,10 +2,7 @@
 import * as _debug from 'debug';
 const debug = _debug('app:bin:clean');
 import * as del from 'del';
-const clearRequire = require('webpack-clear-require');
 
-debug('🚿  clear webpack cache');
-clearRequire();
 
 const items = [
   'coverage/**',

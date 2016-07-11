@@ -1,7 +1,7 @@
 import '../polyfill';
 global.Parse = require('parse');
 Parse.initialize('myAppId', '');
-Parse.serverURL = 'http://localhost:3000/api';
+Parse.serverURL = 'http://localhost:3000/parse';
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import { AppContainer } from 'react-hot-loader';

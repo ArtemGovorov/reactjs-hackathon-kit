@@ -1,5 +1,5 @@
 Parse.initialize('myAppId', '');
-Parse.serverURL = 'http://localhost:3000/api';
+Parse.serverURL = 'http://localhost:3000/parse';
 
 import { hello, signUp, logIn, logOut } from './auth/';
 

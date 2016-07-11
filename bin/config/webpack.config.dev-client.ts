@@ -13,7 +13,7 @@ import {
   PORT,
   PROJECT_ROOT,
   POST_CSS_CONFIG_DEV
-} from './webpack.constants';
+} from './constants';
 
 
 const webpackConfig: Configuration = {

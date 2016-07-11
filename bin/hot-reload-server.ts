@@ -7,22 +7,23 @@ const _debug = require('debug');
 const debug = _debug('app:webpack:webpack.server');
 import {
   PUBLIC_PATH,
-	PORT
+  PORT
 } from './config/constants';
 
 //const host = 'localhost';
 const serverOptions = {
-	contentBase: 'http://' + 'localhost' + ':' + (PORT + 1),
-	quiet: true,
-	noInfo: true,
-	hot: false,
-	inline: false,
-	lazy: false,
-	publicPath: `http://localhost:${PORT + 1}${PUBLIC_PATH}`,
-	headers: { 'Access-Control-Allow-Origin': '*' },
-	stats: {
-		colors: false
-	}
+  contentBase: 'http://' + 'localhost' + ':' + (PORT + 1),
+  quiet: true,
+  noInfo: true,
+  hot: false,
+  inline: false,
+  delay: 0,
+  lazy: false,
+  publicPath: `http://localhost:${PORT + 1}${PUBLIC_PATH}`,
+  headers: { 'Access-Control-Allow-Origin': '*' },
+  stats: {
+    colors: false
+  }
 };
 
 const app: express.Express = express();
@@ -34,7 +35,7 @@ app.listen((PORT + 1), function onAppListening(err) {
   if (err) {
     debug(err);
   } else {
-		debug(`\n  🔥  Starting hot reload server at http://localhost:${(PORT + 1)}`);
+    debug(`\n  🔥  Starting hot reload server at http://localhost:${(PORT + 1)}`);
   }
 });
 

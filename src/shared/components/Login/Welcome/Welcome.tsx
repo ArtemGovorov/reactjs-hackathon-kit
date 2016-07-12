@@ -5,7 +5,7 @@ export const Welcome = () =>
   (
     <div>
 
-      <h2 className='font-bold'>Welcome to IN+</h2>
+      <h2 className='font-bold'>Welcome to 251</h2>
 
       <p>
         Perfectly designed and precisely prepared admin theme with over 50 pages with extra new web app views.

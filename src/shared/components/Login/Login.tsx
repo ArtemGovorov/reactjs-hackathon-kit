@@ -1,11 +1,12 @@
 import * as React from 'react';
 import Welcome from './Welcome';
 import Copyright from './../Copyright';
+import Spinner from './../Spinner';
+
 const classNames = require('classnames/bind');
-const hourGlassSvg = require('./../../../images/hourglass.svg');
 const styles = require('./Login.scss');
-let cx = classNames.bind(styles);
-let className = cx('loading');
+
+
 function click() {
 
 }
@@ -18,9 +19,9 @@ export interface LoginProps {
 }
 
 export const Login = (props: LoginProps) =>
-  (<div className='loginColumns animated fadeInDow'>
-    <img onClick={click.bind(this)} className={className} src={hourGlassSvg} />
-
+  (
+    <div onClick={click.bind(this)} className='loginColumns animated fadeInDow'>
+    <Spinner/>
     <div className='row'>
       <div className='col-md-6'>
         <Welcome/>

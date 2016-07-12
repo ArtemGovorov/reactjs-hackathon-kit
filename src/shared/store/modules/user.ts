@@ -44,7 +44,6 @@ export const attemptLogin = (
 
 const initialState = {
   isLogin: true,
-  isLoggingIn: false,
   message: '',
   isWaiting: false,
   authenticated: false,
@@ -76,7 +75,7 @@ export default function userReducer(
       });
     case LOGIN_PENDING:
       return Object.assign({}, state, {
-        isLoggingIn: true,
+        isWaiting: true,
       });
     /*case SIGNUP_USER:
       return Object.assign({}, state, {

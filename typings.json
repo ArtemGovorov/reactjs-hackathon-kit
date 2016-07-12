@@ -26,6 +26,7 @@
     "promises-a-plus": "registry:dt/promises-a-plus#0.0.0+20160317120654",
     "react": "registry:dt/react#0.14.0+20160423065914",
     "react-addons-test-utils": "registry:dt/react-addons-test-utils#0.14.0+20160427035638",
+    "react-bootstrap": "registry:dt/react-bootstrap#0.0.0+20160711142924",
     "react-dom": "registry:dt/react-dom#0.14.0+20160412154040",
     "react-helmet": "registry:dt/react-helmet#0.0.0+20160423063849",
     "react-redux": "registry:dt/react-redux#4.4.0+20160501125835",

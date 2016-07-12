@@ -1,8 +1,16 @@
 import * as React from 'react';
 import Welcome from './Welcome';
 import Copyright from './../Copyright';
+const classNames = require('classnames/bind');
+const hourGlassSvg = require('./../../../images/hourglass.svg');
+const styles = require('./Login.scss');
+let cx = classNames.bind(styles);
+let className = cx('loading');
+function click() {
 
-//const classes = require('./Login.scss');
+}
+
+
 export interface LoginProps {
   attemptLogin: (username: string, password: string) => void;
   cancelLogin: () => void;
@@ -11,10 +19,11 @@ export interface LoginProps {
 
 export const Login = (props: LoginProps) =>
   (<div className='loginColumns animated fadeInDow'>
+    <img onClick={click.bind(this)} className={className} src={hourGlassSvg} />
 
     <div className='row'>
       <div className='col-md-6'>
-      <Welcome/>
+        <Welcome/>
       </div>
       <div className='col-md-6'>
         <div className='ibox-content'>

@@ -5,15 +5,20 @@ import * as webpack from 'webpack';
 const ProgressBarPlugin = require('progress-bar-webpack-plugin');
 const chalk = require('chalk');
 
-const compiler_fail_on_warning = false;
-const debug = _debug('app:bin:compile');
+
 const config = argv.config;
 const watch = argv.watch;
 const webpackConfig = require(resolve('./', config));
 
-webpackCompiler(webpackConfig, watch)
+//REMOVE THIS WHEN TYPESCRIPT 2.1 SUPPORTS AWAIT > ES5
+webpackCompiler(webpackConfig, watch);
 
-/*; (async function () {
+/*
+UNCOMMENT THIS WHEN TYPESCRIPT 2.1 SUPPORTS AWAIT > ES5
+const compiler_fail_on_warning = false;
+const debug = _debug('app:bin:compile');
+
+; (async function () {
   try {
     debug(`\n  ${watch ? '⏱' : '🏃'}  Running webpack ${watch ? 'watch ' : ''}compiler (${config})` );
     const stats = await webpackCompiler(webpackConfig, watch);

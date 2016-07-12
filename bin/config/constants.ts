@@ -27,7 +27,7 @@ export const DEV = process.env.NODE_ENV === 'development';
 export const PROD = process.env.NODE_ENV === 'production';
 export const TEST = process.env.NODE_ENV === 'test';
 export const BASENAME = JSON.stringify(process.env.BASENAME || '');
-export const DEVTOOLS: boolean = true;
+export const DEVTOOLS: boolean = false;
 export const HOT_MIDDLEWARE = 'webpack-hot-middleware/client?path=http://' + 'localhost' + ':' + (PORT + 1) + '/__webpack_hmr';
 
 export const EXTERNALS = getExternals();
@@ -120,13 +120,6 @@ const LOADER_EOT =
     FONTS_LOADER_NAME,
     URL_BYTE_LIMIT);
 
-const LOADER_SVG =
-  fileLoaderFactory(
-    /\.svg(\?.*)?$/,
-    FONTS_LOADER_NAME,
-    URL_BYTE_LIMIT,
-    'image/svg+xml');
-
 const LOADER_IMAGES = {
   test: /\.(jp[e]?g|png|gif|svg)$/i,
   loader: 'url-loader',
@@ -152,8 +145,7 @@ export const LOADERS_FONTS = [
   LOADER_WOFF2,
   LOADER_EOT,
   LOADER_OTF,
-  LOADER_TTF,
-  LOADER_SVG
+  LOADER_TTF
 ];
 
 export const LOADERS_COMMON = [

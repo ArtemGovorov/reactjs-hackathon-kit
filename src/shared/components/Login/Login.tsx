@@ -3,19 +3,21 @@ import Welcome from './Welcome';
 import Copyright from './../Copyright';
 import Spinner from './../Spinner';
 import {Grid, Row, Col} from 'react-bootstrap';
+import {  } from 'redux';
 
 const classNames = require('classnames/bind');
 const styles = require('./Login.scss');
 
 
-function click() {
-
+function click(props) {
+  props.toggle();
 }
 
 
 export interface LoginProps {
   attemptLogin: (username: string, password: string) => void;
   cancelLogin: () => void;
+  toggle: () => void;
   user: any;
   isWaiting: boolean;
 }
@@ -23,7 +25,7 @@ export interface LoginProps {
 export const Login = (props: LoginProps) =>
   (
 
-    <div onClick={click.bind(this) } className='loginColumns animated fadeInDow'>
+    <div onClick={click.bind(this, props) } className='loginColumns animated fadeInDow'>
 
       <Grid>
 
@@ -34,7 +36,8 @@ export const Login = (props: LoginProps) =>
           </Col>
 
           <Col md={6}>
-            {props.user.isWaiting ? <Spinner/> : 'not waiitng'}
+            <Spinner isWaiting={props.user.isWaiting} key={Math.random().toString(36).substring(7) }/>
+
             <div className='ibox-content'>
               <div className='m-t' role='form'>
                 <div className='form-group'>
@@ -60,6 +63,7 @@ export const Login = (props: LoginProps) =>
                 <small>Inspinia we app framework base on Bootstrap 3 &copy; 2014</small>
               </p>
             </div>
+
           </Col>
 
         </Row>

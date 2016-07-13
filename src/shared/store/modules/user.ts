@@ -5,12 +5,18 @@ export const LOGIN_FULFILLED = 'LOGIN_FULFILLED ';
 export const LOGIN_ERROR = 'LOGIN_ERROR';
 export const LOGIN_PENDING = 'LOGIN_PENDING';
 export const LOGIN_ABORTED = 'LOGIN_ABORTED';
+export const TOGGLE = 'TOGGLE';
 
 export const TOGGLE_LOGIN_MODE = 'TOGGLE_LOGIN_MODE';
 
 export const cancelLogin = () => ({
   type: LOGIN_ABORTED
 });
+
+export const toggle = () => ({
+  type: TOGGLE
+});
+
 
 export const logIn = (user) =>
   (actions, store) =>
@@ -76,6 +82,10 @@ export default function userReducer(
     case LOGIN_PENDING:
       return Object.assign({}, state, {
         isWaiting: true,
+      });
+    case TOGGLE:
+      return Object.assign({}, state, {
+        isWaiting: !state.isWaiting,
       });
     /*case SIGNUP_USER:
       return Object.assign({}, state, {

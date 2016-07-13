@@ -1,12 +1,15 @@
 import { connect } from 'react-redux';
-import { attemptLogin,
-  cancelLogin
+import {
+  attemptLogin,
+  cancelLogin,
+  toggle
 } from '../../../store/modules/user';
 import Login from '../../../components/Login';
 
 export const mapActionCreators = {
   attemptLogin,
-  cancelLogin
+  cancelLogin,
+  toggle
 };
 
 const mapStateToProps = (state) => ({

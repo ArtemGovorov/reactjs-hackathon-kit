@@ -1,13 +1,13 @@
 import { connect } from 'react-redux';
 import {
-  attemptLogin,
+  login,
   cancelLogin,
   toggle
 } from '../../../store/modules/user';
 import Login from '../../../components/Login';
 
 export const mapActionCreators = {
-  attemptLogin,
+  login,
   cancelLogin,
   toggle
 };

@@ -57,9 +57,6 @@ const webpackConfig: Configuration = {
     new webpack.NoErrorsPlugin(),
     new ForkCheckerPlugin(),
     new webpack.DefinePlugin({
-      'process.env': {
-        NODE_ENV: '"production"'
-      },
       __CLIENT__: true,
       __DEVCLIENT__: true,
       __DEVSERVER__: false,

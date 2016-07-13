@@ -47,6 +47,7 @@ module.exports = {
       'error-stack-parser',
       'stackframe',
       'bootstrap-loader',
+      'react-bootstrap'
     ]
   },
   output: {
@@ -81,14 +82,10 @@ module.exports = {
     }),
     new webpack.IgnorePlugin(/webpack-stats\.json$/),
     new webpack.DefinePlugin({
-      // This speeds up some local libraries for me, you may not want it
-      'process.env': {
-        NODE_ENV: '"production"'
-      },
       __CLIENT__: true,
       __SERVER__: false,
       __DEVELOPMENT__: true,
-      __DEVTOOLS__: false  // <-------- DISABLE redux-devtools HERE
+      __DEVTOOLS__: false 
     }),
 
   ]

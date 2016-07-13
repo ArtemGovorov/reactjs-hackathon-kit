@@ -18,14 +18,13 @@ export const toggle = () => ({
 });
 
 
-export const logIn = (user) =>
+export const completeLogIn = (user) =>
   (actions, store) =>
     Observable
       .of({ type: LOGIN_FULFILLED, payload: user })
-      .concat(Observable.of(push('/')))
-      .do(x => { console.log(x); });
+      .concat(Observable.of(push('/')));
 
-export const attemptLogin = (
+export const login = (
   username: string,
   password: string
 ) => (
@@ -42,10 +41,9 @@ export const attemptLogin = (
       )
       .delay(3000)
       .takeUntil(actions.ofType(LOGIN_ABORTED))
-      .map(payload => logIn(payload))
+      .map(payload => completeLogIn(payload))
       .catch(error => Observable.of({ type: 'LOGIN_ERROR', error }))
       .startWith({ type: LOGIN_PENDING } as any)
-      .do(x => { console.log(x); })
   );
 
 const initialState = {
@@ -78,6 +76,10 @@ export default function userReducer(
         isWaiting: false,
         authenticated: false,
         message: action.message
+      });
+    case LOGIN_ABORTED:
+      return Object.assign({}, state, {
+        isWaiting: false,
       });
     case LOGIN_PENDING:
       return Object.assign({}, state, {

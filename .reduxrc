@@ -1,0 +1,7 @@
+{
+  "sourceBase":"src",
+  "testBase":"src",
+  "smartPath":"shared/containers",
+  "dumbPath":"shared/components",
+  "fileCasing":"pascal"
+}

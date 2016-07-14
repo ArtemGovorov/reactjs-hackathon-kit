@@ -23,6 +23,7 @@
     "./**/*.d.ts"
   ],
   "exclude": [
+    "blueprints",
     "node_modules",
     "webpack_prev",
     "coverage",

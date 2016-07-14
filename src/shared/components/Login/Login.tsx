@@ -4,7 +4,7 @@ import Copyright from './../Copyright';
 import Spinner from './../Spinner';
 import Form from './Form';
 import {Grid, Row, Col} from 'react-bootstrap';
-import {  } from 'redux';
+
 
 const classNames = require('classnames/bind');
 const styles = require('./Login.scss');
@@ -23,7 +23,7 @@ export interface LoginProps {
   isWaiting: boolean;
 }
 
-export const Login = (props: LoginProps) =>
+export const Login = ( props: LoginProps ) =>
   (
 
     <div  className='loginColumns animated fadeInDow'>

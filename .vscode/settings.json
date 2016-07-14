@@ -2,7 +2,7 @@
 {
   "files.exclude": {
     "node_modules": true,
-    "src/**/*.js": true,
+    "src/**/*.js": false,
     "src/**/*.map": true,
     "webpack/**/*.js": true,
     "webpack/**/*.map": true,

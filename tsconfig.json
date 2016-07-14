@@ -18,8 +18,7 @@
     "sourceMap": false
   },
   "filesGlob": [
-    "./**/*.tsx",
-    "./**/*.ts",
+    "./**/*.tsx?",
     "./**/*.d.ts"
   ],
   "exclude": [
@@ -29,8 +28,7 @@
     "coverage",
     "reports"
   ],
-
   "awesomeTypescriptLoaderOptions": {
-    "forkChecker":true
+    "forkChecker": true
   }
 }

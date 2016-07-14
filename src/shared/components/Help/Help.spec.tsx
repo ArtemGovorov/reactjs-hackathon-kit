@@ -1,13 +1,13 @@
 import * as React from 'react';
 import { bindActionCreators } from 'redux';
 import {
-  <%= pascalEntityName %>,
-  <%= pascalEntityName %>Props
- } from './<%= pascalEntityName %>';
+  Help,
+  HelpProps
+ } from './Help';
 import { shallow } from 'enzyme';
 
-describe('(Component) <%= pascalEntityName %>', () => {
-  let props: <%= pascalEntityName %>Props;
+describe('(Component) Help', () => {
+  let props: HelpProps;
   let spies: {
     dispatch: Sinon.SinonSpy
   };
@@ -27,7 +27,7 @@ describe('(Component) <%= pascalEntityName %>', () => {
         },
         spies.dispatch)
     );
-    wrapper = shallow(<<%= pascalEntityName %> {...props} />);
+    wrapper = shallow(<Help {...props} />);
   });
 
   it('Should render as a <div>.', () => {

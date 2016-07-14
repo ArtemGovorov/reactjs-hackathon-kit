@@ -2,7 +2,7 @@ import * as express from 'express';
 
 import expressConfig from './config/express';
 import parseConfig from './config/parse';
-
+require('piping')({ quiet: false, hook: true,  ignore: /(\/\.|~$|\.json|\.scss$)/i });
 const App = require('../public/assets/server');
 
 const app: express.Express = express();
@@ -22,3 +22,5 @@ parseConfig(app);
 app.get('*', App.default);
 
 app.listen(app.get('port'));
+
+

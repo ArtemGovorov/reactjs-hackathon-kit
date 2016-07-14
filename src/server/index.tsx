@@ -14,6 +14,7 @@ import header from '../shared/components/Meta';
 const PORT = 3000;
 const fs = require('fs');
 
+
 let javascript = {};
 let vendor = '';
 if (__DEVSERVER__) {

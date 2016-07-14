@@ -11,7 +11,7 @@
     "watch:dev-server": "cross-env DEBUG=app:* npm run build:dev-server -- --watch",
     "watch:dev-client": "cross-env DEBUG=app:* node ./bin/hot-reload-server.js",
     "start": "cross-env DEBUG=app:* npm run kill && cross-env NODE_ENV=production DEBUG=app:*  node bin/server.js",
-    "start:watch": "cross-env DEBUG=app:* nodemon",
+    "start:watch": "cross-env DEBUG=app:* node bin/server.js",
     "kill": "node ./bin/kill.js",
     "lint": "tslint -s node_modules/custom-tslint-formatters/formatters -t grouped 'src/**/*.ts?(x)' 'config/**/*.ts?(x)' 'bin/**/*.ts?(x)'",
     "lint:vscode": "tslint -s node_modules/custom-tslint-formatters/formatters -t vscode 'src/**/*.ts?(x)' 'config/**/*.ts?(x)' 'bin/**/*.ts?(x)'",

@@ -39,7 +39,7 @@ export const login = (
           }) as any
           )
       )
-      .delay(3000)
+      .delay(1000)
       .takeUntil(actions.ofType(LOGIN_ABORTED))
       .map(payload => completeLogIn(payload))
       .catch(error => Observable.of({ type: 'LOGIN_ERROR', error }))

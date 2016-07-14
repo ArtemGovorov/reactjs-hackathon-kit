@@ -38,7 +38,7 @@ export const Login = ( props: LoginProps ) =>
 
           <Col md={6}>
             <div className={cx('form-container')}>
-              <Spinner isWaiting={!props.user.isWaiting}/>
+              <Spinner isWaiting={props.user.isWaiting}/>
               <Form {...props} />
             </div>
           </Col>

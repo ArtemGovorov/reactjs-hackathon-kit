@@ -17,8 +17,8 @@ export const Spinner = (props) => {
 
     <ReactCSSTransitionGroup
       component='div'
-      transitionEnterTimeout={1200}
-      transitionLeaveTimeout={1200}
+      transitionEnterTimeout={1100}
+      transitionLeaveTimeout={1100}
       transitionName={{
         enter: cx('enter'),
         enterActive: cx('enter-active'),

@@ -27,8 +27,8 @@ export default (initialState = {}, history) => {
 
   if (module.hot) {
     module.hot.accept('./reducers', () => {
-      const reducers = require('./reducers').default;
-      store.replaceReducer(reducers);
+      const reducers = require('./reducers').reducers;
+      store.replaceReducer(reducers(store.asyncReducers));
     });
   }
 

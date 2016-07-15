@@ -9,7 +9,7 @@ export const APP_DIR = resolve(__dirname, '../../', 'src');
 export default (app: express.Express) => {
 
   const databaseUri = process.env.DATABASE_URI || process.env.MONGODB_URI;
-  if (!databaseUri) {
+  if (!databaseUri && !process.env.restarted) {
     debug('\n  🗄  DATABASE_URI not specified, falling back to localhost');
   }
 
@@ -43,8 +43,9 @@ export default (app: express.Express) => {
 
   const mountPath = process.env.PARSE_MOUNT || '/parse';
   app.use(mountPath, api);
-  debug(`\n  🗄  Serving parse server at http://localhost:${PORT} ${mountPath}`);
   app.use('/parse-dashboard', dashboard);
-  debug('\n  🗄  Serving parse dashboard ' + '/parse-dashboard');
-
+  if (!process.env.restarted) {
+    debug(`\n  🗄  Starting: http://localhost:${PORT}${mountPath}`);
+    debug(`\n  🗄  Starting: http://localhost:${PORT}/parse-dashboard`);
+  }
 };

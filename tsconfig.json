@@ -29,6 +29,7 @@
     "reports"
   ],
   "awesomeTypescriptLoaderOptions": {
-    "forkChecker": true
+    "forkChecker": true,
+    "forkCheckerSilent": true
   }
 }

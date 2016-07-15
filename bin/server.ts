@@ -2,7 +2,10 @@ import * as express from 'express';
 
 import expressConfig from './config/express';
 import parseConfig from './config/parse';
-require('piping')({ quiet: false, hook: true,  ignore: /(\/\.|~$|\.json|\.scss$)/i });
+import piping from './config/piping';
+const ENV = process.env.NODE_ENV || 'development';
+if (ENV === 'development') { piping(); }
+
 const App = require('../public/assets/server');
 
 const app: express.Express = express();

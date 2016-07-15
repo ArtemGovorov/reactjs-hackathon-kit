@@ -69,8 +69,9 @@ function webpackCompiler(webpackConfig, watch = false) {
       function preetfy(str) {
         return '  ' + str.replace(/\n/g, '\n    ');
       }
-
-      debug('\n  ✅  Webpack compile completed for webpack config: ' + webpackConfig['name']);
+      if (!watch) {
+        debug('\n  ✅  Webpack compile completed for webpack config: ' + webpackConfig['name']);
+      }
       if (!watch) {
         debug('\n\n' + preetfy(stats.toString({
           chunks: false,
@@ -88,11 +89,13 @@ function webpackCompiler(webpackConfig, watch = false) {
         debug('\n  ❌  Webpack compiler encountered errors.: ' + webpackConfig['name']);
         debug(jsonStats.errors.join('\n'));
         return reject(new Error('Webpack compiler encountered errors: ' + webpackConfig['name']));
-      } else if (jsonStats.warnings.length > 0) {
+      } else if (jsonStats.warnings.length > 0 && !watch) {
         debug('\n  ⚠️  Webpack compiler encountered warnings: ' + webpackConfig['name']);
         debug(jsonStats.warnings.join('\n'));
       } else {
-        debug('\n  👍  No errors or warnings encountered: ' + webpackConfig['name']);
+        if (!watch) {
+          debug('\n  👍  No errors or warnings encountered: ' + webpackConfig['name']);
+        }
       }
       resolve(jsonStats);
     };

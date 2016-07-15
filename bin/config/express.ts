@@ -3,6 +3,7 @@ import * as bodyParser from 'body-parser';
 import {join} from 'path';
 import * as _debug from 'debug';
 import * as methodOverride from 'method-override';
+
 const ENV = process.env.NODE_ENV || 'development';
 const debug = _debug('app:bin:config:express');
 import {PORT} from './constants';
@@ -19,13 +20,14 @@ export default (app: express.Express) => {
   app.use(express.static(join(__dirname, '../../', 'public')));
   // For Heroku deployment to work
   app.set('trust proxy', 'loopback');
-  debug(`\n  ${
-    ENV === 'development' ?
-      '🚧  Starting ' :
-      '🚀  Launching '}${
-    ENV === 'development' ?
-      'development ' :
-      ''}server at http://localhost:${app.get('port')}`);
-  debug(`\n  🌳  NODE_ENV: ${ENV}`);
+
+  if (!process.env.restarted) {
+    debug(`\n  ${
+      ENV === 'development' ?
+        '🚧  Starting: ' :
+        '🚀  Launching: '}http://localhost:${PORT}`);
+    debug(`\n  🌳  NODE_ENV: ${ENV}`);
+  }
+
 };
 

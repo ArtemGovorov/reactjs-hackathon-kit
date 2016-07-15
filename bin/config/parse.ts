@@ -45,7 +45,7 @@ export default (app: express.Express) => {
   app.use(mountPath, api);
   app.use('/parse-dashboard', dashboard);
   if (!process.env.restarted) {
-    debug(`\n  🗄  Starting: http://localhost:${PORT}${mountPath}`);
-    debug(`\n  🗄  Starting: http://localhost:${PORT}/parse-dashboard`);
+    debug(`\n  🗄  starting: http://localhost:${PORT}${mountPath}`);
+    debug(`\n  🗄  starting: http://localhost:${PORT}/parse-dashboard`);
   }
 };

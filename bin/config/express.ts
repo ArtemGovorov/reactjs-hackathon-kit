@@ -25,8 +25,8 @@ export default (app: express.Express) => {
         debug(`\n  🌳  NODE_ENV: ${ENV}`);
     debug(`\n  ${
       ENV === 'development' ?
-        '🚧  Starting: ' :
-        '🚀  Launching: '}http://localhost:${PORT}`);
+        '🚧  starting: ' :
+        '🚀  launching: '}http://localhost:${PORT}`);
   }
 
 };

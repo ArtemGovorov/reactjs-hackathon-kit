@@ -69,6 +69,6 @@ const webpackConfig: Configuration = {
 };
 
 // The configuration for the client
-webpackConfig['name'] = 'dev-client';
+webpackConfig['name'] = 'client';
 webpackConfig['postcss'] = POST_CSS_CONFIG_DEV;
 export = webpackConfig;

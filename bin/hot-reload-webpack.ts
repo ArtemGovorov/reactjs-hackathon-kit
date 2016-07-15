@@ -27,7 +27,7 @@ const devOptions = {
 };
 
 const hotOptions = {
-  log: str => debug('\n  🔥  ' + str),
+  log: str => debug('\n  🔥  client ' + str),
   overlay: true,
   quiet: false,
   noInfo: false
@@ -44,7 +44,7 @@ app.listen((PORT + 1), function onAppListening(err) {
   if (err) {
     debug(err);
   } else {
-    debug(`\n  🔥  Hot Reloading: http://localhost:${(PORT + 1)}`);
+    debug(`\n  🔥  hot reloading: http://localhost:${(PORT + 1)}`);
   }
 });
 

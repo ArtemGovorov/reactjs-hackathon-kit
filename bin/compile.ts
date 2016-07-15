@@ -44,7 +44,7 @@ function webpackCompiler(webpackConfig, watch = false) {
     config.plugins.push(new ProgressBarPlugin({
       clear: true,
       width: 60,
-      format: '  building [:bar] ' + chalk.green.bold(':percent'),
+      format: '  [:bar] ' + chalk.green.bold(':percent'),
     }));
   }
 
@@ -62,40 +62,57 @@ function webpackCompiler(webpackConfig, watch = false) {
   return new Promise((resolve, reject) => {
     const compiler = webpack(webpackConfig);
 
+    (compiler as any).plugin('compile', function () {
+      debug('\n  🏃  ' + webpackConfig.name + ' webpack building...');
+    });
 
-    const feedback = (err, stats) => {
-      const jsonStats = stats.toJson();
+
+    const feedback = (err, statsResult) => {
+      const jsonStats = statsResult.toJson();
 
       function preetfy(str) {
         return '  ' + str.replace(/\n/g, '\n    ');
       }
       if (!watch) {
-        debug('\n  ✅  Webpack compile completed for webpack config: ' + webpackConfig['name']);
+        //for multi-compiler, stats will be an object with a 'children' array of stats
+        let bundles = extractBundles(statsResult);
+        bundles.forEach(function (stats) {
+          //console.log(stats);
+          stats.time = stats.endTime - stats.startTime;
+          debug('\n  🏃  ' + webpackConfig.name + ' webpack built ' + (stats.name ? stats.name + ' ' : '') +
+            stats.hash + ' in ' + stats.time + 'ms');
+
+          /*        eventStream.publish({
+                    name: stats.name,
+                    action: 'built',
+                    time: stats.time,
+                    hash: stats.hash,
+                    warnings: stats.warnings || [],
+                    errors: stats.errors || [],
+                    modules: buildModuleMap(stats.modules)
+                  });*/
+        });
       }
       if (!watch) {
-        debug('\n\n' + preetfy(stats.toString({
-          chunks: false,
-          chunkModules: false,
-          colors: true,
-          hash: true,
-          version: true,
-          timings: true
-        })) + '\n');
+        /*        debug('\n\n' + preetfy(stats.toString({
+                  chunks: false,
+                  chunkModules: false,
+                  colors: true,
+                  hash: true,
+                  version: true,
+                  timings: true
+                })) + '\n');*/
       }
       if (err) {
-        debug('\n  ☠️  Webpack compiler encountered a fatal error.: ' + webpackConfig['name'], err);
+        debug('\n  ☠️  webpack compiler encountered a fatal error.: ' + webpackConfig['name'], err);
         return reject(err);
       } else if (jsonStats.errors.length > 0) {
-        debug('\n  ❌  Webpack compiler encountered errors.: ' + webpackConfig['name']);
+        debug('\n  ❌  webpack compiler encountered errors.: ' + webpackConfig['name']);
         debug(jsonStats.errors.join('\n'));
         return reject(new Error('Webpack compiler encountered errors: ' + webpackConfig['name']));
       } else if (jsonStats.warnings.length > 0 && !watch) {
-        debug('\n  ⚠️  Webpack compiler encountered warnings: ' + webpackConfig['name']);
+        debug('\n  ⚠️  webpack compiler encountered warnings: ' + webpackConfig['name']);
         debug(jsonStats.warnings.join('\n'));
-      } else {
-        if (!watch) {
-          debug('\n  👍  No errors or warnings encountered: ' + webpackConfig['name']);
-        }
       }
       resolve(jsonStats);
     };
@@ -117,4 +134,24 @@ function webpackCompiler(webpackConfig, watch = false) {
     }
 
   });
+}
+
+function extractBundles(stats) {
+  // Stats has modules, single bundle
+  if (stats.modules) { return [stats]; }
+
+  // Stats has children, multiple bundles
+  if (stats.children && stats.children.length) { return stats.children; }
+
+  // Not sure, assume single
+  return [stats];
+}
+
+
+function buildModuleMap(modules) {
+  const map = {};
+  modules.forEach(function (module) {
+    map[module.id] = module.name;
+  });
+  return map;
 }

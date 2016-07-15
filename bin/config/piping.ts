@@ -13,7 +13,7 @@ export default () => {
 
     supervisor => {
       supervisor.on('started', status => {
-        debug('\n  🔄  Piping Hot Development Server Enabled');
+        debug('\n  🔄  piping hot server enabled');
         process.env.restarted = 0;
       });
       supervisor.on('reloaded', status => {
@@ -26,14 +26,14 @@ export default () => {
 
   reloader.on('reload', function (done) {
     if (process.env.restarted) {
-      debug('\n  🔄  Restarting server');
+      debug('\n  🔄  restarting server');
     }
     done();
   });
 
   reloader.on('reloaded', function (status) {
     if (process.env.restarted > 0) {
-      debug(`\n  🔄  Restarted: http://localhost:${PORT} - ${process.env.restarted} restart(s)`);
+      debug(`\n  🔄  restarted: http://localhost:${PORT} - ${process.env.restarted} restart(s)`);
     }
   });
 };

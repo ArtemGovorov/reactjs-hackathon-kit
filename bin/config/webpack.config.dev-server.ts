@@ -65,7 +65,7 @@ const webpackConfig: Configuration = {
 };
 
 // The configuration for the server-side rendering
-webpackConfig['name'] = 'dev-server';
+webpackConfig['name'] = 'server';
 webpackConfig['externals'] = EXTERNALS as any;
 
 

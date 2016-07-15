@@ -13,7 +13,7 @@ export default () => {
 
     supervisor => {
       supervisor.on('started', status => {
-        debug('\n  🔄  Piping hot development server enabled');
+        debug('\n  🔄  Piping Hot Development Server Enabled');
         process.env.restarted = 0;
       });
       supervisor.on('reloaded', status => {

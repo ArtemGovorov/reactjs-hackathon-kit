@@ -13,8 +13,9 @@ const app: express.Express = express();
 /*
  * Bootstrap application settings
  */
-expressConfig(app);
 parseConfig(app);
+expressConfig(app);
+
 
 /*
  * This is where the magic happens. We take the locals data we have already2

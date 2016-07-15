@@ -22,11 +22,11 @@ export default (app: express.Express) => {
   app.set('trust proxy', 'loopback');
 
   if (!process.env.restarted) {
+        debug(`\n  🌳  NODE_ENV: ${ENV}`);
     debug(`\n  ${
       ENV === 'development' ?
         '🚧  Starting: ' :
         '🚀  Launching: '}http://localhost:${PORT}`);
-    debug(`\n  🌳  NODE_ENV: ${ENV}`);
   }
 
 };

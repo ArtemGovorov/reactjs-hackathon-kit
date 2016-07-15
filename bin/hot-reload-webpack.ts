@@ -27,7 +27,10 @@ const devOptions = {
 };
 
 const hotOptions = {
-  log: str => debug('\n  🔥  ' + str)
+  log: str => debug('\n  🔥  ' + str),
+  overlay: true,
+  quiet: false,
+  noInfo: false
 };
 
 

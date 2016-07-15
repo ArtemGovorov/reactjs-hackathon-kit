@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "description": "A React.js stack typescript isomorphic template with Webpack and react-router",
   "scripts": {
-    "dev": "cross-env DEBUG=app:* npm-run-all compile build:dev-dll build:dev-server kill && npm-run-all --parallel watch:dev-server watch:dev-client start:watch",
+    "dev": "npm run dev:shhhh -s",
+    "dev:shhhh": "cross-env DEBUG=app:* npm-run-all compile build:dev-dll build:dev-server kill && npm-run-all --parallel watch:dev-server watch:dev-client start:watch",
     "build:dev-dll": "cross-env DEBUG=app:*  node ./bin/compile.js --config ./bin/config/webpack.config.dll.js",
     "build:dev-server": "cross-env DEBUG=app:*  node ./bin/compile.js --config ./bin/config/webpack.config.dev-server.js",
     "build:prod": "cross-env DEBUG=app:* node ./bin/compile.js --config ./bin/config/webpack.config.prod.js",

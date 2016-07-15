@@ -20,7 +20,7 @@ const debug = _debug('app:bin:compile');
 
 ; (async function () {
   try {
-    debug(`\n  ${watch ? '⏱' : '🏃'}  Running webpack ${watch ? 'watch ' : ''}compiler (${config})` );
+    debug(`\n  ${watch ? '⏱' : '🛠'}  Running webpack ${watch ? 'watch ' : ''}compiler (${config})` );
     const stats = await webpackCompiler(webpackConfig, watch);
     if (stats['warnings'].length && compiler_fail_on_warning) {
       debug(`\n  ⚠️  Config set to fail on warning, exiting with status code "1"  (${config})`);
@@ -43,7 +43,11 @@ function webpackCompiler(webpackConfig, watch = false) {
     }
     config.plugins.push(new ProgressBarPlugin({
       clear: true,
-      width: 60,
+      width: 50,
+      summary: false,
+      incomplete: '👎',
+      complete: '👍',
+      customSummary: () => { },
       format: '  [:bar] ' + chalk.green.bold(':percent'),
     }));
   }
@@ -63,7 +67,7 @@ function webpackCompiler(webpackConfig, watch = false) {
     const compiler = webpack(webpackConfig);
 
     (compiler as any).plugin('compile', function () {
-      debug('\n  🏃  ' + webpackConfig.name + ' webpack building...');
+      debug('\n  🛠  ' + webpackConfig.name + ' webpack building...');
     });
 
 
@@ -73,13 +77,13 @@ function webpackCompiler(webpackConfig, watch = false) {
       function preetfy(str) {
         return '  ' + str.replace(/\n/g, '\n    ');
       }
-      if (!watch) {
+      if (watch) {
         //for multi-compiler, stats will be an object with a 'children' array of stats
         let bundles = extractBundles(statsResult);
         bundles.forEach(function (stats) {
           //console.log(stats);
           stats.time = stats.endTime - stats.startTime;
-          debug('\n  🏃  ' + webpackConfig.name + ' webpack built ' + (stats.name ? stats.name + ' ' : '') +
+          debug('\n  🛠  ' + webpackConfig.name + ' webpack built ' + (stats.name ? stats.name + ' ' : '') +
             stats.hash + ' in ' + stats.time + 'ms');
 
           /*        eventStream.publish({
@@ -93,7 +97,7 @@ function webpackCompiler(webpackConfig, watch = false) {
                   });*/
         });
       }
-      if (!watch) {
+      if (watch) {
         /*        debug('\n\n' + preetfy(stats.toString({
                   chunks: false,
                   chunkModules: false,

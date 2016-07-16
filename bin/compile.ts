@@ -77,7 +77,7 @@ function webpackCompiler(webpackConfig, watch = false) {
       function preetfy(str) {
         return '  ' + str.replace(/\n/g, '\n    ');
       }
-      if (watch) {
+      if (1 === 1) {
         //for multi-compiler, stats will be an object with a 'children' array of stats
         let bundles = extractBundles(statsResult);
         bundles.forEach(function (stats) {
@@ -85,6 +85,15 @@ function webpackCompiler(webpackConfig, watch = false) {
           stats.time = stats.endTime - stats.startTime;
           debug('\n  🛠  ' + webpackConfig.name + ' webpack built ' + (stats.name ? stats.name + ' ' : '') +
             stats.hash + ' in ' + stats.time + 'ms');
+
+          debug('\n\n' + preetfy(stats.toString({
+            chunks: false,
+            chunkModules: false,
+            colors: true,
+            hash: true,
+            version: true,
+            timings: true
+          })) + '\n');
 
           /*        eventStream.publish({
                     name: stats.name,
@@ -97,16 +106,7 @@ function webpackCompiler(webpackConfig, watch = false) {
                   });*/
         });
       }
-      if (watch) {
-        /*        debug('\n\n' + preetfy(stats.toString({
-                  chunks: false,
-                  chunkModules: false,
-                  colors: true,
-                  hash: true,
-                  version: true,
-                  timings: true
-                })) + '\n');*/
-      }
+
       if (err) {
         debug('\n  ☠️  webpack compiler encountered a fatal error.: ' + webpackConfig['name'], err);
         return reject(err);

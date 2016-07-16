@@ -41,10 +41,12 @@ const webpackConfig: Configuration = {
   },
   devtool: 'eval',
   plugins: [
-    new webpack['DllReferencePlugin']({
-      context: ASSETS_DIR,
-      manifest: require(ASSETS_DIR + '/vendor-manifest.json'),
-    }),
+   /* new webpack['DllReferencePlugin']({
+      context: PROJECT_ROOT,
+      manifest: require(ASSETS_DIR + '/vendor-server-manifest.json'),
+      name: ASSETS_DIR + '/vendor-server.dll.js',
+      sourceType: 'commonjs2'
+    }),*/
     new ExtractTextPlugin('styles/main.css', {
       allChunks: true
     }),

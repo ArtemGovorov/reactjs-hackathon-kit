@@ -14,7 +14,7 @@ import { join}  from 'path';
 module.exports = {
   devtool: 'inline-source-map',
   context: PROJECT_ROOT,
-  name: 'DLL',
+  name: 'DLL server',
   entry: {
     vendor: [
       'react',
@@ -52,9 +52,10 @@ module.exports = {
   },
   output: {
     path: ASSETS_DIR,
-    filename: '[name].dll.js',
+    filename: '[name]-server.dll.js',
     library: '[name]',
-    publicPath: `http://localhost:${PORT}${PUBLIC_PATH}`,
+    publicPath: PUBLIC_PATH,
+    libraryTarget: 'commonjs2'
   },
   module: {
     loaders: LOADERS_COMMON
@@ -75,10 +76,9 @@ module.exports = {
     extensions: ['', '.json', '.js', '.jsx', '.ts', '.tsx']
   },
   plugins: [
-
     new webpack['DllPlugin']({
       name: '[name]',
-      path: join(ASSETS_DIR, '[name]-manifest.json'),
+      path: join(ASSETS_DIR, '[name]-server-manifest.json')
     }),
     new webpack.IgnorePlugin(/webpack-stats\.json$/),
     new webpack.DefinePlugin({

@@ -5,6 +5,7 @@ import {
   PUBLIC_PATH,
   LOADERS_STYLES_DEV,
   PROJECT_ROOT,
+  EXTERNALS,
   PORT
 } from './constants';
 
@@ -15,6 +16,7 @@ module.exports = {
   devtool: 'inline-source-map',
   context: PROJECT_ROOT,
   name: 'DLL server',
+  externals: EXTERNALS as any,
   entry: {
     vendor: [
       'react',
@@ -46,8 +48,8 @@ module.exports = {
       'redbox-react',
       'error-stack-parser',
       'stackframe',
-      'bootstrap-loader',
-      'react-bootstrap'
+      'react-bootstrap',
+      'bootstrap-css'
     ]
   },
   output: {
@@ -59,12 +61,6 @@ module.exports = {
   },
   module: {
     loaders: LOADERS_COMMON
-      .concat(LOADERS_STYLES_DEV,
-      [
-        // Bootstrap 3
-        { test: /bootstrap-sass\/assets\/javascripts\//, loader: 'imports?jQuery=jquery' },
-      ]
-      )
   },
   progress: true,
   resolve: {

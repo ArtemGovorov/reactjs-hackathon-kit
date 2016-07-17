@@ -43,4 +43,8 @@ export const Squares = () => {
   );
 };
 
+if (__DEVSERVER__) {
+  (Squares as any).styles = [styles.source];
+}
+
 export default Squares;

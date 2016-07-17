@@ -1,9 +1,9 @@
 import * as _debug from 'debug';
 import {resolve} from 'path';
-import {argv} from 'yargs';
 import * as webpack from 'webpack';
 const ProgressBarPlugin = require('progress-bar-webpack-plugin');
 const chalk = require('chalk');
+const argv = require('yargs').argv;
 
 
 const config = argv.config;
@@ -43,10 +43,10 @@ function webpackCompiler(webpackConfig, watch = false) {
     }
     config.plugins.push(new ProgressBarPlugin({
       clear: true,
-      width: 50,
+      width: 30,
       summary: false,
-      incomplete: '👎',
-      complete: '👍',
+      incomplete: '😬 ',
+      complete: '😜 ',
       customSummary: () => { },
       format: '  [:bar] ' + chalk.green.bold(':percent'),
     }));
@@ -85,25 +85,27 @@ function webpackCompiler(webpackConfig, watch = false) {
           stats.time = stats.endTime - stats.startTime;
           debug('\n  🛠  ' + webpackConfig.name + ' webpack built ' + (stats.name ? stats.name + ' ' : '') +
             stats.hash + ' in ' + stats.time + 'ms');
-
-          debug('\n\n' + preetfy(stats.toString({
+            console.log(stats)
+            console.log(stats.toString());
+  /*        debug('\n\n' + preetfy(stats.toString({
             chunks: false,
             chunkModules: false,
             colors: true,
             hash: true,
             version: true,
             timings: true
-          })) + '\n');
+          })) + '\n');*/
 
-          /*        eventStream.publish({
-                    name: stats.name,
-                    action: 'built',
-                    time: stats.time,
-                    hash: stats.hash,
-                    warnings: stats.warnings || [],
-                    errors: stats.errors || [],
-                    modules: buildModuleMap(stats.modules)
-                  });*/
+        /*  debug({
+            name: stats.name,
+            action: 'built',
+            time: stats.time,
+            hash: stats.hash,
+            warnings: stats.warnings || [],
+            errors: stats.errors || [],
+            modules: buildModuleMap(stats.modules)
+          });*/
+
         });
       }
 

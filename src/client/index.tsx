@@ -72,4 +72,6 @@ if (__DEVTOOLS__) {
 
 match({ history, routes }, () => {
   render();
+  // remove server-generated css
+  document.getElementById('fast-css').remove();
 });

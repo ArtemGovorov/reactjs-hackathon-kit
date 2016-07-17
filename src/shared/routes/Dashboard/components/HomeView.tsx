@@ -1,16 +1,22 @@
 import * as React from 'react';
 
 const DuckImage = require('../assets/Duck.jpg');
-const classes = require('./HomeView.scss');
+const styles = require('./HomeView.scss');
 
 export const HomeView = () => (
   <div>
     <h4>Welcome!!</h4>
     < img
       alt = 'This is a duck, because Redux!'
-      className = { classes['duck']}
+      className = { styles['duck']}
       src = { DuckImage }
       />
   </div>
 );
+
+if (__DEVSERVER__) {
+  (HomeView as any).styles = [styles.source];
+}
+
+
 export default HomeView;

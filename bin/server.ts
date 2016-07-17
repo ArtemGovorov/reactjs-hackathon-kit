@@ -4,7 +4,7 @@ import expressConfig from './config/express';
 import parseConfig from './config/parse';
 import piping from './config/piping';
 const ENV = process.env.NODE_ENV || 'development';
-if (ENV === 'development') { piping(); }
+//if (ENV === 'development') { piping(); }
 
 const App = require('../public/assets/server');
 

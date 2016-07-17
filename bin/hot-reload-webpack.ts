@@ -13,8 +13,8 @@ import {
 //const host = 'localhost';
 const devOptions = {
   contentBase: 'http://' + 'localhost' + ':' + (PORT + 1),
-  quiet: true,
-  noInfo: true,
+  quiet: false,
+  noInfo: false,
   hot: false,
   inline: false,
   overlay: true,

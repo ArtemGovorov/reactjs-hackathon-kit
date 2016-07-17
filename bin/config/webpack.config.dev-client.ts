@@ -12,7 +12,8 @@ import {
   NODE_MODULES,
   PORT,
   PROJECT_ROOT,
-  POST_CSS_CONFIG_DEV
+  POST_CSS_CONFIG_DEV,
+  BUILD_DIR
 } from './constants';
 
 const ForkCheckerPlugin = require('awesome-typescript-loader').ForkCheckerPlugin;
@@ -25,10 +26,11 @@ const webpackConfig: Configuration = {
     'main': [
       'react-hot-loader/patch',
       HOT_MIDDLEWARE,
-      'bootstrap-loader',
+      //'bootstrap-loader',
       `${SRC_DIR}/client`,
     ]
   },
+  recordsPath: BUILD_DIR + '/client-records.json',
   output: {
     path: ASSETS_DIR,
     filename: '[name].js',
@@ -42,7 +44,7 @@ const webpackConfig: Configuration = {
   },
   resolve: {
     root: [SRC_DIR],
-    extensions: ['', '.ts', '.tsx', '.js', '.scss'],
+    extensions: ['', '.ts', '.tsx', '.js', '.scss', '.css'],
 
   },
   resolveLoader: {

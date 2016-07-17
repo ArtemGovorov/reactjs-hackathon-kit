@@ -1,0 +1,8 @@
+:local(.main-container) {
+  padding-top: 20px;
+}
+
+:local(.container) {
+  composes: text-center from "bootstrap-css/lib/type";
+  opacity: .5;
+}

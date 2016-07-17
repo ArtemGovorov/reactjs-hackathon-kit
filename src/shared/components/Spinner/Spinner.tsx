@@ -33,4 +33,9 @@ export const Spinner = (props) => {
 
 };
 
+if (__DEVSERVER__) {
+  (Spinner as any).styles = [styles.source];
+}
+
+
 export default Spinner;

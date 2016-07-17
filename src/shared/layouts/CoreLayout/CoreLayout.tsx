@@ -1,15 +1,15 @@
 import * as React from 'react';
-const classes = require('./CoreLayout.scss');
+const styles = require('./CoreLayout.css');
 
 export const CoreLayout = ({ children }) =>
-  (<div className='container text-center grey-bg'>
-    <div className={classes['main-container']}>
+  (<div className={styles['container']}>
+    <div className={styles['main-container']}>
       {children}
     </div>
   </div>);
 
-/*CoreLayout.propTypes = {
-  children: React.PropTypes.element.isRequired,
-};*/
+if (__DEVSERVER__) {
+  (CoreLayout as any).styles = [styles.source];
+}
 
 export default CoreLayout;

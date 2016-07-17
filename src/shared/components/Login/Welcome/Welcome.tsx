@@ -5,7 +5,7 @@ export const Welcome = () =>
   (
     <div>
 
-      <h2 className='font-bold'>Welcome to the funny farm haha - what the heck?
+      <h2 className='font-bold'>Welcome to the jungle titis a
       </h2>
 
       <p>

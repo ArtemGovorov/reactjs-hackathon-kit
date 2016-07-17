@@ -13,4 +13,8 @@ export const Help = ( props: HelpProps ) => (
   </div>
 );
 
+if (__DEVSERVER__) {
+  (Help as any).styles = [styles.source];
+}
+
 export default Help;

@@ -9,6 +9,8 @@ const createHistory = require('react-router/lib/createMemoryHistory');
 import { Provider } from 'react-redux';
 import createRoutes from '../shared/routes';
 import configureStore from '../shared/store/configureStore';
+
+import loadStylesFromComponents from './utils/loadStylesFromComponents';
 //import preRenderMiddleware from 'middlewares/preRenderMiddleware';
 import header from '../shared/components/Meta';
 const PORT = 3000;
@@ -117,6 +119,8 @@ export default function render(req, res) {
         </Provider>
       );
 
+      const styles = loadStylesFromComponents(props.components);
+ 
       res.status(200).send(`
           <!doctype html>
           <html ${header['htmlAttributes'].toString()}>
@@ -124,6 +128,7 @@ export default function render(req, res) {
               ${header.title.toString()}
               ${header.meta.toString()}
               ${header.link.toString()}
+              <style type="text/css" id="fast-css">${styles}</style>
             </head>
             <body>
               <div id="root">${componentHTML}</div>

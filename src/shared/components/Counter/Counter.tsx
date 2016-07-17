@@ -1,12 +1,14 @@
 import * as React from 'react';
-const classes = require('./Counter.scss');
+const styles = require('./Counter.css');
+
+
 
 export const Counter = (props) => (
   <div>
-    <h2 className={classes['counter-container']}>
-      Counter:
+    <h2 className={styles['counter-container']}>
+      Counters fuck:
       {' '}
-      <span className={classes['counter--green']}>
+      <span className={styles['counter--green']}>
         {props.counter}
       </span>
     </h2>
@@ -19,5 +21,10 @@ export const Counter = (props) => (
     </button>
   </div>
 );
+
+if (__DEVSERVER__) {
+  (Counter as any).styles = [styles.source];
+}
+
 
 export default Counter;

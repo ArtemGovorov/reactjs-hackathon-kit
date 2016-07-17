@@ -1,7 +1,7 @@
 import * as React from 'react';
 
-/*const classNames = require('classnames/bind');
-const styles = require('./Form.scss');*/
+const classNames = require('classnames/bind');
+const styles = require('./Form.scss');
 
 
 function click(props) {
@@ -44,5 +44,10 @@ export const Form = (props: FormProps) => (
     </p>
   </div>
 );
+
+if (__DEVSERVER__) {
+  (Form as any).styles = [styles.source];
+}
+
 
 export default Form;

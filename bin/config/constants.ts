@@ -41,9 +41,27 @@ const LOADER_LESS_QUERY = '!css-loader?'
 const LOADER_SCSS_QUERY = 'css-loader?'
   + 'sourceMap&-minimize&modules&importLoaders=1&sourceMap&localIdentName=[local]___[hash:base64:5]!postcss!sass?outputStyle=expanded&sourceMap';
 
+const LOADER_CSS_FAKE = {
+  test: /\.css$/,
+  loader: 'fake-style-loader!' + 'css-loader?'
+  + 'modules&importLoaders=1&localIdentName=[local]___[hash:base64:5]'
+};
+
+const LOADER_CSS = {
+  test: /\.css$/,
+  loader: 'style-loader!' + 'css-loader?'
+  + 'sourceMap&modules&importLoaders=1&sourceMap&localIdentName=[local]___[hash:base64:5]'
+};
+
+
 const LOADER_LESS_DEV = {
   test: /\.less$/,
   loader: 'style-loader!' + LOADER_LESS_QUERY
+};
+
+const LOADER_LESS_FAKE = {
+  test: /\.less$/,
+  loader: 'fake-style-loader!' + LOADER_LESS_QUERY
 };
 
 const LOADER_LESS_PROD = {
@@ -58,20 +76,31 @@ const LOADER_SCSS_DEV = {
   + 'sourceMap&&modules&importLoaders=1&sourceMap&localIdentName=[local]___[hash:base64:5]!postcss!sass?outputStyle=expanded&sourceMap'
 };
 
+const LOADER_SCSS_FAKE = {
+  test: /\.scss$/,
+  loader: 'fake-style-loader!' + 'css-loader?'
+  + 'sourceMap&&modules&importLoaders=1&sourceMap&localIdentName=[local]___[hash:base64:5]!postcss!sass?outputStyle=expanded&sourceMap'
+};
+
 const LOADER_SCSS_PROD = {
   test: /\.scss$/,
   loader: ExtractTextPlugin.extract('style-loader', LOADER_SCSS_QUERY)
 };
 export const LOADERS_STYLES_DEV = []
   .concat(
-  LOADER_LESS_DEV,
-  LOADER_SCSS_DEV
+  LOADER_SCSS_DEV,
+  LOADER_CSS
   );
 
 export const LOADERS_STYLES_PROD = []
   .concat(
-  LOADER_LESS_PROD,
-  LOADER_SCSS_PROD
+  LOADER_CSS
+  );
+
+export const LOADERS_STYLES_FAKE = []
+  .concat(
+  LOADER_SCSS_FAKE,
+  LOADER_CSS_FAKE
   );
 
 const LOADER_TS = {
@@ -129,10 +158,6 @@ const LOADER_IMAGES = {
   }
 };
 
-const LOADER_CSS = {
-  test: /\.css$/,
-  loaders: ['style', 'css']
-};
 
 
 const LOADER_HTML = {
@@ -152,8 +177,7 @@ export const LOADERS_COMMON = [
   LOADER_TS,
   LOADER_JSON,
   LOADER_IMAGES,
-  LOADER_HTML,
-  LOADER_CSS
+  LOADER_HTML
 ]
   .concat(LOADERS_FONTS);
 

@@ -47,7 +47,8 @@ module.exports = {
       'error-stack-parser',
       'stackframe',
       'bootstrap-loader',
-      'react-bootstrap'
+      'react-bootstrap',
+      'bootstrap-css'
     ]
   },
   output: {

@@ -26,7 +26,7 @@ export interface LoginProps {
 export const Login = ( props: LoginProps ) =>
   (
 
-    <div  className='loginColumns animated fadeInDow'>
+    <div  className={cx('loginColumns')}>
 
       <Grid>
 
@@ -66,5 +66,9 @@ export const Login = ( props: LoginProps ) =>
 
     </div>
   );
+
+if (__DEVSERVER__) {
+  (Login as any).styles = [styles.source];
+}
 
 export default Login;

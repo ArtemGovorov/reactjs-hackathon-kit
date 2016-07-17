@@ -1,0 +1,12 @@
+:local(.counter) {
+  font-weight: bold;
+}
+
+:local(.counter--green) {
+  composes: counter;
+}
+
+:local(.counter-container) {
+  composes: text-uppercase text-primary from 'bootstrap-css/lib/type';
+  margin: 1em auto;
+}

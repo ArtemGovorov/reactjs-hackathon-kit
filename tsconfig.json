@@ -15,7 +15,7 @@
     "preserveConstEnums": true,
     "suppressImplicitAnyIndexErrors": true,
     "allowSyntheticDefaultImports": true,
-    "sourceMap": false
+    "sourceMap": true
   },
   "filesGlob": [
     "./**/*.tsx?",

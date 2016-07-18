@@ -2,7 +2,10 @@
 import * as express from 'express';
 import * as webpack from 'webpack';
 import * as webpackDevConfig from './config/webpack.config.dev-client';
-const compiler = webpack(webpackDevConfig);
+import webpackCompilerDecorator from './decorators/webpack-compiler';
+
+const compiler = webpackCompilerDecorator(webpack(webpackDevConfig));
+
 const _debug = require('debug');
 const debug = _debug('app:bin:hot-reload-webpack');
 import {
@@ -13,8 +16,8 @@ import {
 //const host = 'localhost';
 const devOptions = {
   contentBase: 'http://' + 'localhost' + ':' + (PORT + 1),
-  quiet: false,
-  noInfo: false,
+  quiet: true,
+  noInfo: true,
   hot: false,
   inline: false,
   overlay: true,
@@ -29,8 +32,8 @@ const devOptions = {
 const hotOptions = {
   log: str => debug('\n  🔥  client ' + str),
   overlay: true,
-  quiet: false,
-  noInfo: false
+  quiet: true,
+  noInfo: true
 };
 
 

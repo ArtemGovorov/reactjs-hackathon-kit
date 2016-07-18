@@ -201,7 +201,7 @@ function fileLoaderFactory(
   };
 }
 
-function getExternals() {
+/*function getExternals() {
   const nodeModules = {};
   fs.readdirSync('node_modules')
     .filter(function (x) {
@@ -210,8 +210,43 @@ function getExternals() {
     .forEach(function (mod) {
       nodeModules[mod] = 'commonjs ' + mod;
     });
+
+  console.log(nodeModules);
   return nodeModules;
-};
+};*/
+
+function getExternals() {
+  const Fs = require('fs');
+  const nodeModules = {};
+  Fs.readdirSync('node_modules').forEach(function (module) {
+    if (module !== '.bin') {
+      nodeModules[module] = true;
+    }
+  });
+  const nodeModulesTransform = function (context, request, callback) {
+    // search for a '/' indicating a nested module
+    const slashIndex = request.indexOf('/');
+    let rootModuleName;
+    if (slashIndex == -1) {
+      rootModuleName = request;
+    } else {
+      rootModuleName = request.substr(0, slashIndex);
+    }
+    if (request === 'webpack/hot/signal.js') {
+      console.log('fucko');
+    }
+    // Match for root modules that are in our node_modules
+    if (nodeModules.hasOwnProperty(rootModuleName)
+      && request !== 'webpack/hot/signal.js') {
+      callback(null, 'commonjs ' + request);
+    } else {
+      callback();
+    }
+  };
+
+  return nodeModulesTransform;
+
+}
 
 function postCSSConfig() {
   return [

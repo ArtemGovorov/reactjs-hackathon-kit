@@ -63,7 +63,7 @@ export default function webpackCompiler(webpackConfig, watch = false) {
           debug('\n  🛠  ' + webpackConfig.name + ' webpack built ' + (stats.name ? stats.name + ' ' : '') +
             stats.hash + ' in ' + stats.time + 'ms');
 
-          debug('\n\n tits' + preetfy(stats.toString({
+      debug('\n\n tits' + preetfy(stats.toString({
             chunks: true,
             chunkModules: true,
             colors: true,

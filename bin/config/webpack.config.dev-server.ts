@@ -19,7 +19,7 @@ const webpackConfig: Configuration = {
   entry: {
     server: [
       //'bootstrap-loader/extractStyles',
-      //'webpack/hot/signal.js',
+      'webpack/hot/signal.js',
       `${SRC_DIR}/server`
     ]
   },
@@ -39,6 +39,7 @@ const webpackConfig: Configuration = {
     libraryTarget: 'commonjs2'
   },
   module: {
+
     loaders: LOADERS_COMMON
       .concat(
       LOADERS_STYLES_FAKE
@@ -50,25 +51,25 @@ const webpackConfig: Configuration = {
   },
   devtool: 'eval',
   plugins: [
-    /*    new webpack['DllReferencePlugin']({
-          context: PROJECT_ROOT,
-          manifest: require(ASSETS_DIR + '/vendor-server-manifest.json'),
-          name: ASSETS_DIR + '/vendor-server.dll.js',
-          sourceType: 'commonjs2'
-        }),*/
-    /*    new ExtractTextPlugin('styles/main.css', {
-          allChunks: true
-        }),*/
+    /* new webpack['DllReferencePlugin']({
+    context: PROJECT_ROOT,
+    manifest: require(ASSETS_DIR + '/vendor-server-manifest.json'),
+    name: ASSETS_DIR + '/vendor-server.dll.js',
+    sourceType: 'commonjs2'
+  }),
+   new ExtractTextPlugin('styles/main.css', {
+        allChunks: true
+      }),*/
     //  new webpack.NoErrorsPlugin(),
     new webpack.NoErrorsPlugin(),
-    //new webpack.HotModuleReplacementPlugin(),
+    new webpack.HotModuleReplacementPlugin(),
     new webpack.optimize.LimitChunkCountPlugin({ maxChunks: 1 }),
-    /*new (webpack as any).BannerPlugin(
+    new (webpack as any).BannerPlugin(
       {
         banner: 'require("source-map-support").install();',
         raw: true,
         entryOnly: false
-      }),*/
+      }),
     new webpack.DefinePlugin({
       __CLIENT__: false,
       __DEVCLIENT__: false,

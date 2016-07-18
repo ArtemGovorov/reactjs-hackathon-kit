@@ -1,8 +1,0 @@
-{
-  "verbose": false,
-  "delay":100,
-  "watch": [
-    "public/assets/server.js"
-  ],
-  "exec": "node bin/server.js"
-}

@@ -11,6 +11,16 @@
       "taskName": "build",
       "suppressTaskName": true,
       "isBuildCommand": true,
+      "isWatching": false,
+      "args": [
+        "node_modules/typescript/bin/tsc -p ."
+      ],
+      "problemMatcher": "$tsc"
+    },
+    {
+      "taskName": "build:watch",
+      "suppressTaskName": true,
+      "isBuildCommand": true,
       "isWatching": true,
       "args": [
         "node_modules/typescript/bin/tsc -w -p ."

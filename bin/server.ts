@@ -1,5 +1,5 @@
 import * as express from 'express';
-
+console.log("sdfiuhsa dfiasd");
 import expressConfig from './config/express';
 import parseConfig from './config/parse';
 import piping from './config/piping';

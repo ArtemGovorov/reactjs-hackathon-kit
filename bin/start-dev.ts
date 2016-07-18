@@ -17,7 +17,6 @@ const debug = _debug('app:start-dev');
 import {
   PUBLIC_PATH,
   PORT,
-  ASSETS_DIR,
   PROJECT_ROOT
 } from './config/constants';
 
@@ -30,12 +29,12 @@ function canContinue(where, err, stats) {
   }
   let jsonStats = stats.toJson();
   if (jsonStats.errors.length > 0) {
-    log.error('webpack', where + ' compiler had errors:');
+    debug('webpack', where + ' compiler had errors:');
     jsonStats.errors.map(function (error) { console.log(pretty.render(error)); });
     return false;
   }
   if (jsonStats.warnings.length > 0) {
-    log.warn('webpack', where + ' compiler had warnings:', jsonStats.warnings);
+    debug('webpack', where + ' compiler had warnings:', jsonStats.warnings);
     return false;
   }
   return true;
@@ -44,6 +43,7 @@ function canContinue(where, err, stats) {
 function registerRefreshListener() {
   keypress(process.stdin);
   process.stdin.on('keypress', function (ch, key) {
+    debug('key');
     if (key && key.name === 'p') {
       process.stdout.write('\n');
       bundleServer();
@@ -89,9 +89,11 @@ function bundleServer() {
   serverCompiler.plugin('done', function () {
     debug('webpack', 'Bundled server in ' + (Date.now() - bundleStart) + 'ms!');
     if (startedServer) {
+      debug('node restart');
       nodemon.restart();
     } else {
       startedServer = true;
+      debug('node started');
       startServer();
 
       registerRefreshListener();
@@ -133,7 +135,10 @@ const devOptions = {
   headers: { 'Access-Control-Allow-Origin': '*' },
   stats: {
     colors: false
-  }
+  }/*,
+  proxy: {
+    '*': 'http://localhost:3000',
+  },*/
 };
 
 const hotOptions = {

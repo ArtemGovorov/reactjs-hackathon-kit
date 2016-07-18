@@ -7,7 +7,7 @@ const fs = require('fs');
 
 let styles = {};
 if (__DEVSERVER__) {
-  styles = 'assets/styles/main.css';
+  styles = '';
 } else {
   assets = JSON.parse(fs.readFileSync('webpack-assets.json'));
   styles = assets.main.css;

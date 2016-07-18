@@ -26,11 +26,11 @@ const webpackConfig: Configuration = {
     'main': [
       'react-hot-loader/patch',
       HOT_MIDDLEWARE,
+      'webpack/hot/only-dev-server',
       //'bootstrap-loader',
       `${SRC_DIR}/client`,
     ]
   },
-  recordsPath: BUILD_DIR + '/client-records.json',
   output: {
     path: ASSETS_DIR,
     filename: '[name].js',
@@ -52,10 +52,10 @@ const webpackConfig: Configuration = {
   },
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
-    new webpack['DllReferencePlugin']({
+/*    new webpack['DllReferencePlugin']({
       context: PROJECT_ROOT,
       manifest: require(ASSETS_DIR + '/vendor-manifest.json'),
-    }),
+    }),*/
     new webpack.NoErrorsPlugin(),
     new ForkCheckerPlugin(),
     new webpack.DefinePlugin({

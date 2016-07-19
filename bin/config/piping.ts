@@ -1,11 +1,12 @@
 import * as _debug from 'debug';
 const debug = _debug('app:bin:config:piping');
-import {PORT} from './constants';
+import {PORT,PROJECT_ROOT} from './constants';
 
 export default () => {
 
   const reloader = require('piping')(
     {
+      main: PROJECT_ROOT + '/bin/server.js',
       quiet: true,
       hook: true,
       ignore: /(\/\.|~$|\.ts?|\.json|\.scss$)/i
@@ -17,6 +18,7 @@ export default () => {
         process.env.restarted = 0;
       });
       supervisor.on('reloaded', status => {
+        debug('\n  🔄  piping reloaded', status);
         process.env.restarted++;
       });
 

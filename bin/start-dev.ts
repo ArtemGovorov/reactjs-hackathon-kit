@@ -1,8 +1,7 @@
 //  webpack-dev-server --config bundling/webpack.config.dev.client.js --progress --colors --hot
-
+console.log('THIS PAGE HAS EXECURED')
 const webpack = require('webpack');
-const path = require('path');
-
+import {resolve} from 'path';
 const clientConfig = require('./config/webpack.config.dev-client');
 const nodemon = require('nodemon');
 const PrettyError = require('pretty-error');
@@ -41,39 +40,14 @@ function canContinue(where, err, stats) {
   return true;
 }
 
-function registerRefreshListener() {
-  keypress(process.stdin);
-  process.stdin.on('keypress', function (ch, key) {
-    if (key && key.name === 'p') {
-      process.stdout.write('\n');
-      bundleServer();
-    }
-  });
-  process.stdin.resume();
-  debug('webpack', 'Press "p" to hot-patch the server');
-}
+
 
 // -----------------------------------------------------------------------------
 // Server
 // -----------------------------------------------------------------------------
 let startedServer = false;
 function startServer() {
-/*  nodemon({
-    execMap: {
-      js: 'node',
-    },
-    script: PROJECT_ROOT + '/bin/server.js',
-    ignore: ['*'],
-    watch: ['nothing/'],
-    ext: 'noop',
-  });
-
-  nodemon
-    .on('quit', () => debug('nodemon', 'stopped server. bye'))
-    .on('exit', () => debug('nodemon', 'nodemon exited'))
-    .on('crash', () => debug('nodemon', 'nodemon crashed'))
-    .on('stderr', () => debug('nodemon', 'nodemon stderr'))
-    .on('restart', () => debug('nodemon', 'patched server'));*/
+  require('./server.js');
 }
 
 function bundleServer() {
@@ -89,12 +63,11 @@ function bundleServer() {
   serverCompiler.plugin('done', function () {
     debug('webpack', 'Bundled server in ' + (Date.now() - bundleStart) + 'ms!');
     if (startedServer) {
-     // nodemon.restart();
+      // nodemon.restart();
+
     } else {
       startedServer = true;
       startServer();
-
-      registerRefreshListener();
     }
   });
 
@@ -132,8 +105,8 @@ clientCompiler.plugin('done', function (stats) {
 //const host = 'localhost';
 const devOptions = {
   contentBase: 'http://' + 'localhost' + ':' + (PORT + 1),
-  quiet: true,
-  noInfo: true,
+  quiet: false,
+  noInfo: false,
   hot: false,
   inline: false,
   overlay: true,
@@ -145,19 +118,19 @@ const devOptions = {
   }
 };
 
-const hotOptions = {
+/*const hotOptions = {
   log: str => debug('\n  🔥  client ' + str),
   overlay: true,
   quiet: true,
   noInfo: true
 };
-
+*/
 
 
 const app: express.Express = express();
 
 app.use(require('webpack-dev-middleware')(clientCompiler, devOptions));
-app.use(require('webpack-hot-middleware')(clientCompiler, hotOptions));
+app.use(require('webpack-hot-middleware')(clientCompiler));
 
 app.listen((PORT + 1), function onAppListening(err) {
   if (err) {
@@ -167,10 +140,3 @@ app.listen((PORT + 1), function onAppListening(err) {
   }
 });
 
-
-// work around a weird nodemon bug where something was logged to the console
-// even after the process exited
-process.on('SIGINT', function (err) {
-  if (err) { console.log('fuck' + err.stack); }
-  process.exit();
-});

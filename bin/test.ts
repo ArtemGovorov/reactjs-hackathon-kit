@@ -24,13 +24,6 @@ webpackCompiler(
   })
   .then(response => {
     debugResponse(response);
-    return webpackCompiler(
-      require(resolve('./', './bin/config/webpack.config.dev-server.js')),
-      false
-    );
-  })
-  .then(response => {
-    debugResponse(response);
     debug('Complete YAY!');
   })
   .catch(error => {

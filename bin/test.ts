@@ -12,13 +12,17 @@ const debug = _debug('app:test');
 
 
 webpackCompiler(
-  require(resolve('./', './bin/config/webpack.config.dll-server.js')),
+  require(
+    resolve('./', './bin/config/webpack.config.dll-server.js')
+  ),
   false
 )
   .then(response => {
     debugResponse(response);
     return webpackCompiler(
-      require(resolve('./', './bin/config/webpack.config.dll-client.js')),
+      require(
+        resolve('./', './bin/config/webpack.config.dll-client.js')
+      ),
       false
     );
   })

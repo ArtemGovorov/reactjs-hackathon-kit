@@ -26,9 +26,7 @@ export default () => {
   );
 
   reloader.on('reload', function (done) {
-    if (process.env.restarted) {
-      debug('\n  🔄  restarting server');
-    }
+    debug(`\n  🔄  restarting server`);
     process.env.restarted++;
     done();
   });

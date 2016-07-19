@@ -2,6 +2,7 @@
 console.log('THIS PAGE HAS EXECURED');
 const webpack = require('webpack');
 import {resolve} from 'path';
+import buildClientHMR from './tasks/build-client-HMR';
 const clientConfig = require('./config/webpack.config.dev-client');
 const nodemon = require('nodemon');
 const PrettyError = require('pretty-error');
@@ -16,8 +17,6 @@ const debug = _debug('app:start-dev');
 import {
   PUBLIC_PATH,
   PORT,
-  ASSETS_DIR,
-  PROJECT_ROOT
 } from './config/constants';
 
 const keypress = require('keypress');
@@ -62,11 +61,11 @@ function startServer() {
       stdio: 'inherit'
     }
   );
-/*  child.stdout.pipe(process.stdout);
-  // Listen for any errors:
-  child.stderr.on('data', function (data) {
-    console.log('There was an error: ' + data);
-  });*/
+  /*  child.stdout.pipe(process.stdout);
+    // Listen for any errors:
+    child.stderr.on('data', function (data) {
+      console.log('There was an error: ' + data);
+    });*/
 }
 
 function bundleServer() {
@@ -90,11 +89,7 @@ function bundleServer() {
   });
   serverCompiler.watch(
     {
-      /** After a change the watcher waits that time (in milliseconds) for more changes. Default: 300. */
       aggregateTimeout: 300,
-      /** The watcher uses polling instead of native watchers.
-       * true uses the default interval, a number specifies a interval in milliseconds.
-       * Default: undefined (automatic). */
       poll: undefined
     },
     function (err, stats) {
@@ -102,10 +97,10 @@ function bundleServer() {
     });
 }
 
-// ----------------------------------------------------------------------------
-// Client
-// ----------------------------------------------------------------------------
-const clientCompiler = webpack(clientConfig);
+buildClientHMR()
+.then(bundleServer);
+
+/*const clientCompiler = webpack(clientConfig);
 let bundleClientStart;
 clientCompiler.plugin('compile', function () {
   debug('webpack', 'Bundling client...');
@@ -121,7 +116,7 @@ clientCompiler.plugin('done', function (stats) {
     bundleServer();
   }
 
-  /*  if (!canContinue('server', false, stats)) { return; }*/
+
   debug('webpack', 'Bundled client in ' + (Date.now() - bundleClientStart) + 'ms!');
 
 });
@@ -142,18 +137,18 @@ const devOptions = {
   }
 };
 
-/*const hotOptions = {
+const hotOptions = {
   log: str => debug('\n  🔥  client ' + str),
   overlay: true,
   quiet: true,
   noInfo: true
 };
-*/
+
 
 
 const app: express.Express = express();
 
-app.use(require('webpack-dev-middleware')(clientCompiler, devOptions));
+app.use(require('webpack-dev-middleware')(clientCompiler, hotOptions));
 app.use(require('webpack-hot-middleware')(clientCompiler));
 
 app.listen((PORT + 1), function onAppListening(err) {
@@ -164,3 +159,4 @@ app.listen((PORT + 1), function onAppListening(err) {
   }
 });
 
+*/

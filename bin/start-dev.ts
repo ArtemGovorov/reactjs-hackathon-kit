@@ -58,7 +58,7 @@ function registerRefreshListener() {
 // -----------------------------------------------------------------------------
 let startedServer = false;
 function startServer() {
-  nodemon({
+/*  nodemon({
     execMap: {
       js: 'node',
     },
@@ -73,7 +73,7 @@ function startServer() {
     .on('exit', () => debug('nodemon', 'nodemon exited'))
     .on('crash', () => debug('nodemon', 'nodemon crashed'))
     .on('stderr', () => debug('nodemon', 'nodemon stderr'))
-    .on('restart', () => debug('nodemon', 'patched server'));
+    .on('restart', () => debug('nodemon', 'patched server'));*/
 }
 
 function bundleServer() {
@@ -89,7 +89,7 @@ function bundleServer() {
   serverCompiler.plugin('done', function () {
     debug('webpack', 'Bundled server in ' + (Date.now() - bundleStart) + 'ms!');
     if (startedServer) {
-      nodemon.restart();
+     // nodemon.restart();
     } else {
       startedServer = true;
       startServer();

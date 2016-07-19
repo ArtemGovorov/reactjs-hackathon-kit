@@ -6,7 +6,7 @@ const styles = require('./Counter.css');
 export const Counter = (props) => (
   <div>
     <h2 className={styles['counter-container']}>
-      Counter!:
+      Counter!44444jjj:
       {' '}
       <span className={styles['counter--green']}>
         {props.counter}

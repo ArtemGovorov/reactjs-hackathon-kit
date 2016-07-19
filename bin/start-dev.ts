@@ -1,5 +1,5 @@
 //  webpack-dev-server --config bundling/webpack.config.dev.client.js --progress --colors --hot
-console.log('THIS PAGE HAS EXECURED')
+console.log('THIS PAGE HAS EXECURED');
 const webpack = require('webpack');
 import {resolve} from 'path';
 const clientConfig = require('./config/webpack.config.dev-client');
@@ -46,8 +46,27 @@ function canContinue(where, err, stats) {
 // Server
 // -----------------------------------------------------------------------------
 let startedServer = false;
+let startedClient = false;
 function startServer() {
-  require('./server.js');
+  const spawn = require('child_process').spawn;
+  // clone the actual env vars to avoid overrides
+  const env = Object.create(process.env);
+  env.NODE_ENV = 'development';
+  env.DEBUG = 'app:*';
+
+  const child = spawn(
+    'node',
+    ['./bin/server.js'],
+    {
+      env: env,
+      stdio: 'inherit'
+    }
+  );
+/*  child.stdout.pipe(process.stdout);
+  // Listen for any errors:
+  child.stderr.on('data', function (data) {
+    console.log('There was an error: ' + data);
+  });*/
 }
 
 function bundleServer() {
@@ -63,14 +82,12 @@ function bundleServer() {
   serverCompiler.plugin('done', function () {
     debug('webpack', 'Bundled server in ' + (Date.now() - bundleStart) + 'ms!');
     if (startedServer) {
-      // nodemon.restart();
 
     } else {
       startedServer = true;
       startServer();
     }
   });
-
   serverCompiler.watch(
     {
       /** After a change the watcher waits that time (in milliseconds) for more changes. Default: 300. */
@@ -81,7 +98,7 @@ function bundleServer() {
       poll: undefined
     },
     function (err, stats) {
-      canContinue('server', err, stats);
+
     });
 }
 
@@ -96,17 +113,24 @@ clientCompiler.plugin('compile', function () {
 });
 
 clientCompiler.plugin('done', function (stats) {
-  console.log('HELLO');
-  if (!canContinue('server', false, stats)) { return; }
+
+  if (startedClient) {
+
+  } else {
+    startedClient = true;
+    bundleServer();
+  }
+
+  /*  if (!canContinue('server', false, stats)) { return; }*/
   debug('webpack', 'Bundled client in ' + (Date.now() - bundleClientStart) + 'ms!');
-  bundleServer();
+
 });
 
 //const host = 'localhost';
 const devOptions = {
   contentBase: 'http://' + 'localhost' + ':' + (PORT + 1),
-  quiet: false,
-  noInfo: false,
+  quiet: true,
+  noInfo: true,
   hot: false,
   inline: false,
   overlay: true,

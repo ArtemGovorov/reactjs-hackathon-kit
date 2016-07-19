@@ -232,12 +232,11 @@ function getExternals() {
     } else {
       rootModuleName = request.substr(0, slashIndex);
     }
-    if (request === 'webpack/hot/signal.js') {
-      console.log('fucko');
-    }
+
+
     // Match for root modules that are in our node_modules
     if (nodeModules.hasOwnProperty(rootModuleName)
-      && request !== 'webpack/hot/signal.js') {
+      && request !== 'webpack/hot/poll?1000') {
       callback(null, 'commonjs ' + request);
     } else {
       callback();

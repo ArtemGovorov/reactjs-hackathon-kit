@@ -71,7 +71,11 @@ if (__DEVTOOLS__) {
 }
 
 match({ history, routes }, () => {
+  const out = document.getElementById('root').innerHTML;
+  console.log(out);
   render();
   // remove server-generated css
+  const out2 = document.getElementById('root').innerHTML;
+  console.log(out2);
   document.getElementById('fast-css').remove();
 });

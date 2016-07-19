@@ -98,9 +98,18 @@ function bundleServer() {
     }
   });
 
-  serverCompiler.run(function (err, stats) {
-    canContinue('server', err, stats);
-  });
+  serverCompiler.watch(
+    {
+      /** After a change the watcher waits that time (in milliseconds) for more changes. Default: 300. */
+      aggregateTimeout: 300,
+      /** The watcher uses polling instead of native watchers.
+       * true uses the default interval, a number specifies a interval in milliseconds.
+       * Default: undefined (automatic). */
+      poll: undefined
+    },
+    function (err, stats) {
+      canContinue('server', err, stats);
+    });
 }
 
 // ----------------------------------------------------------------------------
@@ -162,6 +171,6 @@ app.listen((PORT + 1), function onAppListening(err) {
 // work around a weird nodemon bug where something was logged to the console
 // even after the process exited
 process.on('SIGINT', function (err) {
-  if (err) { console.log(err.stack); }
+  if (err) { console.log('fuck' + err.stack); }
   process.exit();
 });

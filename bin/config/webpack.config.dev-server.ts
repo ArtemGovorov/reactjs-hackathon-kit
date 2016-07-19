@@ -1,7 +1,7 @@
 import * as webpack from 'webpack';
 import {Configuration} from 'webpack';
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
-
+const ForkCheckerPlugin = require('awesome-typescript-loader').ForkCheckerPlugin;
 import {
   LOADERS_COMMON,
   SRC_DIR,
@@ -64,6 +64,7 @@ const webpackConfig: Configuration = {
     new webpack.NoErrorsPlugin(),
     new webpack.HotModuleReplacementPlugin(),
     new webpack.optimize.LimitChunkCountPlugin({ maxChunks: 1 }),
+    new ForkCheckerPlugin(),
     new (webpack as any).BannerPlugin(
       {
         banner: 'require("source-map-support").install();',

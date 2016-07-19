@@ -9,37 +9,23 @@ const debug = _debug('app:test');
 //./bin/config/webpack.config.dev-server.js
 //./bin/config/webpack.config.prod.js
 
-/*webpackCompiler(
-  require(resolve('./', './bin/config/webpack.config.dll-server.js')),
-  false
-)
-  .then(response => {
-    debugResponse(response);
-    return webpackCompiler(
-      require(resolve('./', './bin/config/webpack.config.dll-client.js')),
-      false
-    );
-  })
-  .then(response => {
-    debugResponse(response);
-    return webpackCompiler(
-      require(resolve('./', './bin/config/webpack.config.dev-server.js')),
-      false
-    );
-  })
-  .then(response => {
-    debugResponse(response);
-    debug('Complete YAY!');
-  })
-  .catch(error => {
-    debug(`\n  ❌  Wepack compiler encountered an error`, error);
-  });
-*/
+
 
 webpackCompiler(
-  require(resolve('./', './bin/config/webpack.config.dev-server.js')),
+  require(
+    resolve('./', './bin/config/webpack.config.dll-server.js')
+  ),
   false
 )
+  .then(response => {
+    debugResponse(response);
+    return webpackCompiler(
+      require(
+        resolve('./', './bin/config/webpack.config.dll-client.js')
+      ),
+      false
+    );
+  })
   .then(response => {
     debugResponse(response);
     debug('Complete YAY!');

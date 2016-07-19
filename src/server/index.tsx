@@ -83,6 +83,8 @@ export default function render(req, res) {
 
   const routes = createRoutes(store);
 
+
+
   /*
    * From the react-router docs:
    *
@@ -120,8 +122,11 @@ export default function render(req, res) {
       );
 
       const styles = loadStylesFromComponents(props.components);
- 
-      res.status(200).send(`
+
+
+
+      const render = function () {
+        res.status(200).send(`
           <!doctype html>
           <html ${header['htmlAttributes'].toString()}>
             <head>
@@ -139,6 +144,9 @@ export default function render(req, res) {
             </body>
           </html>
         `);
+      };
+
+      render();
 
     } else {
       res.sendStatus(404);

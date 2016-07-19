@@ -1,8 +1,8 @@
 //  webpack-dev-server --config bundling/webpack.config.dev.client.js --progress --colors --hot
-
+console.log('THIS PAGE HAS EXECURED');
 const webpack = require('webpack');
-const path = require('path');
-
+import {resolve} from 'path';
+import buildClientHMR from './tasks/build-client-HMR';
 const clientConfig = require('./config/webpack.config.dev-client');
 const nodemon = require('nodemon');
 const PrettyError = require('pretty-error');
@@ -17,7 +17,6 @@ const debug = _debug('app:start-dev');
 import {
   PUBLIC_PATH,
   PORT,
-  PROJECT_ROOT
 } from './config/constants';
 
 const keypress = require('keypress');
@@ -29,51 +28,44 @@ function canContinue(where, err, stats) {
   }
   let jsonStats = stats.toJson();
   if (jsonStats.errors.length > 0) {
-    debug('webpack', where + ' compiler had errors:');
+    log.error('webpack', where + ' compiler had errors:');
     jsonStats.errors.map(function (error) { console.log(pretty.render(error)); });
     return false;
   }
   if (jsonStats.warnings.length > 0) {
-    debug('webpack', where + ' compiler had warnings:', jsonStats.warnings);
+    log.warn('webpack', where + ' compiler had warnings:', jsonStats.warnings);
     return false;
   }
   return true;
 }
 
-function registerRefreshListener() {
-  keypress(process.stdin);
-  process.stdin.on('keypress', function (ch, key) {
-    debug('key');
-    if (key && key.name === 'p') {
-      process.stdout.write('\n');
-      bundleServer();
-    }
-  });
-  process.stdin.resume();
-  debug('webpack', 'Press "p" to hot-patch the server');
-}
+
 
 // -----------------------------------------------------------------------------
 // Server
 // -----------------------------------------------------------------------------
 let startedServer = false;
+let startedClient = false;
 function startServer() {
-  nodemon({
-    execMap: {
-      js: 'node',
-    },
-    script: PROJECT_ROOT + '/bin/server.js',
-    ignore: ['*'],
-    watch: ['nothing/'],
-    ext: 'noop',
-  });
+  const spawn = require('child_process').spawn;
+  // clone the actual env vars to avoid overrides
+  const env = Object.create(process.env);
+  env.NODE_ENV = 'development';
+  env.DEBUG = 'app:*';
 
-  nodemon
-    .on('quit', () => debug('nodemon', 'stopped server. bye'))
-    .on('exit', () => debug('nodemon', 'nodemon exited'))
-    .on('crash', () => debug('nodemon', 'nodemon crashed'))
-    .on('stderr', () => debug('nodemon', 'nodemon stderr'))
-    .on('restart', () => debug('nodemon', 'patched server'));
+  const child = spawn(
+    'node',
+    ['./bin/server.js'],
+    {
+      env: env,
+      stdio: 'inherit'
+    }
+  );
+  /*  child.stdout.pipe(process.stdout);
+    // Listen for any errors:
+    child.stderr.on('data', function (data) {
+      console.log('There was an error: ' + data);
+    });*/
 }
 
 function bundleServer() {
@@ -89,26 +81,26 @@ function bundleServer() {
   serverCompiler.plugin('done', function () {
     debug('webpack', 'Bundled server in ' + (Date.now() - bundleStart) + 'ms!');
     if (startedServer) {
-      debug('node restart');
-      nodemon.restart();
+
     } else {
       startedServer = true;
-      debug('node started');
       startServer();
-
-      registerRefreshListener();
     }
   });
+  serverCompiler.watch(
+    {
+      aggregateTimeout: 300,
+      poll: undefined
+    },
+    function (err, stats) {
 
-  serverCompiler.run(function (err, stats) {
-    canContinue('server', err, stats);
-  });
+    });
 }
 
-// ----------------------------------------------------------------------------
-// Client
-// ----------------------------------------------------------------------------
-const clientCompiler = webpack(clientConfig);
+buildClientHMR()
+.then(bundleServer);
+
+/*const clientCompiler = webpack(clientConfig);
 let bundleClientStart;
 clientCompiler.plugin('compile', function () {
   debug('webpack', 'Bundling client...');
@@ -116,10 +108,17 @@ clientCompiler.plugin('compile', function () {
 });
 
 clientCompiler.plugin('done', function (stats) {
-  console.log('HELLO');
-  if (!canContinue('server', false, stats)) { return; }
+
+  if (startedClient) {
+
+  } else {
+    startedClient = true;
+    bundleServer();
+  }
+
+
   debug('webpack', 'Bundled client in ' + (Date.now() - bundleClientStart) + 'ms!');
-  bundleServer();
+
 });
 
 //const host = 'localhost';
@@ -135,10 +134,7 @@ const devOptions = {
   headers: { 'Access-Control-Allow-Origin': '*' },
   stats: {
     colors: false
-  }/*,
-  proxy: {
-    '*': 'http://localhost:3000',
-  },*/
+  }
 };
 
 const hotOptions = {
@@ -152,8 +148,8 @@ const hotOptions = {
 
 const app: express.Express = express();
 
-app.use(require('webpack-dev-middleware')(clientCompiler, devOptions));
-app.use(require('webpack-hot-middleware')(clientCompiler, hotOptions));
+app.use(require('webpack-dev-middleware')(clientCompiler, hotOptions));
+app.use(require('webpack-hot-middleware')(clientCompiler));
 
 app.listen((PORT + 1), function onAppListening(err) {
   if (err) {
@@ -163,10 +159,4 @@ app.listen((PORT + 1), function onAppListening(err) {
   }
 });
 
-
-// work around a weird nodemon bug where something was logged to the console
-// even after the process exited
-process.on('SIGINT', function (err) {
-  if (err) { console.log(err.stack); }
-  process.exit();
-});
+*/

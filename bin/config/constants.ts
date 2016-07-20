@@ -1,7 +1,9 @@
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 import {resolve, join} from 'path';
+const ProgressBarPlugin = require('progress-bar-webpack-plugin');
+const chalk = require('chalk');
 const cssnano = require('cssnano');
-const fs = require('fs');
+
 
 interface FileLoader {
   test: RegExp;
@@ -183,6 +185,16 @@ export const LOADERS_COMMON = [
 
 export const POST_CSS_CONFIG_DEV = postCSSConfig;
 export const POST_CSS_CONFIG_PROD = postCSSConfig;
+
+export const PLUG_IN_PROGRESS = new ProgressBarPlugin({
+  clear: true,
+  width: 30,
+  summary: false,
+  incomplete: '😬 ',
+  complete: '😜 ',
+  customSummary: () => { },
+  format: '  [:bar] ' + chalk.green.bold(':percent'),
+});
 
 function fileLoaderFactory(
   test: RegExp,

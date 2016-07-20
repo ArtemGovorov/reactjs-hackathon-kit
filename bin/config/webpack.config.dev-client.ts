@@ -13,7 +13,7 @@ import {
   PORT,
   PROJECT_ROOT,
   POST_CSS_CONFIG_DEV,
-  BUILD_DIR
+  PLUG_IN_PROGRESS
 } from './constants';
 
 const ForkCheckerPlugin = require('awesome-typescript-loader').ForkCheckerPlugin;
@@ -51,11 +51,12 @@ const webpackConfig: Configuration = {
     modulesDirectories: [NODE_MODULES]
   },
   plugins: [
+    PLUG_IN_PROGRESS,
     new webpack.HotModuleReplacementPlugin(),
-/*    new webpack['DllReferencePlugin']({
-      context: PROJECT_ROOT,
-      manifest: require(ASSETS_DIR + '/vendor-manifest.json'),
-    }),*/
+    /*    new webpack['DllReferencePlugin']({
+          context: PROJECT_ROOT,
+          manifest: require(ASSETS_DIR + '/vendor-manifest.json'),
+        }),*/
     new webpack.NoErrorsPlugin(),
     new ForkCheckerPlugin(),
     new webpack.DefinePlugin({

@@ -3,10 +3,9 @@
   "version": "1.0.0",
   "description": "A React.js stack typescript isomorphic template with Webpack and react-router",
   "scripts": {
-    "temp": "tsc && cross-env DEBUG=app:* node ./bin/test.js",
-    "temp:start": "cross-env DEBUG=app:* node ./bin/start-dev.js",
-    "dev": "npm run dev:shhhh -s",
-    "dev:shhhh": "cross-env DEBUG=app:* npm-run-all clean temp kill temp:start",
+    "temp:start": "cross-env DEBUG=app:* node ./bin/start.js",
+    "dev": "npm run dev:shhhh",
+    "dev:shhhh": "cross-env DEBUG=app:* npm-run-all clean compile kill temp:start",
     "build:server-dll": "cross-env DEBUG=app:*  node ./bin/compile.js --config ./bin/config/webpack.config.dll-server.js",
     "build:dev-dll": "cross-env DEBUG=app:*  node ./bin/compile.js --config ./bin/config/webpack.config.dll-client.js",
     "build:dev-server": "cross-env DEBUG=app:*  node ./bin/compile.js --config ./bin/config/webpack.config.dev-server.js",

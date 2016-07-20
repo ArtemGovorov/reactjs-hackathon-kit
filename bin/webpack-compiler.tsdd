@@ -2,8 +2,6 @@ import * as _debug from 'debug';
 import * as webpack from 'webpack';
 import webpackCompilerDecorator from './decorators/webpack-compiler';
 import webpackStatsDecorator from './decorators/webpack-stats';
-const ProgressBarPlugin = require('progress-bar-webpack-plugin');
-const chalk = require('chalk');
 
 
 

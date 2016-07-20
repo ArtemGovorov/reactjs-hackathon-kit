@@ -10,7 +10,8 @@ import {
   LOADERS_STYLES_FAKE,
   EXTERNALS,
   PROJECT_ROOT,
-  BUILD_DIR
+  BUILD_DIR,
+  PLUG_IN_PROGRESS
 } from './constants';
 
 const webpackConfig: Configuration = {
@@ -62,6 +63,7 @@ const webpackConfig: Configuration = {
         allChunks: true
       }),*/
     //  new webpack.NoErrorsPlugin(),
+    PLUG_IN_PROGRESS,
     new webpack.NoErrorsPlugin(),
     new webpack.HotModuleReplacementPlugin(),
     new webpack.optimize.LimitChunkCountPlugin({ maxChunks: 1 }),

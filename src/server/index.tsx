@@ -16,12 +16,11 @@ import header from '../shared/components/Meta';
 const PORT = 3000;
 const fs = require('fs');
 
-
 let javascript = {};
 let vendor = '';
 if (__DEVSERVER__) {
   javascript = `http://localhost:${PORT + 1}/assets/main.js`;
-/*  vendor = '<script type="text/javascript" charset="utf-8" src="assets/vendor.dll.js"></script>';*/
+  vendor = '<script type="text/javascript" charset="utf-8" src="assets/vendor.dll.js"></script>';
 } else {
   const assets = JSON.parse(fs.readFileSync('webpack-assets.json'));
   javascript = assets.main.js;

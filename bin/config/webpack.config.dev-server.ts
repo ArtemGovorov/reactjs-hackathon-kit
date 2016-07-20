@@ -20,11 +20,10 @@ const webpackConfig: Configuration = {
   entry: {
     server: [
       //'bootstrap-loader/extractStyles',
-      'webpack/hot/poll?1000',
+      //'webpack/hot/poll?1000',
       `${SRC_DIR}/server`
     ]
   },
-  watch: true,
   target: 'node',
   node: {
     console: true,

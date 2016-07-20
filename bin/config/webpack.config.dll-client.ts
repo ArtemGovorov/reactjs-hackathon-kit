@@ -5,7 +5,8 @@ import {
   PUBLIC_PATH,
   LOADERS_STYLES_DEV,
   PROJECT_ROOT,
-  PORT
+  PORT,
+  PLUG_IN_PROGRESS
 } from './constants';
 
 
@@ -76,6 +77,7 @@ module.exports = {
     extensions: ['', '.json', '.js', '.jsx', '.ts', '.tsx']
   },
   plugins: [
+    PLUG_IN_PROGRESS,
     new webpack['DllPlugin']({
       name: '[name]',
       path: join(ASSETS_DIR, '[name]-manifest.json'),

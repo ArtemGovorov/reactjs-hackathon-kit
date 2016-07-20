@@ -1,11 +1,13 @@
 import * as webpack from 'webpack';
 import webpackCompilerDecorator from '../decorators/webpack-compiler';
-const webpackConfig = require('../config/webpack.config.dll-client');
-const compiler = webpackCompilerDecorator(webpack(webpackConfig));
+
 const _debug = require('debug');
 const debug = _debug('app:bin:tasks:build-dll');
 
 export default function buildServerHMR() {
+
+  const webpackConfig = require('../config/webpack.config.dll-client');
+  const compiler = webpackCompilerDecorator(webpack(webpackConfig));
 
   return new Promise<webpack.compiler.Stats>(
 

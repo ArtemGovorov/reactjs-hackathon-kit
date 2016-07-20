@@ -5,7 +5,7 @@
   "scripts": {
     "temp:start": "cross-env DEBUG=app:* node ./bin/start.js",
     "dev": "npm run dev:shhhh",
-    "dev:shhhh": "cross-env DEBUG=app:* npm-run-all clean compile kill temp:start",
+    "dev:shhhh": "cross-env DEBUG=app:* npm-run-all kill clean compile  temp:start",
     "build:server-dll": "cross-env DEBUG=app:*  node ./bin/compile.js --config ./bin/config/webpack.config.dll-server.js",
     "build:dev-dll": "cross-env DEBUG=app:*  node ./bin/compile.js --config ./bin/config/webpack.config.dll-client.js",
     "build:dev-server": "cross-env DEBUG=app:*  node ./bin/compile.js --config ./bin/config/webpack.config.dev-server.js",

@@ -41,6 +41,29 @@ function watchPromise(
   return (): Promise<CustomStats> =>
     new Promise<CustomStats>(
       (resolve, reject) => {
+        // the state, false: bundle invalid, true: bundle valid
+        let state = false;
+        // on compiling
+        function invalidPlugin() {
+          state = false;
+        }
+        function invalidAsyncPlugin(compiler, callback) {
+          invalidPlugin();
+          callback();
+        }
+        (compiler as any).plugin('invalid', invalidPlugin);
+        (compiler as any).plugin('watch-run', invalidAsyncPlugin);
+        (compiler as any).plugin('run', invalidAsyncPlugin);
+        (compiler as any).plugin('done', function (stats) {
+          state = true;
+          process.nextTick(function () {
+            // check if still in valid state
+            if (!state) { return; }
+            // print webpack output
+            const customStats: CustomStats = webpackStatsDecorator(stats);
+            debug(customStats.toBuiltString());
+          });
+        });
         compiler.watch(
           {
             aggregateTimeout: 300,

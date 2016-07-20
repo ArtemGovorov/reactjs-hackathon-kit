@@ -6,13 +6,16 @@ import {
   PUBLIC_PATH,
   PORT,
 } from '../config/constants';
-const webpackConfig = require('../config/webpack.config.dev-client');
-const compiler = webpackCompilerDecorator(webpack(webpackConfig));
+
 const _debug = require('debug');
 const debug = _debug('app:bin:tasks:build-client-hmr');
 
 
 export default function buildClientHMR() {
+
+  const webpackConfig = require('../config/webpack.config.dev-client');
+  const compiler = webpackCompilerDecorator(webpack(webpackConfig));
+
 
   return new Promise<webpack.compiler.Stats>(
 
@@ -34,7 +37,7 @@ export default function buildClientHMR() {
       };
 
       const hotOptions = {
-        //log: str => debug('\n  🔥  client ' + str),
+        log: str => { },
         overlay: true,
         quiet: true,
         noInfo: true

@@ -1,8 +1,6 @@
 import * as webpack from 'webpack';
 import webpackCompilerDecorator from '../decorators/webpack-compiler';
 
-const _debug = require('debug');
-const debug = _debug('app:bin:tasks:build-server-hmr');
 
 export default function buildServerHMR() {
 
@@ -14,7 +12,6 @@ export default function buildServerHMR() {
     compiler.$watch()
       .then(
       response => {
-        debug(response.toShortSummaryString());
         startServer();
         resolve(response);
       }

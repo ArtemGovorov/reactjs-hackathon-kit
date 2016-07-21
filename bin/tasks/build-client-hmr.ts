@@ -7,8 +7,9 @@ import {
   PORT,
 } from '../config/constants';
 
-const _debug = require('debug');
-const debug = _debug('app:bin:tasks:build-client-hmr');
+
+import _debug from '../decorators/debug';
+const debug = _debug('app:bin:tasks:build-client-hmr', '🔥');
 
 
 export default function buildClientHMR() {
@@ -53,13 +54,12 @@ export default function buildClientHMR() {
           debug(error);
           reject(error);
         } else {
-          debug(`\n  🔥  hot reloading: http://localhost:${(PORT + 1)}`);
+          debug(`hot reloading: http://localhost:${(PORT + 1)}`);
         }
       });
 
       (compiler as any).plugin('done', function (stats) {
         const customStats = webpackStatsDecorator(stats);
-        debug(customStats.toShortSummaryString());
         resolve(customStats);
       });
 

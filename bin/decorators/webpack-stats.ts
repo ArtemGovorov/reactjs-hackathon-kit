@@ -1,7 +1,10 @@
 import * as webpack from 'webpack';
-
+import {
+  PROJECT_ROOT
+} from '../config/constants';
 
 export interface CustomStats extends webpack.compiler.Stats {
+  builtNodeModules: () => string[];
   toSummaryString: () => string;
   toShortSummaryString: () => string;
   toBuiltString: () => string;
@@ -20,7 +23,7 @@ export interface CustomStats extends webpack.compiler.Stats {
         request: string;
         resource: string;
         errors: [any];
-        size: number;
+        size: () => number;
       }
     ];
   };
@@ -41,34 +44,55 @@ export default (stats: webpack.compiler.Stats): CustomStats => {
   decorated.toShortSummaryString = formatStats(
     decorated,
     {
-      chunks: true,
-      chunkModules: true,
+      chunks: false,
+      chunkModules: false,
       colors: true,
       hash: true,
       version: true,
       timings: true
     });
   decorated.toBuiltString = toBuiltString(decorated);
+  decorated.builtNodeModules = builtNodeModules(decorated);
   return decorated;
 };
 
+function builtNodeModules(stats: CustomStats) {
+  return (): string[] => {
+    const modules = stats.compilation.modules;
+    return modules
+      .filter(
+      module =>
+        module.built === true
+        && /node_modules/i.test(module.resource)
+      )
+      .map<string>(
+      module => {
+        return module
+          .resource
+          .split(PROJECT_ROOT + '\/')
+          .pop();
+      }
+      );
+  };
+}
+
 function toBuiltString(stats: CustomStats) {
   return (): string => {
-    let str: string = '';
     const modules = stats.compilation.modules;
-    modules
-      .filter(module => module.built === true)
-      .forEach(
+    return modules
+      .filter(
+      module => { return module.built === true && module.resource !== undefined; }
+      )
+      .map(
       module => {
-        str += '\n' + JSON.stringify(
-          {
-            built: module.built,
-            resource: module.resource,
-            size: formatSize(module.size)
-          }
-        );
-      });
-    return str;
+        let str = '';
+        str += `${module
+          .resource
+          .split(PROJECT_ROOT + '\/')
+          .pop()} (${formatSize(module.size())})`;
+        return str;
+      })
+      .join('\n');
   };
 }
 
@@ -82,7 +106,7 @@ function formatStats(
     bundles.forEach(stats => {
       str += stats.toString(printOptions);
     });
-    return preetfy('\n' + str);
+    return str;
   };
 }
 
@@ -95,12 +119,10 @@ function extractBundles(stats) {
   return [stats];
 }
 
-function preetfy(str) {
-  return str.replace(/\n/g, '\n  ');
-}
+
 
 function formatSize(size) {
-		if (size <= 0) {return '0 bytes'; }
+		if (size <= 0) { return '0 bytes'; }
 
 		let abbreviations = ['bytes', 'kB', 'MB', 'GB'];
 		let index = Math.floor(Math.log(size) / Math.log(1000));

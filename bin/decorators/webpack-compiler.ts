@@ -1,8 +1,9 @@
-
 import * as webpack from 'webpack';
-import * as _debug from 'debug';
+import _debug from './debug';
 import webpackStatsDecorator from './webpack-stats';
-const debug = _debug('app:webpack:compiler');
+const debug = _debug('app:bin:decorators:webpack-compiler', '🛠');
+
+
 
 import {CustomStats} from './webpack-stats';
 
@@ -23,12 +24,12 @@ export default (compiler: webpack.compiler.Compiler): CustomCompiler => {
   let compileStart;
 
   (compiler as any).plugin('compile', function (response) {
-    debug(`\n  🛠  ${name ? name + ' ' : ''}webpack building...`);
+    debug(`${name ? name + ' ' : ''}webpack building...`);
     compileStart = Date.now();
   });
 
   (compiler as any).plugin('done', function (stats: CustomStats) {
-    debug(`\n  🛠  ${name ? name + ' ' : ''}webpack built in ${stats.endTime - stats.startTime} ms`);
+    debug(`${name ? name + ' ' : ''}webpack built in ${stats.endTime - stats.startTime} ms`);
   });
 
   return customCompiler;
@@ -61,7 +62,14 @@ function watchPromise(
             if (!state) { return; }
             // print webpack output
             const customStats: CustomStats = webpackStatsDecorator(stats);
-            debug(customStats.toBuiltString());
+            debug('Compiled files', '\n' + customStats.toBuiltString());
+            const builtNodeModules = customStats.builtNodeModules();
+            if (builtNodeModules.length > 0) {
+              debug(
+                'WARNING: node modules are slowing down this build!!!',
+                '\nBundle these modules into your DLL instead...',
+                '\n' + builtNodeModules.join('\n'));
+            }
           });
         });
         compiler.watch(

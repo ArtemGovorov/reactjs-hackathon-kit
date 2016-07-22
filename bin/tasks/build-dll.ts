@@ -2,7 +2,7 @@ import * as webpack from 'webpack';
 import webpackCompilerDecorator from '../decorators/webpack-compiler';
 
 
-export default function buildServerHMR() {
+export default function () {
 
   const webpackConfig = require('../config/webpack.config.dll-client');
   const compiler = webpackCompilerDecorator(webpack(webpackConfig));

@@ -3,7 +3,8 @@ import _debug from './debug';
 import webpackStatsDecorator from './webpack-stats';
 const debug = _debug('app:bin:decorators:webpack-compiler', '🛠');
 
-
+let _compiler: CustomCompiler;
+let _name: string;
 
 import {CustomStats} from './webpack-stats';
 
@@ -15,85 +16,78 @@ export interface CustomCompiler extends webpack.compiler.Compiler {
 //(compiler: webpack.compiler.Compiler) => Promise<any>;
 export default (compiler: webpack.compiler.Compiler): CustomCompiler => {
 
-  const customCompiler: CustomCompiler = compiler as CustomCompiler;
-  customCompiler.$watch = watchPromise(compiler, compileCallback);
-  customCompiler.$run = runPromise(compiler, compileCallback);
-
-
-  const name = compiler.name;
+  _compiler = compiler as CustomCompiler;
+  _compiler.$watch = $watch;
+  _compiler.$run = $run;
+  _name = _compiler.name;
   let compileStart;
-
-  (compiler as any).plugin('compile', function (response) {
-    debug(`${name ? name + ' ' : ''}webpack building...`);
+  (_compiler as any).plugin('compile', function (response) {
+    debug(`${debugPrefix(_name)}building...`);
     compileStart = Date.now();
   });
-
-  (compiler as any).plugin('done', function (stats: CustomStats) {
-    debug(`${name ? name + ' ' : ''}webpack built in ${stats.endTime - stats.startTime} ms`);
+  (_compiler as any).plugin('done', function (stats: CustomStats) {
+    debug(`${debugPrefix(_name)}built in ${stats.endTime - stats.startTime} ms`);
   });
 
-  return customCompiler;
+  return _compiler;
 };
 
-function watchPromise(
-  compiler: webpack.compiler.Compiler,
-  compileCallback: any
-) {
-  return (): Promise<CustomStats> =>
-    new Promise<CustomStats>(
-      (resolve, reject) => {
-        // the state, false: bundle invalid, true: bundle valid
-        let state = false;
-        // on compiling
-        function invalidPlugin() {
-          state = false;
-        }
-        function invalidAsyncPlugin(compiler, callback) {
-          invalidPlugin();
-          callback();
-        }
-        (compiler as any).plugin('invalid', invalidPlugin);
-        (compiler as any).plugin('watch-run', invalidAsyncPlugin);
-        (compiler as any).plugin('run', invalidAsyncPlugin);
-        (compiler as any).plugin('done', function (stats) {
-          state = true;
-          process.nextTick(function () {
-            // check if still in valid state
-            if (!state) { return; }
-            // print webpack output
-            const customStats: CustomStats = webpackStatsDecorator(stats);
-            debug('Compiled files', '\n' + customStats.toBuiltString());
-            const builtNodeModules = customStats.builtNodeModules();
-            if (builtNodeModules.length > 0) {
-              debug(
-                'WARNING: node modules are slowing down this build!!!',
-                '\nBundle these modules into your DLL instead...',
-                '\n' + builtNodeModules.join('\n'));
+function $watch(): Promise<CustomStats> {
+  return new Promise<CustomStats>(
+    (resolve, reject) => {
+      // the state, false: bundle invalid, true: bundle valid
+      let state = false;
+      // on compiling
+      function invalidPlugin() {
+        state = false;
+      }
+      function invalidAsyncPlugin(compiler, callback) {
+        invalidPlugin();
+        callback();
+      }
+      (_compiler as any).plugin('invalid', invalidPlugin);
+      (_compiler as any).plugin('watch-run', invalidAsyncPlugin);
+      (_compiler as any).plugin('run', invalidAsyncPlugin);
+      (_compiler as any).plugin('done', function (stats) {
+        state = true;
+        process.nextTick(function () {
+          // check if still in valid state
+          if (!state) { return; }
+          // print webpack output
+          const customStats: CustomStats = webpackStatsDecorator(stats);
+          debug('Compiled files', '\n' + customStats.toBuiltString());
+          const builtNodeModules = customStats.builtNodeModules();
+          if (builtNodeModules.length > 0) {
+            let message = '';
+            if (_name === 'client') {
+              message = '\nBundle these modules into your DLL instead...';
+            } else if (_name === 'server') {
+              message = '\nConfigure these modules into your externals instead...';
             }
-          });
+            debug(
+              `${debugPrefix(_name)}WARNING node modules are slowing down this build!!!`,
+              message,
+              '\n' + builtNodeModules.join('\n'));
+          }
         });
-        compiler.watch(
-          {
-            aggregateTimeout: 300,
-            poll: undefined
-          },
-          compileCallback(resolve, reject)
-        );
       });
-
+      _compiler.watch(
+        {
+          aggregateTimeout: 300,
+          poll: undefined
+        },
+        compileCallback(resolve, reject)
+      );
+    });
 }
 
-function runPromise(
-  compiler: webpack.compiler.Compiler,
-  compileCallback: any
-) {
-  return (): Promise<CustomStats> =>
-    new Promise<CustomStats>(
-      (resolve, reject) => {
-        compiler.run(
-          compileCallback(resolve, reject)
-        );
-      });
+function $run(): Promise<CustomStats> {
+  return new Promise<CustomStats>(
+    (resolve, reject) => {
+      _compiler.run(
+        compileCallback(resolve, reject)
+      );
+    });
 }
 
 function compileCallback(resolve, reject) {
@@ -112,6 +106,10 @@ function compileCallback(resolve, reject) {
     }
     resolve(customStats);
   };
+}
+
+function debugPrefix(name) {
+  return `webpack:${_name ? _name : ''}\n`;
 }
 
 

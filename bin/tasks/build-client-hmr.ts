@@ -12,7 +12,7 @@ import _debug from '../decorators/debug';
 const debug = _debug('app:bin:tasks:build-client-hmr', '🔥');
 
 
-export default function buildClientHMR() {
+export default function () {
 
   const webpackConfig = require('../config/webpack.config.dev-client');
   const compiler = webpackCompilerDecorator(webpack(webpackConfig));

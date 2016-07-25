@@ -1,6 +1,6 @@
 const kill = require('kill3k');
 import _debug from '../decorators/debug';
-const debug = _debug('app:tasks:clean', '👾');
+const debug = _debug('app:tasks:terminate', '👾');
 
 import {
   PORT,

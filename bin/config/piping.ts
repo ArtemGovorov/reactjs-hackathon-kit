@@ -15,11 +15,9 @@ export default () => {
     supervisor => {
       supervisor.on('started', status => {
         debug('\n  🔄  piping hot server enabled');
-        process.env.restarted = 0;
       });
       supervisor.on('exit', status => {
         debug('\n  😿  bye bye');
-        process.env.restarted = 0;
       });
     }
 
@@ -27,12 +25,11 @@ export default () => {
 
   reloader.on('reload', function (done) {
     debug(`\n  🔄  restarting server`);
-    process.env.restarted++;
     done();
   });
 
   reloader.on('reloaded', function (status) {
-    debug(`\n  🔄  restarted: http://localhost:${PORT} - ${process.env.restarted}`);
+    debug(`\n  🔄  restarted: http://localhost:${PORT}`);
 
   });
 };

@@ -5,9 +5,6 @@ import buildDll from './tasks/build-dll';
 import terminate from './tasks/terminate';
 import displayBanner from './tasks/display-banner';
 
-import _debug from './decorators/debug';
-const debug = _debug('app:start', '🎉');
-
 const clear = require('clear');
 clear(true);
 

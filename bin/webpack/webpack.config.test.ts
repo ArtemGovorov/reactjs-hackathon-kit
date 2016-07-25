@@ -8,7 +8,7 @@ import {
   PUBLIC_PATH,
   FILE_NAME,
   LOADERS_STYLES_DEV,
-} from './constants';
+} from '../constants';
 
 const webpackConfig: Configuration = {
   devtool: 'cheap-module-source-map',

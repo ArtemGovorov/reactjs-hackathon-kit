@@ -3,7 +3,7 @@ import webpackCompiler from '../decorators/webpack-compiler';
 
 
 export default function () {
-  const webpackConfig = require('../config/webpack.config.dev-server');
+  const webpackConfig = require('../webpack/webpack.config.dev-server');
   const compiler = webpackCompiler(webpack(webpackConfig));
 
   return new Promise<webpack.compiler.Stats>(
@@ -32,7 +32,7 @@ function startServer() {
   env.DEBUG = 'app:*';
   spawn(
     'node',
-    ['./bin/server.js'],
+    ['./public/assets/server.js'],
     {
       env: env,
       stdio: 'inherit'

@@ -17,7 +17,7 @@ import {
   POST_CSS_CONFIG_PROD,
   EXTERNALS,
   NODE_MODULES
-} from './constants';
+} from '../constants';
 
 const webpackConfig: Configuration = [
   {

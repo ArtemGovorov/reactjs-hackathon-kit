@@ -5,7 +5,7 @@ import {compose} from 'ramda';
 import {
   NAME_SERVER,
   NAME_CLIENT
-} from '../config/constants';
+} from '../constants';
 
 const debug = _debug('app:bin:decorators:webpack-compiler', '🛠');
 const chalk = require('chalk');

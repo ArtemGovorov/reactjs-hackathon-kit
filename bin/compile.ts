@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-import {PORT} from './config/constants';
+import {PORT} from './constants';
 
 compile();
 

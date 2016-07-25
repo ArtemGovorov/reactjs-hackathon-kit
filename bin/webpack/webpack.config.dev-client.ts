@@ -14,7 +14,7 @@ import {
   PROJECT_ROOT,
   POST_CSS_CONFIG_DEV,
   NAME_CLIENT
-} from './constants';
+} from '../constants';
 
 const ForkCheckerPlugin = require('awesome-typescript-loader').ForkCheckerPlugin;
 

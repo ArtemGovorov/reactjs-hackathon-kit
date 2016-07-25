@@ -4,7 +4,7 @@ import * as express from 'express';
 import {resolve} from 'path';
 import * as _debug from 'debug';
 const debug = _debug('app:bin:config:parse');
-import {PORT} from './constants';
+const PORT = process.env.PORT || 3000;
 export const APP_DIR = resolve(__dirname, '../../', 'src');
 export default (app: express.Express) => {
 

@@ -1,7 +1,7 @@
 import * as webpack from 'webpack';
 import {
   PROJECT_ROOT
-} from '../config/constants';
+} from '../constants';
 
 export interface CustomStats extends webpack.compiler.Stats {
   builtNodeModules: () => string[];

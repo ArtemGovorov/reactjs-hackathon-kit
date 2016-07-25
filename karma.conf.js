@@ -1,6 +1,6 @@
 'use strict';
 var argv = require('yargs').argv;
-var webpackConfig = require('./bin/config/webpack.config.test');
+var webpackConfig = require('./bin/webpack/webpack.config.test');
 module.exports = function (config) {
     config.set({
         basePath: '',

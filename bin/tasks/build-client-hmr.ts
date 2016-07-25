@@ -6,7 +6,7 @@ import webpackStatsDecorator from '../decorators/webpack-stats';
 import {
   PUBLIC_PATH,
   PORT
-} from '../config/constants';
+} from '../constants';
 
 
 import _debug from '../decorators/debug';
@@ -15,7 +15,7 @@ const debug = _debug('app:bin:tasks:build-client-hmr', '🔥');
 
 export default function () {
 
-  const webpackConfig = require('../config/webpack.config.dev-client');
+  const webpackConfig = require('../webpack/webpack.config.dev-client');
   const compiler = webpackCompiler(webpack(webpackConfig), true);
 
 

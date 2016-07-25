@@ -7,7 +7,7 @@ if (ENV === 'development') {
   piping();
 }
 
-const App = require('../public/assets/server');
+const App = require('./server');
 
 const app: express.Express = express();
 

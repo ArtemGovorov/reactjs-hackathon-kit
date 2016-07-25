@@ -3,12 +3,11 @@ import {
   LOADERS_COMMON,
   ASSETS_DIR,
   PUBLIC_PATH,
-  LOADERS_STYLES_DEV,
   PROJECT_ROOT,
   PORT,
   PLUG_IN_PROGRESS,
   NAME_DLL
-} from './constants';
+} from '../constants';
 
 
 import { join}  from 'path';

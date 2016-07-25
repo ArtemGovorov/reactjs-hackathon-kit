@@ -4,7 +4,7 @@ const debug = _debug('app:tasks:terminate', '👾');
 
 import {
   PORT,
-} from '../config/constants';
+} from '../constants';
 
 export default function () {
 

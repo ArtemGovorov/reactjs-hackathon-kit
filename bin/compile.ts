@@ -6,7 +6,7 @@ compile();
 function compile() {
 
   const _debug = require('debug');
-  const debug = _debug('app:bin:compile');
+  const debug = _debug('app:bin:terminate');
   const clear = require('clear');
   const kill = require('kill3k');
 

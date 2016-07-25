@@ -11,6 +11,7 @@ import {
   EXTERNALS,
   PROJECT_ROOT,
   BUILD_DIR,
+  NAME_SERVER
 } from './constants';
 
 const webpackConfig: Configuration = {
@@ -82,7 +83,7 @@ const webpackConfig: Configuration = {
 };
 
 // The configuration for the server-side rendering
-webpackConfig['name'] = 'server';
+webpackConfig['name'] = NAME_SERVER;
 webpackConfig['externals'] = EXTERNALS as any;
 
 

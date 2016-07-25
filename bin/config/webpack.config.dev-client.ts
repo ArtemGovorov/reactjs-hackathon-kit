@@ -12,7 +12,8 @@ import {
   NODE_MODULES,
   PORT,
   PROJECT_ROOT,
-  POST_CSS_CONFIG_DEV
+  POST_CSS_CONFIG_DEV,
+  NAME_CLIENT
 } from './constants';
 
 const ForkCheckerPlugin = require('awesome-typescript-loader').ForkCheckerPlugin;
@@ -23,9 +24,9 @@ const webpackConfig: Configuration = {
   context: PROJECT_ROOT,
   entry: {
     'main': [
-      'react-hot-loader/patch',
       HOT_MIDDLEWARE,
       'webpack/hot/only-dev-server',
+      'react-hot-loader/patch',
       //'bootstrap-loader',
       `${SRC_DIR}/client`,
     ]
@@ -55,7 +56,6 @@ const webpackConfig: Configuration = {
       context: PROJECT_ROOT,
       manifest: require(ASSETS_DIR + '/vendor-manifest.json'),
     }),
-    new webpack.NoErrorsPlugin(),
     new ForkCheckerPlugin(),
     new webpack.DefinePlugin({
       __CLIENT__: true,
@@ -70,6 +70,6 @@ const webpackConfig: Configuration = {
 };
 
 // The configuration for the client
-webpackConfig['name'] = 'client';
+webpackConfig['name'] = NAME_CLIENT;
 webpackConfig['postcss'] = POST_CSS_CONFIG_DEV;
 export = webpackConfig;

@@ -10,6 +10,6 @@ export default (store) => ({
         injectReducer(store, { key: 'counter', reducer });
         cb(null, Counter);
       }
-    );
+      , 'counter');
   }
 });

@@ -15,6 +15,9 @@ interface FileLoader {
   };
 }
 
+export const NAME_SERVER: string = 'server';
+export const NAME_DLL: string = 'DLL';
+export const NAME_CLIENT: string = 'client';
 export const HOST = process.env.HOST || 'localhost';
 export const PORT = process.env.PORT || 3000;
 export const BUILD_DIR = resolve(__dirname, '../../', 'public');

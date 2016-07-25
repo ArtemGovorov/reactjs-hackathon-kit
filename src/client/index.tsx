@@ -32,7 +32,7 @@ let render = (key = null) => {
   let App;
   if (__DEVCLIENT__) {
     App = (
-      <AppContainer>
+      <AppContainer >
         <Root routerKey={key} store={store} history={history} routes={routes} />
       </AppContainer>
     );
@@ -48,7 +48,7 @@ let render = (key = null) => {
 if (__DEVCLIENT__ && module.hot) {
   const renderApp = render;
   const renderError = (error) => {
-    const RedBox = require('redbox-react');
+    const RedBox = require('redbox-react').default;
     ReactDOM.render(<RedBox error={error} />, MOUNT_ELEMENT);
   };
   render = () => {
@@ -58,7 +58,7 @@ if (__DEVCLIENT__ && module.hot) {
       renderError(e);
     }
   };
-  module.hot.accept(['../shared/containers/Root', '../shared/routes/index.ts'], () => {
+  module.hot.accept(['../shared/containers/Root.tsx', '../shared/routes/index.ts'], () => {
     render();
   });
 }

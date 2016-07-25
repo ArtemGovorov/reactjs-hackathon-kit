@@ -9,9 +9,9 @@ export default function (message: string) {
 
       figlet.text(
 
-        `React Webpack Funpack!`,
+        `Let's Go!`,
         {
-          font: 'Bubble',
+          font: '',
           horizontalLayout: 'default',
           verticalLayout: 'default'
         },

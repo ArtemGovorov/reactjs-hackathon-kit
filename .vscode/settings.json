@@ -4,6 +4,8 @@
     "node_modules": true,
     "bin/**/*.js": true,
     "bin/**/*.map": true,
+    "src/**/*.js": true,
+    "src/**/*.map": true,
     "coverage": true,
     "reports": true
   },

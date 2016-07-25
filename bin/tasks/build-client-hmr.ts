@@ -1,10 +1,11 @@
 import * as webpack from 'webpack';
-import webpackCompilerDecorator from '../decorators/webpack-compiler';
+import webpackCompiler from '../decorators/webpack-compiler';
+
 import * as express from 'express';
 import webpackStatsDecorator from '../decorators/webpack-stats';
 import {
   PUBLIC_PATH,
-  PORT,
+  PORT
 } from '../config/constants';
 
 
@@ -15,7 +16,7 @@ const debug = _debug('app:bin:tasks:build-client-hmr', '🔥');
 export default function () {
 
   const webpackConfig = require('../config/webpack.config.dev-client');
-  const compiler = webpackCompilerDecorator(webpack(webpackConfig));
+  const compiler = webpackCompiler(webpack(webpackConfig), true);
 
 
   return new Promise<webpack.compiler.Stats>(
@@ -26,9 +27,8 @@ export default function () {
         contentBase: 'http://' + 'localhost' + ':' + (PORT + 1),
         quiet: true,
         noInfo: true,
-        hot: false,
+        hot: true,
         inline: false,
-        overlay: true,
         lazy: false,
         publicPath: `http://localhost:${PORT + 1}${PUBLIC_PATH}`,
         headers: { 'Access-Control-Allow-Origin': '*' },

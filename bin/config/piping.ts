@@ -32,8 +32,7 @@ export default () => {
   });
 
   reloader.on('reloaded', function (status) {
-    if (process.env.restarted > 0) {
-      debug(`\n  🔄  restarted: http://localhost:${PORT} - ${process.env.restarted} restart(s)`);
-    }
+    debug(`\n  🔄  restarted: http://localhost:${PORT} - ${process.env.restarted}`);
+
   });
 };

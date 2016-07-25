@@ -6,7 +6,8 @@ import {
   LOADERS_STYLES_DEV,
   PROJECT_ROOT,
   PORT,
-  PLUG_IN_PROGRESS
+  PLUG_IN_PROGRESS,
+  NAME_DLL
 } from './constants';
 
 
@@ -15,13 +16,12 @@ import { join}  from 'path';
 module.exports = {
   devtool: 'inline-source-map',
   context: PROJECT_ROOT,
-  name: 'DLL',
+  name: NAME_DLL,
   entry: {
     vendor: [
       'react',
       'react-dom',
       'react-dom/server',
-      'react-hot-loader',
       'redux',
       'react-redux',
       'history/lib/createBrowserHistory',
@@ -44,12 +44,18 @@ module.exports = {
       'react-router-redux',
       'redux-observable',
       'rxjs',
-      'redbox-react',
       'error-stack-parser',
       'stackframe',
-      'bootstrap-loader',
       'react-bootstrap',
-      'bootstrap-css'
+      'classnames/bind.js',
+      'react-addons-css-transition-group/index.js',
+      'react/lib/ReactCSSTransitionGroup.js',
+      'react/lib/ReactCSSTransitionGroupChild.js',
+      'react/lib/ReactTransitionChildMapping.js',
+      'react/lib/ReactTransitionEvents.js',
+      'react/lib/ReactTransitionGroup.js'
+
+
     ]
   },
   output: {
@@ -60,12 +66,6 @@ module.exports = {
   },
   module: {
     loaders: LOADERS_COMMON
-      .concat(LOADERS_STYLES_DEV,
-      [
-        // Bootstrap 3
-        { test: /bootstrap-sass\/assets\/javascripts\//, loader: 'imports?jQuery=jquery' },
-      ]
-      )
   },
   progress: true,
   resolve: {
@@ -74,7 +74,7 @@ module.exports = {
       'assets',
       'node_modules'
     ],
-    extensions: ['', '.json', '.js', '.jsx', '.ts', '.tsx']
+    extensions: ['', '.json', '.js', '.jsx', '.ts', '.tsx', '.css']
   },
   plugins: [
     PLUG_IN_PROGRESS,

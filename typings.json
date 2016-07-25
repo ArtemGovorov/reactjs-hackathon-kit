@@ -24,6 +24,7 @@
     "node": "registry:dt/node#6.0.0+20160709114037",
     "parse": "registry:dt/parse#1.2.19+20160316155526",
     "promises-a-plus": "registry:dt/promises-a-plus#0.0.0+20160317120654",
+    "ramda": "registry:global/ramda#0.21.0+20160531162943",
     "react": "registry:dt/react#0.14.0+20160423065914",
     "react-addons-css-transition-group": "registry:dt/react-addons-css-transition-group#0.14.0+20160316155526",
     "react-addons-test-utils": "registry:dt/react-addons-test-utils#0.14.0+20160427035638",

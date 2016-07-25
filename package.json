@@ -19,7 +19,7 @@
     "lint": "tslint -s node_modules/custom-tslint-formatters/formatters -t grouped 'src/**/*.ts?(x)' 'config/**/*.ts?(x)' 'bin/**/*.ts?(x)'",
     "compile:watch": "npm run compile -- -w",
     "tsc": "tsc",
-    "compile": "tsc typings/index.d.ts bin/compile.ts && cross-env DEBUG=app:* node ./bin/compile.js",
+    "compile": "cross-env DEBUG=app:* node ./tsc-compile.js",
     "test": "npm run compile && cross-env NODE_ENV=test karma start",
     "postinstall": "typings install && npm run build",
     "commit": "git-cz"
@@ -206,6 +206,7 @@
     "postcss-reporter": "1.4.1",
     "postcss-simple-vars": "^1.2.0",
     "pretty-error": "^2.0.0",
+    "ramda": "^0.21.0",
     "react": "15.1.0",
     "react-addons-css-transition-group": "^15.2.1",
     "react-addons-transition-group": "^15.2.1",

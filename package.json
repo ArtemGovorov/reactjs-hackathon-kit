@@ -194,6 +194,7 @@
     "postcss-reporter": "1.4.1",
     "postcss-simple-vars": "^1.2.0",
     "pretty-error": "^2.0.0",
+    "promise-loader": "^1.0.0",
     "ramda": "^0.21.0",
     "react": "15.1.0",
     "react-addons-css-transition-group": "^15.2.1",

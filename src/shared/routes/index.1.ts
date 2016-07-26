@@ -3,6 +3,7 @@ import { CoreLayout } from '../layouts/CoreLayout/CoreLayout';
 import HomeRoute from './Home';
 import CounterRoute from './Counter';
 
+
 /*  Note: Instead of using JSX, we recommend using react-router
     PlainRoute objects to build route definitions.   */
 

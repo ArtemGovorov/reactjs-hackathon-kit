@@ -26,7 +26,7 @@
       "name": "Attach",
       "type": "node",
       "request": "attach",
-      "port": 5858,
+      "port": 31611,
       "address": "localhost",
       "restart": false,
       "sourceMaps": true,

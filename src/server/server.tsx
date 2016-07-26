@@ -1,21 +1,15 @@
-/* tslint:disable:no-unused-variable */
-import * as axios from 'axios';
-/* tslint:enable:no-unused-variable */
 import * as React from 'react';
-import { renderToString } from 'react-dom/server';
-import { syncHistoryWithStore } from 'react-router-redux';
+const createMemoryHistory = require('react-router/lib/createMemoryHistory');
 import {  match, RouterContext } from 'react-router';
-const createHistory = require('react-router/lib/createMemoryHistory');
-import { Provider } from 'react-redux';
-import createRoutes from '../shared/routes';
-import configureStore from '../shared/store/configureStore';
-
-import loadStylesFromComponents from './utils/loadStylesFromComponents';
-//import preRenderMiddleware from 'middlewares/preRenderMiddleware';
+import { renderToString } from 'react-dom/server';
+import routes from '../shared/routes';
 import header from '../shared/components/Meta';
+import configureStore from '../shared/store/configureStore';
+import loadStylesFromComponents from './utils/loadStylesFromComponents';
+import { Provider } from 'react-redux';
+
 const PORT = 3000;
 const fs = require('fs');
-
 let javascript = {};
 let vendor = '';
 if (__DEVSERVER__) {
@@ -26,84 +20,54 @@ if (__DEVSERVER__) {
   javascript = assets.main.js;
 }
 
-
-/*const clientConfig = {
-  host: process.env.HOSTNAME || 'localhost',
-  port: process.env.PORT || '3000'
-};
-*/
-// configure baseURL for axios requests (for serverside API calls)
-//axios.defaults.baseURL = `http://${clientConfig.host}:${clientConfig.port}`;
-
-const analtyicsScript = '';
-/* typeof trackingID === "undefined" ? ``
-	 :
-	 `<script>
-	 (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-	 (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-	 m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-	 })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
-	 ga('create', ${trackingID}, 'auto');
-	 ga('send', 'pageview');
- </script>`;*/
-
-/*
- * To Enable Google analytics simply replace the hashes with your tracking ID
- * and move the constant to above the analtyicsScript constant.
- *
- * Currently because the ID is declared beneath where is is being used, the
- * declaration will get hoisted to the top of the file.
- * however the assignement  does not, so it is undefined for the type check above.
- * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/var#var_hoisting
+/**
+ * An express middleware that is capabable of doing React server side rendering.
  */
-//const trackingID = "'UA-########-#'";
-
-/*
- * Export render function to be used in server/config/routes.js
- * We grab the state passed in from the server and the req object from Express/Koa
- * and pass it into the Router.run function.
- */
-export default function render(req, res) {
-  const authenticated = true; //TODO Check Parse sesson req.isAuthenticated();
-  const memoryHistory = createHistory(req.originalUrl);
-
-  const store = configureStore({
-    user: {
-      authenticated,
-      isWaiting: false,
-      message: '',
-      isLogin: true
+function universalReactAppMiddleware(request, response) {
+/*  if (process.env.DISABLE_SSR) {
+    if (process.env.NODE_ENV === 'development') {
+      console.log('==> 🐌  Handling react route without SSR');  // eslint-disable-line no-console
     }
-  }, memoryHistory);
+    // SSR is disabled so we will just return an empty html page and will
+    // rely on the client to populate the initial react application state.
+    const html = render();
+    response.status(200).send(html);
+    return;
+  }*/
 
-  syncHistoryWithStore(memoryHistory, store, {
-    selectLocationState: (state) => state.router,
-  });
+  const history = createMemoryHistory(request.originalUrl);
 
-  const routes = createRoutes(store);
+  // Server side handling of react-router.
+  // Read more about this here:
+  // https://github.com/reactjs/react-router/blob/master/docs/guides/ServerRendering.md
+  match({ routes, history }, (error, redirectLocation, renderProps) => {
+    if (error) {
+      response.status(500).send(error.message);
+    } else if (redirectLocation) {
+      response.redirect(302, redirectLocation.pathname + redirectLocation.search);
+    } else if (renderProps) {
+      // You can check renderProps.components or renderProps.routes for
+      // your "not found" component or route respectively, and send a 404 as
+      // below, if you're using a catch-all route.
+      const styles = loadStylesFromComponents(renderProps.components);
 
-
-  match({ routes, location: req.url }, (err, redirect, props) => {
-    if (err) {
-      res.status(500).json(err);
-    } else if (redirect) {
-      res.redirect(302, redirect.pathname + redirect.search);
-    } else if (props) {
+      const store = configureStore({
+        user: {
+          authenticated: true,
+          isWaiting: false,
+          message: '',
+          isLogin: true
+        }
+      }, history);
       const initialState = store.getState();
       const componentHTML = renderToString(
         <Provider store={store}>
           <div style={{ height: '100%' }}>
-            <RouterContext {...props as any} />
+            <RouterContext {...renderProps as any} />
           </div>
         </Provider>
       );
-
-      const styles = loadStylesFromComponents(props.components);
-
-
-
-      const render = function () {
-        res.status(200).send(`
+      request.status(200).send(`
           <!doctype html>
           <html ${header['htmlAttributes'].toString()}>
             <head>
@@ -115,18 +79,16 @@ export default function render(req, res) {
             <body>
               <div id="root">${componentHTML}</div>
               <script>window.__INITIAL_STATE__ = ${JSON.stringify(initialState)};</script>
-              ${analtyicsScript}
+
               ${vendor}
               <script type="text/javascript" charset="utf-8" src="${javascript}"></script>
             </body>
           </html>
-        `);
-      };
-
-      render();
-
+                  `);
     } else {
-      res.sendStatus(404);
+      response.status(404).send('Not found');
     }
   });
 }
+
+export default universalReactAppMiddleware;

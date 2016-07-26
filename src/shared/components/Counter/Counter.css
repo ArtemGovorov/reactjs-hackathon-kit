@@ -9,4 +9,5 @@
 :local(.counter-container) {
   composes: text-uppercase text-primary from 'bootstrap-css/lib/type';
   margin: 1em auto;
+  opacity: 0.2;
 }

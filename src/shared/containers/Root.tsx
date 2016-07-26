@@ -21,20 +21,14 @@ function onUpdate() {
 
 export class Root extends React.Component<any, any> {
 
-  static propTypes = {
-    history: PropTypes.object.isRequired,
-    routes: PropTypes.object.isRequired,
-    routerKey: PropTypes.number,
-    store: PropTypes.object.isRequired
-  };
 
   render() {
-    const { history, routes, routerKey, store } = this.props;
+    const { store, routerKey } = this.props;
 
     return (
       <Provider store={store}>
         <div style={{ height: '100%' }}>
-          <Router history={history} children={routes} key={routerKey} onUpdate={onUpdate} />
+          <Router key={routerKey} {...this.props} onUpdate={onUpdate} />
         </div>
       </Provider>
     );

@@ -41,6 +41,7 @@
     "sinon": "registry:dt/sinon#1.16.0+20160517064723",
     "sinon-chai": "registry:dt/sinon-chai#2.7.0+20160317120654",
     "source-map": "registry:dt/source-map#0.0.0+20160317120654",
+    "systemjs": "registry:dt/systemjs#0.19.29+20160702105636",
     "typescript": "registry:dt/typescript#0.4.0+20160317120654",
     "uglify-js": "registry:dt/uglify-js#2.6.1+20160316155526",
     "underscore": "registry:dt/underscore#1.7.0+20160505190121",

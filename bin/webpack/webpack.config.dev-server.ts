@@ -50,7 +50,7 @@ const webpackConfig: Configuration = {
     root: [SRC_DIR],
     extensions: ['', '.ts', '.tsx', '.js', '.css'],
   },
-  devtool: 'eval',
+  devtool: '#cheap-module-inline-source-map ',
   plugins: [
     new webpack.NoErrorsPlugin(),
     new webpack.HotModuleReplacementPlugin(),

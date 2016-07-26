@@ -1,6 +1,6 @@
 import * as React from 'react';
-import Route from 'react-router/lib/Route';
-import IndexRoute from 'react-router/lib/IndexRoute';
+import {Route, IndexRoute} from 'react-router';
+import { injectReducer } from '../store/reducers';
 import { CoreLayout } from '../layouts/CoreLayout/CoreLayout';
 
 function handleError(err) {
@@ -9,16 +9,22 @@ function handleError(err) {
   console.log(err); // eslint-disable-line no-console
 }
 
-function resolveIndexComponent(nextState, cb) {
-  System.import('./Home/containers/HomeContainer')
-    .then(module => cb(null, module.default))
-    .catch(handleError);
+function resolveIndexComponent(store) {
+  return (nextState, cb) =>
+    System.import('./Home/containers/HomeContainer')
+      .then(module => cb(null, module.default))
+      .catch(handleError);
 }
 
-function resolveCounterComponent(nextState, cb) {
-  System.import('./Counter/containers/CounterContainer')
-    .then(module => cb(null, module.default))
-    .catch(handleError);
+function resolveCounterComponent(store) {
+  return (nextState, cb) =>
+    System.import('./Counter/modules/counter')
+      .then(module => {
+        injectReducer(store, { key: 'counter', reducer: module.default });
+        return System.import('./Counter/containers/CounterContainer');
+      })
+      .then(module => cb(null, module.default))
+      .catch(handleError);
 }
 
 /**
@@ -30,10 +36,10 @@ function resolveCounterComponent(nextState, cb) {
  * @see https://github.com/reactjs/react-router/blob/master/docs/guides/DynamicRouting.md
  * @see https://gist.github.com/sokra/27b24881210b56bbaff7#code-splitting-with-es6
  */
-const routes = (
+const routes = (store) => (
   <Route path = '/' component = { CoreLayout } >
-    <IndexRoute getComponent= {resolveIndexComponent} />
-    <Route path='counter' getComponent={resolveCounterComponent}/ >
+    <IndexRoute getComponent= {resolveIndexComponent(store) } />
+    <Route path='counter' getComponent={resolveCounterComponent(store) }/ >
   </Route>
 );
 

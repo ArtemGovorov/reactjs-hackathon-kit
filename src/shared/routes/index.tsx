@@ -2,6 +2,7 @@ import * as React from 'react';
 import {Route, IndexRoute} from 'react-router';
 import { injectReducer } from '../store/reducers';
 import { CoreLayout } from '../layouts/CoreLayout/CoreLayout';
+import CounterContainer from './Counter/containers/CounterContainer';
 
 function handleError(err) {
   // TODO: Error handling, do we return an Error component here?
@@ -12,7 +13,12 @@ function handleError(err) {
 function resolveIndexComponent(store) {
   return (nextState, cb) =>
     System.import('./Home/containers/HomeContainer')
-      .then(module => cb(null, module.default))
+      .then(
+      module => {
+        return cb(
+          null, module.default
+        );
+      })
       .catch(handleError);
 }
 
@@ -25,6 +31,15 @@ function resolveCounterComponent(store) {
       })
       .then(module => cb(null, module.default))
       .catch(handleError);
+}
+function resolveAboutComponent(nextState, cb) {
+
+
+  System.import('./Counter/containers/CounterContainer')
+    .then(module => {
+      return cb(null, module.default);
+    })
+    .catch(handleError);
 }
 
 /**
@@ -39,7 +54,7 @@ function resolveCounterComponent(store) {
 const routes = (store) => (
   <Route path = '/' component = { CoreLayout } >
     <IndexRoute getComponent= {resolveIndexComponent(store) } />
-    <Route path='counter' getComponent={resolveCounterComponent(store) }/ >
+    <Route path='counter' getComponent={resolveCounterComponent(store)}/ >
   </Route>
 );
 

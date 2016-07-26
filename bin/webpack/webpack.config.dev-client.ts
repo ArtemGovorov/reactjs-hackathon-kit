@@ -24,9 +24,8 @@ const webpackConfig: Configuration = {
   context: PROJECT_ROOT,
   entry: {
     'main': [
-      HOT_MIDDLEWARE,
-      'webpack/hot/only-dev-server',
       'react-hot-loader/patch',
+      HOT_MIDDLEWARE,
       //'bootstrap-loader',
       `${SRC_DIR}/client`,
     ]
@@ -34,6 +33,7 @@ const webpackConfig: Configuration = {
   output: {
     path: ASSETS_DIR,
     filename: '[name].js',
+    chunkFilename: '[name]-[chunkhash].js',
     publicPath: `http://localhost:${PORT + 1}${PUBLIC_PATH}`,
   },
   module: {
@@ -52,6 +52,7 @@ const webpackConfig: Configuration = {
   },
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
+    new webpack.NoErrorsPlugin(),
     new webpack['DllReferencePlugin']({
       context: PROJECT_ROOT,
       manifest: require(ASSETS_DIR + '/vendor-manifest.json'),

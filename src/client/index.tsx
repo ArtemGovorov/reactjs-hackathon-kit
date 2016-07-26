@@ -6,12 +6,9 @@ import * as React from 'react';
 import {render} from 'react-dom';
 import { AppContainer } from 'react-hot-loader';
 import createRoutes from '../shared/routes';
-import * as createBrowserHistory from 'history/lib/createBrowserHistory';
-import * as browserHistory from 'react-router/lib/browserHistory';
-import { useRouterHistory, match, Router } from 'react-router';
-import { syncHistoryWithStore } from 'react-router-redux';
+import {  match, Router, browserHistory } from 'react-router';
 import configureStore from '../shared/store/configureStore';
-import Root from '../shared/containers/Root';
+
 
 import { Provider } from 'react-redux';
 
@@ -23,7 +20,7 @@ const store = configureStore(initialState, browserHistory);
 const routes = createRoutes(store);
 function routerError(error?: string) {
   // TODO: Error handling.
-  console.error('==> 😭  React Router match failed.'); // eslint-disable-line no-console
+  console.error('==> 😭  React router match failed.'); // eslint-disable-line no-console
   if (error) { console.error(error); } // eslint-disable-line no-console
 }
 
@@ -31,7 +28,7 @@ function renderApp() {
   // As we are using dynamic react-router routes we have to use the following
   // asynchronous routing mechanism supported by the `match` function.
   // @see https://github.com/reactjs/react-router/blob/master/docs/guides/ServerRendering.md
-  (match as any)({ history: browserHistory, routes: routes }, (error, redirectLocation, renderProps) => {
+  (match as any)({ history: browserHistory, routes }, (error, redirectLocation, renderProps) => {
     if (error) {
       routerError(error);
     } else if (redirectLocation) {
@@ -39,13 +36,8 @@ function renderApp() {
     } else if (renderProps) {
       render(
         <AppContainer>
-          {/*
-          We need to explicly render the Router component here instead of have
-          this embedded within a shared App type of component as we use different
-          router base components for client vs server rendering.
-          */}
           <Provider store={store}>
-            <Router {...renderProps} />
+            <Router  {...renderProps} />
           </Provider>
         </AppContainer>,
         MOUNT_ELEMENT
@@ -61,7 +53,9 @@ if (__DEVCLIENT__ && module.hot) {
   // Accept changes to this file for hot reloading.
   (module.hot as any).accept();
   // Any changes to our routes will cause a hotload re-render.
-  module.hot.accept('../shared/routes', renderApp);
+  module.hot.accept('../shared/routes', () => {
+    renderApp();
+  });
 }
 
 renderApp();

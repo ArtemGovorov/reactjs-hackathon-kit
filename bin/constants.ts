@@ -33,7 +33,7 @@ export const PROD = process.env.NODE_ENV === 'production';
 export const TEST = process.env.NODE_ENV === 'test';
 export const BASENAME = JSON.stringify(process.env.BASENAME || '');
 export const DEVTOOLS: boolean = false;
-export const HOT_MIDDLEWARE = 'webpack-hot-middleware/client?path=http://' + 'localhost' + ':' + (PORT + 1) + '/__webpack_hmr';
+export const HOT_MIDDLEWARE = 'webpack-hot-middleware/client?reload=true&path=http://' + 'localhost' + ':' + (PORT + 1) + '/__webpack_hmr';
 
 export const EXTERNALS = getExternals();
 const URL_BYTE_LIMIT: number = 20000;
@@ -69,11 +69,11 @@ const LOADER_LESS_FAKE = {
   loader: 'fake-style-loader!' + LOADER_LESS_QUERY
 };
 
-const LOADER_LESS_PROD = {
+/*const LOADER_LESS_PROD = {
   test: /\.less$/,
   loader: ExtractTextPlugin.extract('style-loader', LOADER_LESS_QUERY)
 
-};
+};*/
 
 const LOADER_SCSS_DEV = {
   test: /\.scss$/,
@@ -87,10 +87,10 @@ const LOADER_SCSS_FAKE = {
   + 'sourceMap&&modules&importLoaders=1&sourceMap&localIdentName=[local]___[hash:base64:5]!postcss!sass?outputStyle=expanded&sourceMap'
 };
 
-const LOADER_SCSS_PROD = {
+/*const LOADER_SCSS_PROD = {
   test: /\.scss$/,
   loader: ExtractTextPlugin.extract('style-loader', LOADER_SCSS_QUERY)
-};
+};*/
 export const LOADERS_STYLES_DEV = []
   .concat(
   LOADER_SCSS_DEV,

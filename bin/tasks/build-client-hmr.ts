@@ -24,24 +24,14 @@ export default function () {
     (resolve, reject) => {
 
       const devOptions = {
-        contentBase: 'http://' + 'localhost' + ':' + (PORT + 1),
         quiet: true,
         noInfo: true,
-        hot: true,
-        inline: false,
-        lazy: false,
         publicPath: `http://localhost:${PORT + 1}${PUBLIC_PATH}`,
-        headers: { 'Access-Control-Allow-Origin': '*' },
-        stats: {
-          colors: false
-        }
+        headers: { 'Access-Control-Allow-Origin': '*' }
       };
 
       const hotOptions = {
-        log: str => { },
-        overlay: true,
-        quiet: true,
-        noInfo: true
+        log: str => { }
       };
 
       const app: express.Express = express();

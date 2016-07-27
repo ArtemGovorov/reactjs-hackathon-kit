@@ -75,4 +75,4 @@ webpackConfig['noParse'] = [
   /\/sinon\.js/
 ];
 
-export = webpackConfig;
+export default webpackConfig;

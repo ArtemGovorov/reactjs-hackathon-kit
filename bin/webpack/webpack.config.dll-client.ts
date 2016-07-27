@@ -7,13 +7,13 @@ import {
   PORT,
   PLUG_IN_PROGRESS,
   NAME_DLL,
-  LOADER_TS
+  LOADER_TS_DLL
 } from '../constants';
 
 
 import { join}  from 'path';
 
-module.exports = {
+export default {
   devtool: 'inline-source-map',
   context: PROJECT_ROOT,
   name: NAME_DLL,
@@ -64,7 +64,7 @@ module.exports = {
     publicPath: `http://localhost:${PORT}${PUBLIC_PATH}`,
   },
   module: {
-    loaders: LOADERS_COMMON.concat([LOADER_TS])
+    loaders: (LOADERS_COMMON as any).concat([LOADER_TS_DLL])
   },
   progress: true,
   resolve: {

@@ -14,7 +14,7 @@ const app: express.Express = express();
 /*
  * Bootstrap application settings
  */
-parseConfig(app);
+/*parseConfig(app);*/
 expressConfig(app);
 
 

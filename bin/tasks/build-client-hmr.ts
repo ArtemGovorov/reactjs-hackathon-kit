@@ -15,7 +15,7 @@ const debug = _debug('app:bin:tasks:build-client-hmr', '🔥');
 
 export default function () {
 
-  const webpackConfig = require('../webpack/webpack.config.dev-client');
+  const webpackConfig = require('../webpack/webpack.config.dev-client').default;
   const compiler = webpackCompiler(webpack(webpackConfig), true);
 
 

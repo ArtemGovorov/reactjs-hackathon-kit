@@ -5,7 +5,7 @@ export const Welcome = () =>
   (
     <div>
 
-      <h2 className='font-bold'>Welcome
+      <h2 className='font-bold'>Welc
       </h2>
 
       <p>

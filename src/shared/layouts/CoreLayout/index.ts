@@ -1,2 +1,2 @@
-import { CoreLayout } from './CoreLayout';
+import CoreLayout  from './CoreLayout';
 export default CoreLayout;

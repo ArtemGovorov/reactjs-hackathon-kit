@@ -33,7 +33,7 @@ export const PROD = process.env.NODE_ENV === 'production';
 export const TEST = process.env.NODE_ENV === 'test';
 export const BASENAME = JSON.stringify(process.env.BASENAME || '');
 export const DEVTOOLS: boolean = false;
-export const HOT_MIDDLEWARE = 'webpack-hot-middleware/client?reload=true&path=http://' + 'localhost' + ':' + (PORT + 1) + '/__webpack_hmr';
+export const HOT_MIDDLEWARE = 'webpack-hot-middleware/client?reload=false&path=http://' + 'localhost' + ':' + (PORT + 1) + '/__webpack_hmr';
 
 export const EXTERNALS = getExternals();
 const URL_BYTE_LIMIT: number = 20000;
@@ -110,7 +110,14 @@ export const LOADERS_STYLES_FAKE = []
 
 export const LOADER_TS = {
   test: /\.tsx?$/,
-  loader: 'awesome-typescript-loader',
+  loader: 'awesome-typescript-loader?tsconfig=tsconfig-webpack.json',
+  include: SRC_DIR,
+  exclude: NODE_MODULES
+};
+
+export const LOADER_TS_DLL = {
+  test: /\.tsx?$/,
+  loader: 'awesome-typescript-loader?tsconfig=tsconfig-commonjs.json',
   include: SRC_DIR,
   exclude: NODE_MODULES
 };
@@ -126,7 +133,7 @@ export const LOADER_TS = {
 */
 export const LOADER_TS_CLIENT = {
   test: /\.tsx?$/,
-  loader: 'babel!awesome-typescript-loader?tsconfig=tsconfig-webpack.json',
+  loaders: ['awesome-typescript-loader?tsconfig=tsconfig-webpack.json'],
   exclude: [/node_modules/, BUILD_DIR],
 };
 

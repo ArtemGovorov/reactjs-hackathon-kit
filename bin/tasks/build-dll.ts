@@ -4,7 +4,7 @@ import webpackCompiler from '../decorators/webpack-compiler';
 
 export default function () {
 
-  const webpackConfig = require('../webpack/webpack.config.dll-client');
+  const webpackConfig = require('../webpack/webpack.config.dll-client').default;
   const compiler = webpackCompiler(webpack(webpackConfig));
 
   return new Promise<webpack.compiler.Stats>(

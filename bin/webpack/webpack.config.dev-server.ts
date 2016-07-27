@@ -44,7 +44,7 @@ const webpackConfig: Configuration = {
 
     loaders: LOADERS_COMMON
       .concat(
-      LOADERS_STYLES_FAKE,[LOADER_TS]
+      LOADERS_STYLES_FAKE, [LOADER_TS]
       )
   },
   resolve: {
@@ -78,4 +78,4 @@ webpackConfig['name'] = NAME_SERVER;
 webpackConfig['externals'] = EXTERNALS as any;
 
 
-export = webpackConfig;
+export default webpackConfig;

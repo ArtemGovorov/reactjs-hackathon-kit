@@ -22,11 +22,12 @@ const ForkCheckerPlugin = require('awesome-typescript-loader').ForkCheckerPlugin
 
 const webpackConfig: Configuration = {
 
-  devtool: 'source-map',
+  devtool: 'eval',
   context: PROJECT_ROOT,
   entry: {
     'main': [
       'react-hot-loader/patch',
+      'react-hot-loader/babel',
       HOT_MIDDLEWARE,
       `${SRC_DIR}/client`
     ]
@@ -38,24 +39,24 @@ const webpackConfig: Configuration = {
     publicPath: `http://localhost:${PORT + 1}${PUBLIC_PATH}`,
   },
   module: {
-    loaders: LOADERS_COMMON
+    loaders: (LOADERS_COMMON as any)
       .concat(
       LOADERS_STYLES_DEV, [LOADER_TS_CLIENT]
       )
   },
   resolve: {
     root: [SRC_DIR],
-    extensions: ['', '.ts', '.tsx', '.js', '.scss', '.css'],
+    extensions: ['', '.ts', '.tsx', '.js', '.css'],
 
   },
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NoErrorsPlugin(),
-/*    new webpack['DllReferencePlugin']({
+    new webpack['DllReferencePlugin']({
       context: PROJECT_ROOT,
       manifest: require(ASSETS_DIR + '/vendor-manifest.json'),
     }),
-    new ForkCheckerPlugin(),*/
+    new ForkCheckerPlugin(),
     new AssetsPlugin({
       filename: 'assets.json',
       path: ASSETS_DIR
@@ -75,4 +76,4 @@ const webpackConfig: Configuration = {
 // The configuration for the client
 webpackConfig['name'] = NAME_CLIENT;
 webpackConfig['postcss'] = POST_CSS_CONFIG_DEV;
-export = webpackConfig;
+export default webpackConfig;

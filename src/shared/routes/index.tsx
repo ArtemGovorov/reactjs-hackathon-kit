@@ -1,7 +1,8 @@
 import * as React from 'react';
 import {Route, IndexRoute} from 'react-router';
 import { injectReducer } from '../store/reducers';
-import { CoreLayout } from '../layouts/CoreLayout/CoreLayout';
+import CoreLayout  from '../layouts/CoreLayout/CoreLayout';
+/*import * as About from './About.tsx';*/
 /*import CounterContainer from './Counter/containers/CounterContainer';
 import Welcome from  '../components/Login/Welcome';*/
 
@@ -11,32 +12,19 @@ function handleError(err) {
   console.log(err); // eslint-disable-line no-console
 }
 
-/*function resolveIndexComponent(store) {
-  return (nextState, cb) =>
-    System.import('./Home/containers/HomeContainer')
-      .then(
-      module => {
-        return cb(
-          null, module.default
-        );
-      })
-      .catch(handleError);
+function resolveIndexComponent(nextState, cb) {
+  System.import('./About')
+    .then(module => cb(null, module.default))
+    .catch(handleError);
 }
-*/
-function resolveCounterComponent(nextState, cb) {
-  System.import('../components/Login/Welcome')
-    .then(
-    module => {
-      return cb(null, module.default);
-    }
-    )
-    .catch(
-    error => {
-      return handleError;
-    }
 
-    );
+function resolveAboutComponent(nextState, cb) {
+  System.import('./About')
+    .then(module => cb(null, module.default))
+    .catch(handleError);
 }
+
+
 
 
 /*function resolveCounterComponent(store) {
@@ -48,8 +36,8 @@ function resolveCounterComponent(nextState, cb) {
       })
       .then(module => cb(null, module.default))
       .catch(handleError);
-}
-*/
+}*/
+
 /*function resolveAboutComponent(nextState, cb) {
 
 
@@ -58,8 +46,8 @@ function resolveCounterComponent(nextState, cb) {
       return cb(null, module.default);
     })
     .catch(handleError);
-}
-*/
+}*/
+
 /**
  * Our routes.
  *
@@ -69,9 +57,10 @@ function resolveCounterComponent(nextState, cb) {
  * @see https://github.com/reactjs/react-router/blob/master/docs/guides/DynamicRouting.md
  * @see https://gist.github.com/sokra/27b24881210b56bbaff7#code-splitting-with-es6
  */
-const routes = (store) => (
-  <Route path = '/' component = { CoreLayout } >
-    <Route path='counter' getComponent={resolveCounterComponent}/ >
+const routes = (
+  <Route path='/' component={CoreLayout}>
+    <IndexRoute getComponent={resolveIndexComponent} />
+    <Route path='counter' getComponent={resolveAboutComponent} />
   </Route>
 );
 

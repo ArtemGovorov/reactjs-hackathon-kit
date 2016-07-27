@@ -2,8 +2,8 @@ import * as React from 'react';
 const createMemoryHistory = require('react-router/lib/createMemoryHistory');
 import {  match, RouterContext } from 'react-router';
 import { renderToString } from 'react-dom/server';
-import createRoutes from '../shared/routes';
-import header from '../shared/components/Meta';
+import routes from '../shared/routes/index.tsx';
+import header from '../shared/components/Meta/index.ts';
 import configureStore from '../shared/store/configureStore';
 import loadStylesFromComponents from './utils/loadStylesFromComponents';
 const createHistory = require('react-router/lib/createMemoryHistory');
@@ -54,7 +54,7 @@ function universalReactAppMiddleware(request, response) {
     selectLocationState: (state) => state.router,
   });
 
-  const routes = createRoutes(store);
+  //const routes = createRoutes(store);
 
 
   // Server side handling of react-router.

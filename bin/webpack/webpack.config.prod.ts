@@ -122,4 +122,4 @@ const webpackConfig: Configuration = [
   }
 ];
 
-export = webpackConfig;
+export default webpackConfig;

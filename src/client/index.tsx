@@ -6,7 +6,7 @@ import * as ReactDOM from 'react-dom';
 import * as React from 'react';
 import {render} from 'react-dom';
 import { AppContainer } from 'react-hot-loader';
-import createRoutes from '../shared/routes';
+import routes from '../shared/routes/index.tsx';
 import {  match, Router, browserHistory } from 'react-router';
 import configureStore from '../shared/store/configureStore';
 
@@ -18,7 +18,7 @@ import { Provider } from 'react-redux';
 const MOUNT_ELEMENT = document.getElementById('root');
 const initialState = window.__INITIAL_STATE__;
 const store = configureStore(initialState, browserHistory);
-const routes = createRoutes(store);
+//const routes = createRoutes(store);
 function routerError(error?: string) {
   // TODO: Error handling.
   console.error('==> 😭  React router match failed.'); // eslint-disable-line no-console
@@ -51,11 +51,11 @@ function renderApp() {
 }
 
 // The following is needed so that we can hot reload our App.
-if (module.hot) {
+if (__DEVCLIENT__ && module.hot) {
   // Accept changes to this file for hot reloading.
-  (module.hot as any).accept('./index.js');
+  (module.hot as any).accept('./index.tsx');
   // Any changes to our routes will cause a hotload re-render.
-  module.hot.accept('../shared/routes', renderApp);
+  module.hot.accept('../shared/routes/index.tsx', renderApp);
 
 }
 

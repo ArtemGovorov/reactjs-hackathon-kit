@@ -10,7 +10,7 @@
  *
  */
 
-export = {
+export default {
   preBootstrapCustomizations: './src/theme/variables.scss',
   mainSass: './src/theme/bootstrap.overrides.scss',
   verbose: false,

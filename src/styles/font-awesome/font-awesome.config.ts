@@ -6,7 +6,7 @@
  *
  */
 
-export = {
+export default {
   styles: {
     mixins: true,
     core: true,

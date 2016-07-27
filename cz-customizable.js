@@ -23,7 +23,7 @@ module.exports = {
   ],
 
   // it needs to match the value for field type. Eg.: 'fix'
-  /*
+  /*p
   scopeOverrides: {
     fix: [
       {name: 'merge'},

@@ -2,7 +2,8 @@ import * as React from 'react';
 import {Route, IndexRoute} from 'react-router';
 import { injectReducer } from '../store/reducers';
 import { CoreLayout } from '../layouts/CoreLayout/CoreLayout';
-import CounterContainer from './Counter/containers/CounterContainer';
+/*import CounterContainer from './Counter/containers/CounterContainer';
+import Welcome from  '../components/Login/Welcome';*/
 
 function handleError(err) {
   // TODO: Error handling, do we return an Error component here?
@@ -10,7 +11,7 @@ function handleError(err) {
   console.log(err); // eslint-disable-line no-console
 }
 
-function resolveIndexComponent(store) {
+/*function resolveIndexComponent(store) {
   return (nextState, cb) =>
     System.import('./Home/containers/HomeContainer')
       .then(
@@ -21,8 +22,24 @@ function resolveIndexComponent(store) {
       })
       .catch(handleError);
 }
+*/
+function resolveCounterComponent(nextState, cb) {
+  System.import('../components/Login/Welcome')
+    .then(
+    module => {
+      return cb(null, module.default);
+    }
+    )
+    .catch(
+    error => {
+      return handleError;
+    }
 
-function resolveCounterComponent(store) {
+    );
+}
+
+
+/*function resolveCounterComponent(store) {
   return (nextState, cb) =>
     System.import('./Counter/modules/counter')
       .then(module => {
@@ -32,7 +49,8 @@ function resolveCounterComponent(store) {
       .then(module => cb(null, module.default))
       .catch(handleError);
 }
-function resolveAboutComponent(nextState, cb) {
+*/
+/*function resolveAboutComponent(nextState, cb) {
 
 
   System.import('./Counter/containers/CounterContainer')
@@ -41,7 +59,7 @@ function resolveAboutComponent(nextState, cb) {
     })
     .catch(handleError);
 }
-
+*/
 /**
  * Our routes.
  *
@@ -53,8 +71,7 @@ function resolveAboutComponent(nextState, cb) {
  */
 const routes = (store) => (
   <Route path = '/' component = { CoreLayout } >
-    <IndexRoute getComponent= {resolveIndexComponent(store) } />
-    <Route path='counter' getComponent={resolveCounterComponent(store)}/ >
+    <Route path='counter' getComponent={resolveCounterComponent}/ >
   </Route>
 );
 

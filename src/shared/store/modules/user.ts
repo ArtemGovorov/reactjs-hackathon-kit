@@ -1,4 +1,5 @@
-import {Observable}  from '@reactivex/rxjs';
+const Observable = require('rxjs/Observable').Observable;
+
 import { push } from 'react-router-redux';
 
 export const LOGIN_FULFILLED = 'LOGIN_FULFILLED ';

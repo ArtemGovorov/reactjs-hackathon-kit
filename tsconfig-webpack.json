@@ -1,0 +1,25 @@
+{
+  "compilerOptions": {
+    "target": "es6",
+    "module": "es6",
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    "experimentalAsyncFunctions": true,
+    "jsx": "react"
+  },
+  "filesGlob": [
+    "./**/*.tsx?",
+    "./**/*.d.ts"
+  ],
+  "exclude": [
+    "blueprints",
+    "node_modules",
+    "webpack_prev",
+    "coverage",
+    "reports"
+  ],
+  "awesomeTypescriptLoaderOptions": {
+    "forkChecker": false,
+    "forkCheckerSilent": true
+  }
+}

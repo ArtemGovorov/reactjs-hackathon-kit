@@ -1,5 +1,6 @@
 import * as webpack from 'webpack';
 import {Configuration} from 'webpack';
+const AssetsPlugin = require('assets-webpack-plugin');
 import {
   LOADERS_COMMON,
   SRC_DIR,
@@ -9,25 +10,25 @@ import {
   BASENAME,
   PUBLIC_PATH,
   LOADERS_STYLES_DEV,
-  NODE_MODULES,
   PORT,
   PROJECT_ROOT,
   POST_CSS_CONFIG_DEV,
-  NAME_CLIENT
+  NAME_CLIENT,
+  LOADER_TS_CLIENT
+
 } from '../constants';
 
 const ForkCheckerPlugin = require('awesome-typescript-loader').ForkCheckerPlugin;
 
 const webpackConfig: Configuration = {
 
-  devtool: 'eval',
+  devtool: 'source-map',
   context: PROJECT_ROOT,
   entry: {
     'main': [
       'react-hot-loader/patch',
       HOT_MIDDLEWARE,
-      //'bootstrap-loader',
-      `${SRC_DIR}/client`,
+      `${SRC_DIR}/client`
     ]
   },
   output: {
@@ -39,7 +40,7 @@ const webpackConfig: Configuration = {
   module: {
     loaders: LOADERS_COMMON
       .concat(
-      LOADERS_STYLES_DEV
+      LOADERS_STYLES_DEV, [LOADER_TS_CLIENT]
       )
   },
   resolve: {
@@ -47,17 +48,18 @@ const webpackConfig: Configuration = {
     extensions: ['', '.ts', '.tsx', '.js', '.scss', '.css'],
 
   },
-  resolveLoader: {
-    modulesDirectories: [NODE_MODULES]
-  },
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NoErrorsPlugin(),
-    new webpack['DllReferencePlugin']({
+/*    new webpack['DllReferencePlugin']({
       context: PROJECT_ROOT,
       manifest: require(ASSETS_DIR + '/vendor-manifest.json'),
     }),
-    new ForkCheckerPlugin(),
+    new ForkCheckerPlugin(),*/
+    new AssetsPlugin({
+      filename: 'assets.json',
+      path: ASSETS_DIR
+    }),
     new webpack.DefinePlugin({
       __CLIENT__: true,
       __DEVCLIENT__: true,

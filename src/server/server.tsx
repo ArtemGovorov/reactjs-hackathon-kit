@@ -70,6 +70,8 @@ function universalReactAppMiddleware(request, response) {
       // your "not found" component or route respectively, and send a 404 as
       // below, if you're using a catch-all route.
 
+      console.log(renderProps.routes);
+
       const initialState = store.getState();
       const componentHTML = renderToString(
         <Provider store={store}>

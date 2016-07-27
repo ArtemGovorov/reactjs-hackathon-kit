@@ -156,6 +156,7 @@ function compilerFactory(compiler, isHMR) {
 
   function compiledMessage(stats): webpack.compiler.Stats {
     const customStats: CustomStats = webpackStatsDecorator(stats);
+    debug(`${debugPrefix(_name) + customStats.toShortSummaryString()}`);
     debug(`${debugPrefix(_name)}compiled these files...`, '\n' + customStats.toBuiltString());
     return stats;
   }

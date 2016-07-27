@@ -108,12 +108,28 @@ export const LOADERS_STYLES_FAKE = []
   LOADER_CSS_FAKE
   );
 
-const LOADER_TS = {
+export const LOADER_TS = {
   test: /\.tsx?$/,
   loader: 'awesome-typescript-loader',
   include: SRC_DIR,
   exclude: NODE_MODULES
 };
+
+
+
+/*export const LOADER_TS_CLIENT = {
+  test: /\.tsx?$/,
+  loader: 'awesome-typescript-loader?tsconfig=tsconfig-webpack.json',
+  include: SRC_DIR,
+  exclude: NODE_MODULES
+};
+*/
+export const LOADER_TS_CLIENT = {
+  test: /\.tsx?$/,
+  loader: 'babel!awesome-typescript-loader?tsconfig=tsconfig-webpack.json',
+  exclude: [/node_modules/, BUILD_DIR],
+};
+
 
 const LOADER_JSON = {
   test: /\.json$/,
@@ -179,7 +195,6 @@ export const LOADERS_FONTS = [
 ];
 
 export const LOADERS_COMMON = [
-  LOADER_TS,
   LOADER_JSON,
   LOADER_IMAGES,
   LOADER_HTML

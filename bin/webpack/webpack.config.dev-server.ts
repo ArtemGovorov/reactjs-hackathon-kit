@@ -11,7 +11,8 @@ import {
   EXTERNALS,
   PROJECT_ROOT,
   BUILD_DIR,
-  NAME_SERVER
+  NAME_SERVER,
+  LOADER_TS
 } from '../constants';
 
 const webpackConfig: Configuration = {
@@ -43,7 +44,7 @@ const webpackConfig: Configuration = {
 
     loaders: LOADERS_COMMON
       .concat(
-      LOADERS_STYLES_FAKE
+      LOADERS_STYLES_FAKE,[LOADER_TS]
       )
   },
   resolve: {

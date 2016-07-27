@@ -6,7 +6,8 @@ import {
   PROJECT_ROOT,
   PORT,
   PLUG_IN_PROGRESS,
-  NAME_DLL
+  NAME_DLL,
+  LOADER_TS
 } from '../constants';
 
 
@@ -39,7 +40,6 @@ module.exports = {
       'es6-promise',
       'process',
       'parse',
-      '@reactivex/rxjs',
       'react-router-redux',
       'redux-observable',
       'rxjs',
@@ -64,7 +64,7 @@ module.exports = {
     publicPath: `http://localhost:${PORT}${PUBLIC_PATH}`,
   },
   module: {
-    loaders: LOADERS_COMMON
+    loaders: LOADERS_COMMON.concat([LOADER_TS])
   },
   progress: true,
   resolve: {

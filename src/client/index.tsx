@@ -2,6 +2,7 @@ import '../polyfill';
 global.Parse = require('parse');
 Parse.initialize('myAppId', '');
 Parse.serverURL = 'http://localhost:3000/parse';
+import * as ReactDOM from 'react-dom';
 import * as React from 'react';
 import {render} from 'react-dom';
 import { AppContainer } from 'react-hot-loader';
@@ -25,6 +26,7 @@ function routerError(error?: string) {
 }
 
 function renderApp() {
+
   // As we are using dynamic react-router routes we have to use the following
   // asynchronous routing mechanism supported by the `match` function.
   // @see https://github.com/reactjs/react-router/blob/master/docs/guides/ServerRendering.md
@@ -37,7 +39,7 @@ function renderApp() {
       render(
         <AppContainer>
           <Provider store={store}>
-            <Router  {...renderProps} />
+            <Router   {...renderProps} />
           </Provider>
         </AppContainer>,
         MOUNT_ELEMENT
@@ -49,13 +51,14 @@ function renderApp() {
 }
 
 // The following is needed so that we can hot reload our App.
-if (__DEVCLIENT__ && module.hot) {
+if (module.hot) {
   // Accept changes to this file for hot reloading.
-  (module.hot as any).accept();
+  (module.hot as any).accept('./index.js');
   // Any changes to our routes will cause a hotload re-render.
-  module.hot.accept('../shared/routes', () => {
-    renderApp();
-  });
+  module.hot.accept('../shared/routes', renderApp);
+
 }
+
+
 
 renderApp();

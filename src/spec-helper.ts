@@ -8,7 +8,6 @@ import * as sinonChai from 'sinon-chai';
 import * as chaiAsPromised from 'chai-as-promised';
 import * as When from 'when';
 
-import Rx  from '@reactivex/rxjs';
 
 const Parse = require('parse');
 const chaiEnzyme = require('chai-enzyme');
@@ -25,6 +24,6 @@ global.chai = chai;
 global.sinon = sinon;
 global.expect = chai.expect;
 global.should = chai.should();
-global.Rx = Rx;
+
 
 chai.config.includeStack = true;

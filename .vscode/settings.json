@@ -4,7 +4,7 @@
     "node_modules": false,
     "bin/**/*.js": true,
     "bin/**/*.map": true,
-    "src/**/*.js": false,
+    "src/**/*.js": true,
     "src/**/*.map": true,
     "coverage": true,
     "reports": true

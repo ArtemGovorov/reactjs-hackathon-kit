@@ -25,12 +25,6 @@ export default (initialState = {}, history) => {
   );
   store.asyncReducers = {};
 
-  if (__DEVCLIENT__ && module.hot) {
-    module.hot.accept('./reducers', () => {
-      const reducers = require('./reducers').reducers;
-      store.replaceReducer(reducers(store.asyncReducers));
-    });
-  }
 
   return store;
 };

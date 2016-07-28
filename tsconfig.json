@@ -22,7 +22,6 @@
     "./**/*.d.ts"
   ],
   "exclude": [
-    "src",
     "blueprints",
     "node_modules",
     "webpack_prev",

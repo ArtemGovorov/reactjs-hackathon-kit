@@ -1,3 +1,4 @@
+/// <reference path="node_modules/rxjs/Rx.d.ts" />
 
 declare var __BASENAME__: string;
 declare var __DEVTOOLS__: boolean;

@@ -8,9 +8,11 @@ import {
 } from './counter';
 
 import { ActionsObservable } from 'redux-observable';
-import {Subject, Scheduler}   from '@reactivex/rxjs';
+import {Subject}   from 'rxjs/Subject';
+const Scheduler = require('rxjs/Scheduler');
 
 describe('(Redux Module) Counter', () => {
+
   const scheduler = Scheduler.asap;
 
   let globalState = {

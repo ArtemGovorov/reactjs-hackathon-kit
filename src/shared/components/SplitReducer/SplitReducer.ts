@@ -21,11 +21,13 @@ const SplitReducer = React.createClass({
   },
 
   updateReducerFromComponents() {
-    const {  location, routes } = this.props;
-    console.log('fucker');
-    match({ location, routes }, (error, redirectLocation, renderProps) => {
-      findAndReplaceReducerFromComponents(renderProps.components, this.context.store);
+    const {   routes } = this.props;
+    this.props.router.listen((location) => {
+      match({ location, routes }, (error, redirectLocation, renderProps) => {
+        findAndReplaceReducerFromComponents(renderProps.components, this.context.store);
+      });
     });
+
   },
 
   render() {

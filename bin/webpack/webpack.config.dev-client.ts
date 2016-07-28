@@ -27,7 +27,6 @@ const webpackConfig: Configuration = {
   entry: {
     'main': [
       'react-hot-loader/patch',
-      'react-hot-loader/babel',
       HOT_MIDDLEWARE,
       `${SRC_DIR}/client`
     ]

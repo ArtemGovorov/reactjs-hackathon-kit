@@ -25,7 +25,7 @@ function routerError(error?: string) {
   console.error('==> 😭  React router match failed.'); // eslint-disable-line no-console
   if (error) { console.error(error); } // eslint-disable-line no-console
 }
-console.log('MOTHER FUCKO');
+
 function renderApp() {
 
   // As we are using dynamic react-router routes we have to use the following
@@ -37,7 +37,8 @@ function renderApp() {
     } else if (redirectLocation) {
       return;
     } else if (renderProps) {
-      findAndReplaceReducerFromComponents(renderProps.components, store);
+    
+      //findAndReplaceReducerFromComponents(renderProps.components, store);
       render(
         <AppContainer>
           <Provider store={store}>

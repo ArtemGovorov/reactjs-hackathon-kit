@@ -36,6 +36,8 @@
     "react-router-redux": "registry:dt/react-router-redux#4.0.0+20160316155526",
     "react-router/history": "registry:dt/react-router/history#2.0.0+20160608102730",
     "redux": "registry:dt/redux#3.3.1+20160326112656",
+    "rx.experimental": "registry:dt/rx.experimental#2.2.28+20160317120654",
+    "rxjs-symbol-typings": "registry:lib/rxjs-symbol-typings#1.0.0+20160329204237",
     "serve-static": "registry:dt/serve-static#0.0.0+20160606155157",
     "sinon": "registry:dt/sinon#1.16.0+20160517064723",
     "sinon-chai": "registry:dt/sinon-chai#2.7.0+20160317120654",

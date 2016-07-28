@@ -1,26 +1,25 @@
 #!/usr/bin/env node
 "use strict";
-
 compile();
 function compile() {
-  var _debug = require('debug');
-  var debug = _debug('app:bin:compile');
-  var clear = require('clear');
+  const _debug = require('debug');
+  const debug = _debug('app:bin:terminate');
+  const clear = require('clear');
+  const kill = require('kill3k');
   clear(true);
   clean()
-    .then(function () {
+    .then(() => {
       debug('⌨  compiling typescript...');
-      var exec = require('child_process').exec;
+      const exec = require('child_process').exec;
       exec('tsc', function (error, stdout, stderr) {
-        if (stdout)
-          throw stdout;
+        console.log('\n\n' + stdout);
       });
     });
   function clean() {
-    var del = require('del');
-    return new Promise(function (resolve, reject) {
+    const del = require('del');
+    return new Promise((resolve, reject) => {
       debug("🚿  cleaning...");
-      var items = [
+      const items = [
         'coverage/**',
         'reports/**',
         'public/**',
@@ -34,27 +33,29 @@ function compile() {
         'logs/**'
       ];
       items
-        .map(function (toDelete) {
-          return ({
-            promise: del([toDelete]),
-            toDelete: toDelete
-          });
-        })
-        .reduce(function (promise, currentDelete) {
+        .map(toDelete => ({
+          promise: del([toDelete]),
+          toDelete: toDelete
+        }))
+        .reduce((promise, currentDelete) => {
           return promise
-            .then(function (response) {
+            .then(response => {
               return currentDelete.promise;
             })
-            .then(function (response) {
+            .then(response => {
               if (response.length > 0) {
-                debug('🚿  deleted:' + currentDelete.toDelete);
+                debug('deleted:' + currentDelete.toDelete);
               }
             })
-            .catch(function (error) {
+            .catch(error => {
               reject(error);
             });
         }, Promise.resolve())
-        .then(resolve);
+        .then(() => {
+          setTimeout(function () {
+            resolve();
+          }, 200);
+        });
     });
   }
 }

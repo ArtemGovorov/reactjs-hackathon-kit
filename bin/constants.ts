@@ -110,30 +110,22 @@ export const LOADERS_STYLES_FAKE = []
 
 export const LOADER_TS = {
   test: /\.tsx?$/,
-  loader: 'awesome-typescript-loader?tsconfig=tsconfig-webpack.json',
+  loader: 'awesome-typescript-loader',
   include: SRC_DIR,
   exclude: NODE_MODULES
 };
 
 export const LOADER_TS_DLL = {
   test: /\.tsx?$/,
-  loader: 'awesome-typescript-loader?tsconfig=tsconfig-commonjs.json',
+  loader: 'awesome-typescript-loader',
   include: SRC_DIR,
   exclude: NODE_MODULES
 };
 
 
-
-/*export const LOADER_TS_CLIENT = {
-  test: /\.tsx?$/,
-  loader: 'awesome-typescript-loader?tsconfig=tsconfig-webpack.json',
-  include: SRC_DIR,
-  exclude: NODE_MODULES
-};
-*/
 export const LOADER_TS_CLIENT = {
   test: /\.tsx?$/,
-  loaders: ['awesome-typescript-loader?tsconfig=tsconfig-webpack.json'],
+  loaders: ['awesome-typescript-loader?module=es6&useBabel=true'],
   exclude: [/node_modules/, BUILD_DIR],
 };
 

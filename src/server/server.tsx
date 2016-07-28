@@ -70,7 +70,7 @@ function universalReactAppMiddleware(request, response) {
       // You can check renderProps.components or renderProps.routes for
       // your "not found" component or route respectively, and send a 404 as
       // below, if you're using a catch-all route.
-
+      console.log('server');
       findAndReplaceReducerFromComponents(renderProps.components, store);
       const initialState = store.getState();
       const componentHTML = renderToString(

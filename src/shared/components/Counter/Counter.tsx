@@ -1,10 +1,11 @@
 import * as React from 'react';
 const styles = require('./Counter.css');
-
+import Header from '../Header';
 export const Counter = (props) => (
   <div>
+  <Header/>
     <h2 className={styles['counter-container']}>
-      Counter:
+      Counter:144
       {' '}
       <span className={styles['counter--green']}>
         {props.counter}

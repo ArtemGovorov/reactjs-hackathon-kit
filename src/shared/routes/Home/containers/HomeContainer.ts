@@ -30,4 +30,6 @@ const mapStateToProps = (state) => ({
     Selectors are composable. They can be used as input to other selectors.
     https://github.com/reactjs/reselect    */
 
-export default connect(mapStateToProps, mapActionCreators as any)(Login);
+const test = connect(mapStateToProps, mapActionCreators as any)(Login);
+
+export default test;

@@ -14,4 +14,6 @@ const mapStateToProps = (state) => ({
 
 (Counter as any).injectReducer = { key: 'counter', reducer };
 
-export default connect(mapStateToProps, mapActionCreators as any)(Counter);
+const test = connect(mapStateToProps, mapActionCreators as any)(Counter);
+
+export default test;

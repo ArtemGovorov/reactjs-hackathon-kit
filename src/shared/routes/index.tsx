@@ -13,12 +13,16 @@ function handleError(err) {
 }
 
 function resolveIndexComponent(nextState, cb) {
+  console.log('resolveIndexComponent');
   System.import('./Home/containers/HomeContainer')
-    .then(module => cb(null, module.default))
+    .then(
+    module => cb(null, module.default)
+    )
     .catch(handleError);
 }
 
 function resolveCounterComponent(nextState, cb) {
+  console.log('resolveCounterComponent');
   System.import('./Counter/containers/CounterContainer')
     .then(module => cb(null, module.default))
     .catch(handleError);

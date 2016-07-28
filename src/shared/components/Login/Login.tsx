@@ -4,7 +4,7 @@ import Copyright from './../Copyright';
 import Spinner from './../Spinner';
 import Form from './Form';
 import {Grid, Row, Col} from 'react-bootstrap';
-
+import Header from '../Header';
 
 const classNames = require('classnames/bind');
 const styles = require('./Login.scss');
@@ -23,12 +23,12 @@ export interface LoginProps {
   isWaiting: boolean;
 }
 
-export const Login = ( props: LoginProps ) =>
+export const Login = (props: LoginProps) =>
   (
 
-    <div  className={cx('loginColumns')}>
-
-      <Grid>
+    <div  className={cx('loginColumns') }>
+      <Header/>
+      {/*<Grid>
 
         <Row >
 
@@ -37,7 +37,7 @@ export const Login = ( props: LoginProps ) =>
           </Col>
 
           <Col md={6}>
-            <div className={cx('form-container')}>
+            <div className={cx('form-container') }>
               <Spinner isWaiting={props.user.isWaiting}/>
               <Form {...props} />
             </div>
@@ -59,7 +59,7 @@ export const Login = ( props: LoginProps ) =>
 
         </Row>
 
-      </Grid>
+      </Grid>*/}
 
 
 

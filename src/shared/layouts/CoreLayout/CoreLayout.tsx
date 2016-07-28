@@ -1,13 +1,10 @@
 import * as React from 'react';
-import SplitReducer from '../../components/SplitReducer';
 const styles = require('./CoreLayout.css');
 
-function CoreLayout(props) {
+function CoreLayout({children}) {
   return (<div className={styles['container']}>
     <div className={styles['main-container']}>
-      <SplitReducer {...props}>
-        {props.children}
-      </SplitReducer>
+      {children}
     </div>
   </div>);
 }

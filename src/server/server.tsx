@@ -5,11 +5,12 @@ import { renderToString } from 'react-dom/server';
 import routes from '../shared/routes/index.tsx';
 import header from '../shared/components/Meta/index.ts';
 import configureStore from '../shared/store/configureStore';
-import loadStylesFromComponents from './utils/loadStylesFromComponents';
+import loadStylesFromComponents from '../shared/utils/loadStylesFromComponents';
 const createHistory = require('react-router/lib/createMemoryHistory');
 import { syncHistoryWithStore } from 'react-router-redux';
 import { Provider } from 'react-redux';
-
+import findAndReplaceReducerFromComponents  from '../shared/utils/findAndReplaceReducerFromComponents';
+require('source-map-support').install();
 const PORT = 3000;
 const fs = require('fs');
 
@@ -70,14 +71,15 @@ function universalReactAppMiddleware(request, response) {
       // your "not found" component or route respectively, and send a 404 as
       // below, if you're using a catch-all route.
 
-      console.log(renderProps.routes);
-
+      findAndReplaceReducerFromComponents(renderProps.components, store);
       const initialState = store.getState();
       const componentHTML = renderToString(
         <Provider store={store}>
           <RouterContext {...renderProps as any} />
         </Provider>
       );
+
+
 
       const styles = loadStylesFromComponents(renderProps.components);
 
@@ -99,6 +101,7 @@ function universalReactAppMiddleware(request, response) {
             </body>
           </html>
                   `);
+
     } else {
       response.status(404).send('Not found');
     }

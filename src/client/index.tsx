@@ -17,6 +17,7 @@ import { Provider } from 'react-redux';
 // Get the DOM Element that will host our React application.
 const MOUNT_ELEMENT = document.getElementById('root');
 const initialState = window.__INITIAL_STATE__;
+console.log(window.__INITIAL_STATE__);
 const store = configureStore(initialState, browserHistory);
 //const routes = createRoutes(store);
 function routerError(error?: string) {

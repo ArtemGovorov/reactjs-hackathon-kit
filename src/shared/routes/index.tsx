@@ -13,17 +13,16 @@ function handleError(err) {
 }
 
 function resolveIndexComponent(nextState, cb) {
-  System.import('./About')
+  System.import('./Home/containers/HomeContainer')
     .then(module => cb(null, module.default))
     .catch(handleError);
 }
 
-function resolveAboutComponent(nextState, cb) {
-  System.import('./About')
+function resolveCounterComponent(nextState, cb) {
+  System.import('./Counter/containers/CounterContainer')
     .then(module => cb(null, module.default))
     .catch(handleError);
 }
-
 
 
 
@@ -60,7 +59,7 @@ function resolveAboutComponent(nextState, cb) {
 const routes = (
   <Route path='/' component={CoreLayout}>
     <IndexRoute getComponent={resolveIndexComponent} />
-    <Route path='counter' getComponent={resolveAboutComponent} />
+    <Route path='counter' getComponent={resolveCounterComponent} />
   </Route>
 );
 

@@ -3,11 +3,13 @@ import expressConfig from './config/express';
 import parseConfig from './config/parse';
 import piping from './config/piping';
 const ENV = process.env.NODE_ENV || 'development';
-if (ENV === 'development') {
+const DEBUGGING = process.env.DEBUGGING || false;
+if (ENV === 'development' && !DEBUGGING) {
   piping();
 }
 
-const App = require('./server');
+import App from './server';
+
 
 const app: express.Express = express();
 
@@ -24,7 +26,7 @@ expressConfig(app);
  * App is a function that requires store data and url
  * to initialize and return the React-rendered html string
  */
-app.get('*', App.default);
+app.get('*', App);
 
 app.listen(app.get('port'));
 

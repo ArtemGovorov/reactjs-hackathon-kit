@@ -28,11 +28,17 @@ function startServer() {
 
   const spawn = require('child_process').spawn;
   const env = Object.create(process.env);
-  env.NODE_ENV = 'development';
-  env.DEBUG = 'app:*';
+  const args = ['./public/assets/server.js'];
+  env.NODE_ENV = process.env.NODE_ENV;
+  env.DEBUG = process.env.DEBUG;
+  env.DEBUGGING = process.env.DEBUGGING;
+  if (env.DEBUGGING === 'true') {
+    args.unshift('--debug');
+  }
+
   spawn(
     'node',
-    ['./public/assets/server.js'],
+    args,
     {
       env: env,
       stdio: 'inherit'

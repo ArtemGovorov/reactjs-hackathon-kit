@@ -6,14 +6,28 @@ function compile() {
   const debug = _debug('app:bin:terminate');
   const clear = require('clear');
   const kill = require('kill3k');
+  const notifier = require('node-notifier');
+
+  var fs = require('fs');
+  var stream = fs.createWriteStream('delme.log', { flags: 'a' });
+
+
+  // Any code goes here...
+  stream.write('Something bad happened\n');
   clear(true);
   clean()
     .then(() => {
       debug('⌨  compiling typescript...');
-      const exec = require('child_process').exec;
-      exec('tsc', function (error, stdout, stderr) {
-        console.log('\n\n' + stdout);
+      const spawn = require('child_process').spawn;
+      const tsc = spawn('tsc', []);
+      tsc.stdout.on('data', (data) => {
+        notifier.notify({
+          title: 'Typescript errors!',
+          message: data,
+        });
+        process.exit(0);
       });
+
     });
   function clean() {
     const del = require('del');
@@ -59,3 +73,4 @@ function compile() {
     });
   }
 }
+

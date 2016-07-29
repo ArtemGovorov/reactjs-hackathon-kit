@@ -16,7 +16,7 @@ import {
 } from '../constants';
 
 const webpackConfig: Configuration = {
-
+  devtool: 'source-map',
   context: PROJECT_ROOT,
   entry: {
     server: [
@@ -51,7 +51,6 @@ const webpackConfig: Configuration = {
     root: [SRC_DIR],
     extensions: ['', '.ts', '.tsx', '.js', '.css'],
   },
-  devtool: 'source-map',
   plugins: [
     new webpack.NoErrorsPlugin(),
     new webpack.HotModuleReplacementPlugin(),
@@ -59,7 +58,9 @@ const webpackConfig: Configuration = {
     new ForkCheckerPlugin(),
     new (webpack as any).BannerPlugin(
       {
-        banner: 'require("source-map-support").install();',
+        banner: `require("source-map-support").install({
+          environment: 'node'
+        });`,
         raw: true,
         entryOnly: false
       }),

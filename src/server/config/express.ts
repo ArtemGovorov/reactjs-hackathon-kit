@@ -28,17 +28,17 @@ export default (app: express.Express) => {
 
   }
 
-app.use(express.static(join(__dirname, '../../', 'public')));
+  app.use(express.static(join(__dirname, '../../', 'public')));
   // For Heroku deployment to work
   app.set('trust proxy', 'loopback');
 
-  if (!process.env.restarted) {
-    debug(`\n  🌳  NODE_ENV: ${ENV}`);
-    debug(`\n  ${
-      ENV === 'development' ?
-        '🚧  starting: ' :
-        '🚀  launching: '}http://localhost:${PORT}`);
-  }
+  const message = `\n  ${
+    ENV === 'development' ?
+      '🚧  starting: ' :
+      '🚀  launching: '}http://localhost:${PORT}`;
+
+  debug(`\n  🌳  NODE_ENV: ${ENV}`);
+  debug(`\n  ${message}`);
 
 };
 

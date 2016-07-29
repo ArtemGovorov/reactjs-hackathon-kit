@@ -95,8 +95,7 @@ function compilerFactory(compiler, isHMR) {
         if (!state) { return; }
         compose(
           modulesCheckMessage,
-          compiledMessage,
-          builtMessage
+          compiledMessage
         )(stats);
       });
     });
@@ -108,8 +107,7 @@ function compilerFactory(compiler, isHMR) {
     });
     (compiler as any).plugin('done', function (stats) {
       compose(
-        compiledMessage,
-        builtMessage
+        compiledMessage
       )(stats);
     });
   }
@@ -146,11 +144,6 @@ function compilerFactory(compiler, isHMR) {
 
   function compilingMessage(stats): webpack.compiler.Stats {
     debug(`${debugPrefix(_name)}building...`);
-    return stats;
-  }
-
-  function builtMessage(stats): webpack.compiler.Stats {
-    debug(`${debugPrefix(_name)}built in ${stats.endTime - stats.startTime} ms`);
     return stats;
   }
 

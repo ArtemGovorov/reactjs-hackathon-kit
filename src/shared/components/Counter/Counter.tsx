@@ -5,13 +5,13 @@ export const Counter = (props) => (
   <div>
   <Header/>
     <h2 className={styles['counter-container']}>
-      Counter:1ddddd
+      Counter:
       {' '}
       <span className={styles['counter--green']}>
         {props.counter}
       </span>
     </h2>
-    <button className='btn btn-default' onClick={props.increment}>
+    <button className='btn btn-defaut' onClick={props.increment}>
       Increment
     </button>
     {' '}

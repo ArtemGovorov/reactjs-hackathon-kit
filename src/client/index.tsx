@@ -23,8 +23,11 @@ console.log('change client state');
 function routerError(error?: string) {
   // TODO: Error handling.
   console.error('==> 😭  React router match failed.'); // eslint-disable-line no-console
-  if (error) { console.error(error); } // eslint-disable-line no-console
+  const RedBox = require('redbox-react').default;
+  ReactDOM.render(<RedBox error={error} />, MOUNT_ELEMENT);
 }
+
+
 
 function renderApp() {
 
@@ -37,8 +40,7 @@ function renderApp() {
     } else if (redirectLocation) {
       return;
     } else if (renderProps) {
-    
-      //findAndReplaceReducerFromComponents(renderProps.components, store);
+
       render(
         <AppContainer>
           <Provider store={store}>
@@ -48,7 +50,6 @@ function renderApp() {
         MOUNT_ELEMENT
       );
 
-      console.log((module.hot as any).status());
 
     } else {
       routerError();
@@ -58,29 +59,14 @@ function renderApp() {
 
 // The following is needed so that we can hot reload our App.
 if (__DEVCLIENT__ && module.hot) {
-
-  (module.hot as any).addStatusHandler(function (status) {
-    console.log(status);
-    /*      if (status === "idle") {
-            const {appStore} = require('./appStore');
-            store.replaceReducer(appStore); // reload reducers*/
-  });
   // Accept changes to this file for hot reloading.
   (module.hot as any).accept('./index.tsx');
   // Any changes to our routes will cause a hotload re-render.
   module.hot.accept([
-    '../shared/routes/index.tsx',
-    '../shared/routes/Counter/containers/CounterContainer',
-    '../shared/routes/Home/containers/HomeContainer'
-  ], () => {
-    console.log('updating shit');
-    renderApp();
-
-  });
+    '../shared/routes/index.tsx'
+  ], renderApp);
 
 
 }
-
-
 
 renderApp();

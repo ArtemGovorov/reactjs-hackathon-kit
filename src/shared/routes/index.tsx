@@ -2,18 +2,18 @@ import * as React from 'react';
 import {Route, IndexRoute} from 'react-router';
 import { injectReducer } from '../store/reducers';
 import CoreLayout  from '../layouts/CoreLayout/CoreLayout';
+import * as ReactDOM from 'react-dom';
 /*import * as About from './About.tsx';*/
 /*import CounterContainer from './Counter/containers/CounterContainer';
 import Welcome from  '../components/Login/Welcome';*/
 
-function handleError(err) {
-  // TODO: Error handling, do we return an Error component here?
-  console.log('==> Error occurred loading dynamic route'); // eslint-disable-line no-console
-  console.log(err); // eslint-disable-line no-console
+function handleError(error) {
+  const RedBox = require('redbox-react').default;
+  const MOUNT_ELEMENT = document.getElementById('root');
+  ReactDOM.render(<RedBox error={error} />, MOUNT_ELEMENT);
 }
 
 function resolveIndexComponent(nextState, cb) {
-  console.log('resolveIndexComponent');
   System.import('./Home/containers/HomeContainer')
     .then(
     module => cb(null, module.default)
@@ -22,7 +22,6 @@ function resolveIndexComponent(nextState, cb) {
 }
 
 function resolveCounterComponent(nextState, cb) {
-  console.log('resolveCounterComponent');
   System.import('./Counter/containers/CounterContainer')
     .then(module => cb(null, module.default))
     .catch(handleError);

@@ -4,7 +4,8 @@ import parseConfig from './config/parse';
 import piping from './config/piping';
 const ENV = process.env.NODE_ENV || 'development';
 const DEBUGGING = process.env.DEBUGGING || false;
-if (ENV === 'development' && !DEBUGGING) {
+if (ENV === 'development' &&
+  !(DEBUGGING === 'true')) {
   piping();
 }
 
@@ -16,9 +17,8 @@ const app: express.Express = express();
 /*
  * Bootstrap application settings
  */
-/*parseConfig(app);*/
+parseConfig(app);
 expressConfig(app);
-
 
 /*
  * This is where the magic happens. We take the locals data we have already2

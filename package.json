@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "description": "A React.js stack typescript isomorphic template with Webpack and react-router",
   "scripts": {
-    "dev": "npm run compile && cross-env DEBUG=app:* node ./bin/start.js",
+    "dev": "npm run compile && cross-env DEBUG=app:* NODE_ENV=development node ./bin/start.js",
+    "dev:attach": "npm run compile && cross-env DEBUG=app:* NODE_ENV=development DEBUGGING=true node ./bin/start.js",
     "build": "cross-env NODE_ENV=production DEBUG=app:* npm-run-all compile build:prod",
     "start": "cross-env DEBUG=app:* npm run kill && cross-env NODE_ENV=production DEBUG=app:*  node bin/server.js",
     "lint": "tslint -s node_modules/custom-tslint-formatters/formatters -t grouped 'src/**/*.ts?(x)' 'config/**/*.ts?(x)' 'bin/**/*.ts?(x)'",
@@ -181,7 +182,7 @@
     "npm": "3.10.6",
     "npm-run-all": "^2.2.2",
     "parse": "1.9.0",
-    "parse-dashboard": "1.0.15",
+    "parse-dashboard": "^1.0.15",
     "parse-server": "2.2.16",
     "passport": "^0.3.2",
     "passport-google-oauth": "^1.0.0",

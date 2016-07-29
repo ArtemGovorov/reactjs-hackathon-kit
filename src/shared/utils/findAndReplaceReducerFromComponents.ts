@@ -6,7 +6,6 @@ const findAndReplaceReducerFromComponents = (components, store) => {
     .find(component => component && component.injectReducer);
 
   if (innermostComponentWithReducer) {
-    //console.log(innermostComponentWithReducer.displayName + ' has a reducer. replacing.');
     injectReducer(store, innermostComponentWithReducer.injectReducer);
 
   }

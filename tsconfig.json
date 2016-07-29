@@ -24,9 +24,9 @@
   "exclude": [
     "blueprints",
     "node_modules",
-    "webpack_prev",
     "coverage",
-    "reports"
+    "reports",
+    "public"
   ],
   "awesomeTypescriptLoaderOptions": {
     "forkChecker": true,

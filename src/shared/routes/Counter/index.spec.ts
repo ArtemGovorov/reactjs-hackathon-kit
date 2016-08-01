@@ -4,7 +4,7 @@ describe('(Route) Counter', () => {
   let route;
 
   beforeEach(() => {
-    route = CounterRoute({}); // eslint-disable-line new-cap
+    route = CounterRoute;
   });
 
   it('Should return a route configuration object', () => {

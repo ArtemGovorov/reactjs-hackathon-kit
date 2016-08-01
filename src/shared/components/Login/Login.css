@@ -4,6 +4,23 @@
   padding: 100px 20px 20px 20px;
 }
 
+.row1 {
+  composes: row from 'bootstrap-css/lib/grid';
+}
+
+.row2 {
+  composes: row from 'bootstrap-css/lib/grid';
+}
+
+.col1 {
+  composes: col-md-6 from 'bootstrap-css/lib/grid';
+}
+
+.col2 {
+  composes: col-md-6 from 'bootstrap-css/lib/grid';
+  composes: text-right from 'bootstrap-css/lib/type';
+}
+
 .form-container {
   opacity: 1;
 }
@@ -83,4 +100,3 @@
   }
 
 */
-

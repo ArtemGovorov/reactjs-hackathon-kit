@@ -1,5 +1,6 @@
 import { LOCATION_CHANGE } from 'react-router-redux';
-const Observable = require('rxjs/Observable').Observable;
+import {Observable} from 'rxjs/Observable';
+
 
 export const START_LOADING = LOCATION_CHANGE;
 export const END_LOADING = 'END_LOADING';

@@ -1,5 +1,4 @@
 import * as React from 'react';
-const createMemoryHistory = require('react-router/lib/createMemoryHistory');
 import {  match, RouterContext } from 'react-router';
 import { renderToString } from 'react-dom/server';
 import routes from '../shared/routes/index.tsx';

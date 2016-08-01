@@ -15,22 +15,21 @@ export default () => {
 
     supervisor => {
       supervisor.on('started', status => {
-        debug('\n  🔄  piping hot server enabled');
-      });
-      supervisor.on('exit', status => {
-        debug('\n  😿  bye bye');
+        debug('\n  🔄  server:piping hot server enabled');
+        process.env.restarted = 0;
       });
     }
 
   );
 
   reloader.on('reload', function (done) {
-    debug(`\n  🔄  restarting server`);
+    debug(`\n  🔄  server:restarting`);
+    process.env.restarted++;
     done();
   });
 
   reloader.on('reloaded', function (status) {
-    debug(`\n  🔄  restarted: http://localhost:${PORT}`);
+    debug(`\n  🔄  server:restarted`);
 
   });
 };

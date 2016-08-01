@@ -9,16 +9,13 @@ import { AppContainer } from 'react-hot-loader';
 import routes from '../shared/routes/index.tsx';
 import {  match, Router, browserHistory } from 'react-router';
 import configureStore from '../shared/store/configureStore';
-import {findAsyncReducer}  from '../shared/utils/findAndReplaceReducerFromComponents';
 import { Provider } from 'react-redux';
-import findAndReplaceReducerFromComponents  from '../shared/utils/findAndReplaceReducerFromComponents';
 
 
 // Get the DOM Element that will host our React application.
 const MOUNT_ELEMENT = document.getElementById('root');
 const initialState = window.__INITIAL_STATE__;
 const store = configureStore(initialState, browserHistory);
-console.log('change client state');
 //const routes = createRoutes(store);
 function routerError(error?: string) {
   // TODO: Error handling.
@@ -26,7 +23,6 @@ function routerError(error?: string) {
   const RedBox = require('redbox-react').default;
   ReactDOM.render(<RedBox error={error} />, MOUNT_ELEMENT);
 }
-
 
 
 function renderApp() {
@@ -55,6 +51,15 @@ function renderApp() {
       routerError();
     }
   });
+
+  // remove server-generated css
+  setTimeout(function () {
+    if (document.getElementById('fast-css')) {
+      document.getElementById('fast-css').remove();
+    }
+  }, 500);
+
+
 }
 
 // The following is needed so that we can hot reload our App.

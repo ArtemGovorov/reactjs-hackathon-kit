@@ -1,4 +1,5 @@
-const Observable = require('rxjs/Observable').Observable;
+import {Observable} from 'rxjs/Observable';
+
 
 import { push } from 'react-router-redux';
 

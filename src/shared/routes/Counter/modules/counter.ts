@@ -1,8 +1,5 @@
 import {Observable} from 'rxjs/Observable';
-import 'rxjs/add/operator/takeUntil';
-import 'rxjs/add/operator/startWith';
-import 'rxjs/add/operator/delay';
-import 'rxjs/add/observable/of';
+
 
 export const COUNTER_INCREMENT = 'COUNTER_INCREMENT';
 export const DOUBLE_ASYNC_PENDING = 'DOUBLE_ASYNC_PENDING';

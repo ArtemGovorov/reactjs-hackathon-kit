@@ -12,7 +12,8 @@ import {
   PROJECT_ROOT,
   BUILD_DIR,
   NAME_SERVER,
-  LOADER_TS
+  LOADER_TS,
+  POST_CSS_CONFIG_DEV
 } from '../constants';
 
 const webpackConfig: Configuration = {
@@ -77,6 +78,6 @@ const webpackConfig: Configuration = {
 // The configuration for the server-side rendering
 webpackConfig['name'] = NAME_SERVER;
 webpackConfig['externals'] = EXTERNALS as any;
-
+webpackConfig['postcss'] = POST_CSS_CONFIG_DEV;
 
 export default webpackConfig;

@@ -8,12 +8,6 @@ function compile() {
   const kill = require('kill3k');
   const notifier = require('node-notifier');
 
-  var fs = require('fs');
-  var stream = fs.createWriteStream('delme.log', { flags: 'a' });
-
-
-  // Any code goes here...
-  stream.write('Something bad happened\n');
   clear(true);
   clean()
     .then(() => {
@@ -25,7 +19,7 @@ function compile() {
           title: 'Typescript errors!',
           message: data,
         });
-        process.exit(0);
+      process.exit(0);
       });
 
     });
@@ -58,7 +52,7 @@ function compile() {
             })
             .then(response => {
               if (response.length > 0) {
-                debug('deleted:' + currentDelete.toDelete);
+                debug('🚿  deleted:' + currentDelete.toDelete);
               }
             })
             .catch(error => {

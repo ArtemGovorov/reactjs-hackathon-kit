@@ -9,7 +9,7 @@ import {
 
 const debug = _debug('app:bin:decorators:webpack-compiler', '🛠');
 const chalk = require('chalk');
-
+const notifier = require('node-notifier');
 
 import {CustomStats} from './webpack-stats';
 
@@ -124,10 +124,18 @@ function compilerFactory(compiler, isHMR) {
       if (err) {
         debug(chalk.red(`${debugPrefix(_name)}COMPILE ERRORS...`));
         debug(err);
+        notifier.notify({
+          title: 'Webpack compile errors!',
+          message: err,
+        });
         return reject(err);
       } else if (stats.hasErrors()) {
         debug(chalk.red(`${debugPrefix(_name)}COMPILE ERRORS...`));
         debug(jsonStats.errors);
+        notifier.notify({
+          title: 'Webpack compile errors!',
+          message: jsonStats.errors,
+        });
         return reject(jsonStats.errors);
       } else if (stats.hasWarnings()) {
         debug(chalk.yellow(`${debugPrefix(_name)}COMPILE WARNINGS...`));

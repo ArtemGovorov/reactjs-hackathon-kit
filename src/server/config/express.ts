@@ -32,13 +32,18 @@ export default (app: express.Express) => {
   // For Heroku deployment to work
   app.set('trust proxy', 'loopback');
 
-  const message = `\n  ${
-    ENV === 'development' ?
-      '🚧  starting: ' :
-      '🚀  launching: '}http://localhost:${PORT}`;
+  if (!process.env.restarted) {
+    let message = `\n  ${
+      ENV === 'development' ?
+        '🚧  starting: ' :
+        '🚀  launching: '}http://localhost:${PORT}`;
 
-  debug(`\n  🌳  NODE_ENV: ${ENV}`);
-  debug(`\n  ${message}`);
+    debug(`\n  🌳  NODE_ENV: ${ENV}`);
+    debug(`\n  ${message}`);
+  }
+
+
+
 
 };
 

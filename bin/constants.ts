@@ -2,9 +2,8 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin');
 import {resolve, join} from 'path';
 const ProgressBarPlugin = require('progress-bar-webpack-plugin');
 const chalk = require('chalk');
+const webpack = require('webpack');
 const cssnano = require('cssnano');
-
-
 interface FileLoader {
   test: RegExp;
   loader: string;
@@ -33,7 +32,7 @@ export const PROD = process.env.NODE_ENV === 'production';
 export const TEST = process.env.NODE_ENV === 'test';
 export const BASENAME = JSON.stringify(process.env.BASENAME || '');
 export const DEVTOOLS: boolean = false;
-export const HOT_MIDDLEWARE = 'webpack-hot-middleware/client?reload=false&path=http://' + 'localhost' + ':' + (PORT + 1) + '/__webpack_hmr';
+export const HOT_MIDDLEWARE = 'webpack-hot-middleware/client?reload=true&path=http://' + 'localhost' + ':' + (PORT + 1) + '/__webpack_hmr';
 
 export const EXTERNALS = getExternals();
 const URL_BYTE_LIMIT: number = 20000;
@@ -41,33 +40,21 @@ const IMAGES_LOADER_NAME = 'images/[name].[ext]';
 const FONTS_LOADER_NAME = 'fonts/[name].[ext]';
 
 const LOADER_LESS_QUERY = '!css-loader?'
-  + 'sourceMap&-minimize&modules&importLoaders=1&sourceMap&localIdentName=[local]___[hash:base64:5]!postcss!less?outputStyle=expanded&sourceMap';
+  + '-minimize&modules&importLoaders=1&localIdentName=[local]___[hash:base64:5]!postcss!less?outputStyle=expanded&sourceMap';
 
 const LOADER_SCSS_QUERY = 'css-loader?'
-  + 'sourceMap&-minimize&modules&importLoaders=1&sourceMap&localIdentName=[local]___[hash:base64:5]!postcss!sass?outputStyle=expanded&sourceMap';
+  + '-minimize&modules&importLoaders=1&localIdentName=[local]___[hash:base64:5]!postcss';
 
 const LOADER_CSS_FAKE = {
   test: /\.css$/,
-  loader: 'fake-style-loader!' + 'css-loader?'
-  + 'modules&importLoaders=1&localIdentName=[local]___[hash:base64:5]'
+  loader: 'fake-style-loader!' + 'css?module&localIdentName=[name]__[local]___[hash:base64:5]!postcss-loader'
 };
 
 const LOADER_CSS = {
   test: /\.css$/,
-  loader: 'style-loader!' + 'css-loader?'
-  + 'sourceMap&modules&importLoaders=1&sourceMap&localIdentName=[local]___[hash:base64:5]'
+  loader: 'style-loader!' + 'css?module&localIdentName=[name]__[local]___[hash:base64:5]!postcss-loader'
 };
 
-
-const LOADER_LESS_DEV = {
-  test: /\.less$/,
-  loader: 'style-loader!' + LOADER_LESS_QUERY
-};
-
-const LOADER_LESS_FAKE = {
-  test: /\.less$/,
-  loader: 'fake-style-loader!' + LOADER_LESS_QUERY
-};
 
 /*const LOADER_LESS_PROD = {
   test: /\.less$/,
@@ -78,13 +65,13 @@ const LOADER_LESS_FAKE = {
 const LOADER_SCSS_DEV = {
   test: /\.scss$/,
   loader: 'style-loader!' + 'css-loader?'
-  + 'sourceMap&&modules&importLoaders=1&sourceMap&localIdentName=[local]___[hash:base64:5]!postcss!sass?outputStyle=expanded&sourceMap'
+  + '&modules&importLoaders=1&localIdentName=[local]___[hash:base64:5]!postcss'
 };
 
 const LOADER_SCSS_FAKE = {
   test: /\.scss$/,
   loader: 'fake-style-loader!' + 'css-loader?'
-  + 'sourceMap&&modules&importLoaders=1&sourceMap&localIdentName=[local]___[hash:base64:5]!postcss!sass?outputStyle=expanded&sourceMap'
+  + '&modules&importLoaders=1&localIdentName=[local]___[hash:base64:5]!postcss'
 };
 
 /*const LOADER_SCSS_PROD = {
@@ -278,6 +265,30 @@ function getExternals() {
 
 function postCSSConfig() {
   return [
+    require('postcss-import')({
+      path: join(__dirname, '../', 'src', 'styles'),
+      // addDependencyTo is used for hot-reloading in webpack
+      addDependencyTo: webpack
+    }),
+    // Note: you must set postcss-mixins before simple-vars and nested
+    require('postcss-mixins')(),
+    require('postcss-simple-vars')(),
+    // Unwrap nested rules like how Sass does it
+    require('postcss-nested')(),
+    //  parse CSS and add vendor prefixes to CSS rules
+    require('autoprefixer')({
+      browsers: ['last 2 versions', 'IE > 8']
+    }),
+    // A PostCSS plugin to console.log() the messages registered by other
+    // PostCSS plugins
+    require('postcss-reporter')({
+      clearMessages: true
+    })
+  ];
+};
+
+/*function postCSSConfig() {
+  return [
     cssnano({
       autoprefixer: {
         add: true,
@@ -294,4 +305,4 @@ function postCSSConfig() {
       sourcemap: true
     })
   ];
-};
+};*/

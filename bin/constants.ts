@@ -2,8 +2,7 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin');
 import {resolve, join} from 'path';
 const ProgressBarPlugin = require('progress-bar-webpack-plugin');
 const chalk = require('chalk');
-const cssnano = require('cssnano');
-
+import * as webpack from 'webpack';
 
 interface FileLoader {
   test: RegExp;
@@ -278,20 +277,24 @@ function getExternals() {
 
 function postCSSConfig() {
   return [
-    cssnano({
-      autoprefixer: {
-        add: true,
-        remove: true,
-        browsers: ['last 2 versions']
-      },
-      discardComments: {
-        removeAll: true
-      },
-      discardUnused: false,
-      mergeIdents: false,
-      reduceIdents: false,
-      safe: true,
-      sourcemap: true
+    require('postcss-import')({
+      path: join(__dirname, '..', 'app', 'styles'),
+      // addDependencyTo is used for hot-reloading in webpack
+      addDependencyTo: webpack
+    }),
+    // Note: you must set postcss-mixins before simple-vars and nested
+    require('postcss-mixins')(),
+    require('postcss-simple-vars')(),
+    // Unwrap nested rules like how Sass does it
+    require('postcss-nested')(),
+    //  parse CSS and add vendor prefixes to CSS rules
+    require('autoprefixer')({
+      browsers: ['last 2 versions', 'IE > 8']
+    }),
+    // A PostCSS plugin to console.log() the messages registered by other
+    // PostCSS plugins
+    require('postcss-reporter')({
+      clearMessages: true
     })
   ];
 };

@@ -2,8 +2,9 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin');
 import {resolve, join} from 'path';
 const ProgressBarPlugin = require('progress-bar-webpack-plugin');
 const chalk = require('chalk');
-const webpack = require('webpack');
-const cssnano = require('cssnano');
+
+import * as webpack from 'webpack';
+
 interface FileLoader {
   test: RegExp;
   loader: string;
@@ -286,23 +287,3 @@ function postCSSConfig() {
     })
   ];
 };
-
-/*function postCSSConfig() {
-  return [
-    cssnano({
-      autoprefixer: {
-        add: true,
-        remove: true,
-        browsers: ['last 2 versions']
-      },
-      discardComments: {
-        removeAll: true
-      },
-      discardUnused: false,
-      mergeIdents: false,
-      reduceIdents: false,
-      safe: true,
-      sourcemap: true
-    })
-  ];
-};*/

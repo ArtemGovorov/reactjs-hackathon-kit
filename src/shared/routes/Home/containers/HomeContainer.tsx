@@ -1,3 +1,4 @@
+import * as React from 'react';
 import { connect } from 'react-redux';
 import {
   login,
@@ -5,7 +6,7 @@ import {
   toggle
 } from '../../../store/modules/user';
 import Login from '../../../components/Login';
-
+import AuthenticatedLayout from '../../../layouts/AuthenticateLayout/AuthenticateLayout';
 export const mapActionCreators = {
   login,
   cancelLogin,
@@ -30,6 +31,13 @@ const mapStateToProps = (state) => ({
     Selectors are composable. They can be used as input to other selectors.
     https://github.com/reactjs/reselect    */
 
-const test = connect(mapStateToProps, mapActionCreators as any)(Login);
+const Container = connect(mapStateToProps, mapActionCreators as any)(AuthenticatedLayout);
 
-export default test;
+const hoc = C => props => <C { ...props }/>;
+//https://github.com/choonkending/useful-js-patterns/tree/master/higher-order-components
+
+
+const TodoApp = () => (<Container></Container>);
+
+export default TodoApp;
+

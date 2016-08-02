@@ -93,5 +93,10 @@ declare module 'express-flash' {
   export default ExpressFlash;
 }
 
+declare module 'isomorphic-style-loader/lib/withStyles' {
+  const withStyles: any;
+  export default withStyles;
+}
+
 
 

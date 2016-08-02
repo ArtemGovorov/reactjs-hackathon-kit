@@ -48,36 +48,36 @@ const LOADER_SCSS_QUERY = 'css-loader?'
 
 const LOADER_CSS_FAKE = {
   test: /\.css$/,
-  loader: 'fake-style-loader!' + 'css?module&localIdentName=[name]__[local]___[hash:base64:5]!postcss-loader'
+  loader: 'isomorphic-style-loader!' + 'css?module&localIdentName=[name]__[local]___[hash:base64:5]!postcss-loader'
 };
 
 const LOADER_CSS = {
   test: /\.css$/,
-  loader: 'style-loader!' + 'css?module&localIdentName=[name]__[local]___[hash:base64:5]!postcss-loader'
+  loader: 'isomorphic-style-loader!' + 'css?module&localIdentName=[name]__[local]___[hash:base64:5]!postcss-loader'
 };
 
 
 /*const LOADER_LESS_PROD = {
   test: /\.less$/,
-  loader: ExtractTextPlugin.extract('style-loader', LOADER_LESS_QUERY)
+  loader: ExtractTextPlugin.extract('isomorphic-style-loader', LOADER_LESS_QUERY)
 
 };*/
 
 const LOADER_SCSS_DEV = {
   test: /\.scss$/,
-  loader: 'style-loader!' + 'css-loader?'
+  loader: 'isomorphic-style-loader!' + 'css-loader?'
   + '&modules&importLoaders=1&localIdentName=[local]___[hash:base64:5]!postcss'
 };
 
 const LOADER_SCSS_FAKE = {
   test: /\.scss$/,
-  loader: 'fake-style-loader!' + 'css-loader?'
+  loader: 'isomorphic-style-loader!' + 'css-loader?'
   + '&modules&importLoaders=1&localIdentName=[local]___[hash:base64:5]!postcss'
 };
 
 /*const LOADER_SCSS_PROD = {
   test: /\.scss$/,
-  loader: ExtractTextPlugin.extract('style-loader', LOADER_SCSS_QUERY)
+  loader: ExtractTextPlugin.extract('isomorphic-style-loader', LOADER_SCSS_QUERY)
 };*/
 export const LOADERS_STYLES_DEV = []
   .concat(

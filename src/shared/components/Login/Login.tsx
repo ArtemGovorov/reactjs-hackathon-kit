@@ -1,5 +1,6 @@
 import * as React from 'react';
-
+import withStyles from 'isomorphic-style-loader/lib/withStyles';
+import Header from '../Header';
 const classNames = require('classnames/bind');
 const styles = require('./Login.css');
 const cx = classNames.bind(styles);
@@ -17,21 +18,18 @@ export interface LoginProps {
   isWaiting: boolean;
 }
 
-//className='loginColumns animated fadeInDow'
-
-export const Login = (props: LoginProps) =>
+ const Login = (props: LoginProps) =>
   (
 
-
     <div className={cx('loginColumns', 'animated', 'fadeInDow') } >
+    <Header/>
+      <div className={cx('row1') }>
 
-      <div className={cx('row1')}>
-
-        <div className={cx('col1')}>
+        <div className={cx('col1') }>
           <h2 className='font-bold'>Welcome to IN+</h2>
 
           <p>
-            Perfectly designed and precisely prepared admin theme with over 50 pages with extra new web app views.
+            WTF?? Perfectly designed and precisely prepared admin theme with over 50 pages with extra new web app views.
           </p>
 
           <p>
@@ -50,7 +48,7 @@ export const Login = (props: LoginProps) =>
           </p>
 
         </div>
-        <div className={cx('col1')}>
+        <div className={cx('col1') }>
           <div className='ibox-content'>
             <div className='m-t' role='form'>
               <div className='form-group'>
@@ -79,19 +77,15 @@ export const Login = (props: LoginProps) =>
         </div>
       </div>
       <hr/>
-      <div className={cx('row2')}>
-        <div className={cx('col1')}>
+      <div className={cx('row2') }>
+        <div className={cx('col1') }>
           Copyright Example Company
         </div>
-        <div className={cx('col2')}>
+        <div className={cx('col2') }>
           <small>© 2014-2015</small>
         </div>
       </div>
     </div>
   );
 
-if (__DEVSERVER__) {
-  (Login as any).styles = [styles.source];
-}
-
-export default Login;
+export default withStyles(styles)(Login);

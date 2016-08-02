@@ -4,10 +4,11 @@ import { renderToString } from 'react-dom/server';
 import routes from '../shared/routes/index.tsx';
 import header from '../shared/components/Meta/index.ts';
 import configureStore from '../shared/store/configureStore';
-import loadStylesFromComponents from '../shared/utils/loadStylesFromComponents';
+
 const createHistory = require('react-router/lib/createMemoryHistory');
 import { syncHistoryWithStore } from 'react-router-redux';
 import { Provider } from 'react-redux';
+import WithStylesContext from '../shared/components/WithStylesContext';
 import findAndReplaceReducerFromComponents  from '../shared/utils/findAndReplaceReducerFromComponents';
 require('source-map-support').install();
 const PORT = 3000;
@@ -70,16 +71,18 @@ function universalReactAppMiddleware(request, response) {
       // your "not found" component or route respectively, and send a 404 as
       // below, if you're using a catch-all route.
       findAndReplaceReducerFromComponents(renderProps.components, store);
+      let css = []; // CSS for all rendered React components
       const initialState = store.getState();
       const componentHTML = renderToString(
         <Provider store={store}>
-          <RouterContext {...renderProps as any} />
+          <WithStylesContext onInsertCss={
+          styles =>
+          css.push(styles._getCss())
+          }>
+            <RouterContext {...renderProps as any} />
+        </WithStylesContext>
         </Provider>
       );
-
-
-
-      const styles = loadStylesFromComponents(renderProps.components);
 
       response.status(200).send(`
           <!doctype html>
@@ -88,7 +91,7 @@ function universalReactAppMiddleware(request, response) {
               ${header.title.toString()}
               ${header.meta.toString()}
               ${header.link.toString()}
-              <style type="text/css" id="fast-css">${styles}</style>
+              <style type="text/css" id="fast-css">${css.join('')}</style>
             </head>
             <body>
               <div id="root">${componentHTML}</div>

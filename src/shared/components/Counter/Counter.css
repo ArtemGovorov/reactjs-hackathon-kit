@@ -6,8 +6,13 @@
   composes: counter;
 }
 
-.countercontainer {
+.container {
   composes: text-uppercase text-primary from 'bootstrap-css/lib/type';
   margin: 1em auto;
-  opacity: 0.2;
+  opacity: 1;
+  
+}
+
+body {
+  background-color: white;
 }

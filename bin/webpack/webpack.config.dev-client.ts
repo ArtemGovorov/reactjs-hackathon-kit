@@ -22,7 +22,7 @@ const ForkCheckerPlugin = require('awesome-typescript-loader').ForkCheckerPlugin
 
 const webpackConfig: Configuration = {
 
-  devtool: 'eval',
+  devtool: 'source-mapwithS',
   context: PROJECT_ROOT,
   entry: {
     'main': [
@@ -55,6 +55,9 @@ const webpackConfig: Configuration = {
       context: PROJECT_ROOT,
       manifest: require(ASSETS_DIR + '/vendor-manifest.json'),
     }),
+    new (webpack as any).LoaderOptionsPlugin({
+    debug: true,
+}),
     new ForkCheckerPlugin(),
     new AssetsPlugin({
       filename: 'assets.json',

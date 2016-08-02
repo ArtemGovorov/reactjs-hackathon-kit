@@ -10,7 +10,7 @@ import routes from '../shared/routes/index.tsx';
 import {  match, Router, browserHistory } from 'react-router';
 import configureStore from '../shared/store/configureStore';
 import { Provider } from 'react-redux';
-
+import WithStylesContext from '../shared/components/WithStylesContext';
 
 // Get the DOM Element that will host our React application.
 const MOUNT_ELEMENT = document.getElementById('root');
@@ -38,11 +38,17 @@ function renderApp() {
     } else if (renderProps) {
 
       render(
+
         <AppContainer>
           <Provider store={store}>
-            <Router   {...renderProps} />
+           <WithStylesContext onInsertCss={styles =>
+             styles._insertCss()
+            }>
+            <Router {...renderProps} />
+            </WithStylesContext>
           </Provider>
-        </AppContainer>,
+        </AppContainer>
+,
         MOUNT_ELEMENT
       );
 

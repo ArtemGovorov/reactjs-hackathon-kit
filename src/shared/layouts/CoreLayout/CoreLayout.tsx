@@ -1,5 +1,6 @@
 import * as React from 'react';
 import SplitReducer from '../../components/SplitReducer';
+import withStyles from 'isomorphic-style-loader/lib/withStyles';
 const styles = require('./CoreLayout.css');
 
 function CoreLayout(props) {
@@ -14,8 +15,4 @@ function CoreLayout(props) {
   );
 }
 
-if (__DEVSERVER__) {
-  (CoreLayout as any).styles = [styles.source];
-}
-
-export default CoreLayout;
+export default withStyles(styles)(CoreLayout);

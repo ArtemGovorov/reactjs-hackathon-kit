@@ -1,9 +1,13 @@
 import * as React from 'react';
 import { IndexLink, Link } from 'react-router';
+import withStyles from 'isomorphic-style-loader/lib/withStyles';
+const classNames = require('classnames/bind');
 const styles = require('./Header.scss');
+const cx = classNames.bind(styles);
 
-export const Header = () =>
-  (<div>
+
+ const Header = () =>
+  (<div className={cx('container') }>
     <h1>Header</h1>
     <IndexLink to='/' activeClassName={styles['active-route']}>
       Home
@@ -15,8 +19,5 @@ export const Header = () =>
   </div>
   );
 
-if (__DEVSERVER__) {
-  (Header as any).styles = [styles.source];
-}
 
-export default Header;
+export default withStyles(styles)(Header);

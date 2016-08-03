@@ -1,4 +1,13 @@
-@import 'settings';
+* {
+  box-sizing: border-box;
+}
+
+body {
+  background-color: green;
+}
+
+
+/*@import 'settings';
 @import 'common/layout';
 @import 'common/typography';
 
@@ -18,3 +27,4 @@ body {
   font-weight: normal;
   font-smoothing: antialiased;
 }
+*/

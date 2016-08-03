@@ -4,7 +4,7 @@ export default {
   getComponent(nextState, cb) {
     System.import('./containers/HomeContainer')
       .then(module => cb(null, module.default))
-      .catch(handleError);
+      .catch(handleError.bind(this));
   }
 };
 

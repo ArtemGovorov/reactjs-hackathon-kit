@@ -1,7 +1,9 @@
 import * as webpack from 'webpack';
-import {Configuration} from 'webpack';
+
 const AssetsPlugin = require('assets-webpack-plugin');
-const styleLintPlugin = require('stylelint-webpack-plugin');
+const ForkCheckerPlugin = require('awesome-typescript-loader').ForkCheckerPlugin;
+const TsConfigPathsPlugin = require('awesome-typescript-loader').TsConfigPathsPlugin;
+
 import {
   LOADERS_COMMON,
   SRC_DIR,
@@ -19,11 +21,9 @@ import {
 
 } from '../constants';
 
-const ForkCheckerPlugin = require('awesome-typescript-loader').ForkCheckerPlugin;
+const webpackConfig = {
 
-const webpackConfig: Configuration = {
-
-  devtool: 'source-mapwithS',
+  devtool: 'eval',
   context: PROJECT_ROOT,
   entry: {
     'main': [
@@ -47,7 +47,9 @@ const webpackConfig: Configuration = {
   resolve: {
     root: [SRC_DIR],
     extensions: ['', '.ts', '.tsx', '.js', '.css'],
-
+    plugins: [
+      new TsConfigPathsPlugin()
+    ]
   },
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
@@ -63,11 +65,6 @@ const webpackConfig: Configuration = {
     new AssetsPlugin({
       filename: 'assets.json',
       path: ASSETS_DIR
-    }),
-    new styleLintPlugin({
-      configFile: PROJECT_ROOT + '/.stylelintrc',
-      context: SRC_DIR,
-      files: '**/*.?(sa|sc|c)ss'
     }),
     new webpack.DefinePlugin({
       __CLIENT__: true,

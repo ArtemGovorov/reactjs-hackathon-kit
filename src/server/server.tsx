@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {  match, RouterContext } from 'react-router';
+import { match, RouterContext } from 'react-router';
 import { renderToString } from 'react-dom/server';
 import routes from '../shared/routes/index.tsx';
 import header from '../shared/components/Meta/index.ts';
@@ -9,7 +9,7 @@ const createHistory = require('react-router/lib/createMemoryHistory');
 import { syncHistoryWithStore } from 'react-router-redux';
 import { Provider } from 'react-redux';
 import WithStylesContext from '../shared/components/WithStylesContext';
-import findAndReplaceReducerFromComponents  from '../shared/utils/findAndReplaceReducerFromComponents';
+import findAndReplaceReducerFromComponents from '../shared/utils/findAndReplaceReducerFromComponents';
 require('source-map-support').install();
 const PORT = 3000;
 const fs = require('fs');
@@ -76,11 +76,11 @@ function universalReactAppMiddleware(request, response) {
       const componentHTML = renderToString(
         <Provider store={store}>
           <WithStylesContext onInsertCss={
-          styles =>
-          css.push(styles._getCss())
+            styles =>
+              css.push(styles ? styles._getCss() : '')
           }>
             <RouterContext {...renderProps as any} />
-        </WithStylesContext>
+          </WithStylesContext>
         </Provider>
       );
 

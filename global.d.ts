@@ -11,6 +11,10 @@ declare var __CLIENT__: boolean;
 declare var expect: Chai.ExpectStatic;
 declare var should: Chai.Should;
 
+declare module '*.css' {
+    const r: string;
+    export default r;
+}
 
 
 declare namespace NodeJS {

@@ -13,5 +13,8 @@ Promise.resolve()
   .then(() => terminate())
   .then(() => buildDll())
   .then(() => startClientHMR())
-  .then(() => startServerHMR());
+  .then(() => startServerHMR())
+  .catch((error) => {
+    console.log(error);
+  });
 

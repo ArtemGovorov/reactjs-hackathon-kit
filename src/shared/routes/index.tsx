@@ -1,4 +1,3 @@
-
 import CoreLayout  from '../layouts/CoreLayout/CoreLayout';
 import CounterRoute from './Counter';
 import HomeRoute from './Home';

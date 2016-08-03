@@ -74,6 +74,15 @@
           }
         ]
       }
+    },
+    {
+      "taskName": "dev",
+      "suppressTaskName": true,
+      "args": [
+        "npm run dev"
+      ],
+      "isTestCommand": true,
+      "showOutput": "always"
     }
   ]
 }

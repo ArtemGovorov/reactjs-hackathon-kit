@@ -1,7 +1,7 @@
 import * as webpack from 'webpack';
-import {Configuration} from 'webpack';
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
+
 const ForkCheckerPlugin = require('awesome-typescript-loader').ForkCheckerPlugin;
+const TsConfigPathsPlugin = require('awesome-typescript-loader').TsConfigPathsPlugin;
 import {
   LOADERS_COMMON,
   SRC_DIR,
@@ -16,7 +16,7 @@ import {
   POST_CSS_CONFIG_DEV
 } from '../constants';
 
-const webpackConfig: Configuration = {
+const webpackConfig = {
   devtool: 'source-map',
   context: PROJECT_ROOT,
   entry: {
@@ -51,6 +51,9 @@ const webpackConfig: Configuration = {
   resolve: {
     root: [SRC_DIR],
     extensions: ['', '.ts', '.tsx', '.js', '.css'],
+    plugins: [
+      new TsConfigPathsPlugin()
+    ]
   },
   plugins: [
     new webpack.NoErrorsPlugin(),

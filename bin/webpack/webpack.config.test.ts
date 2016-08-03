@@ -1,5 +1,7 @@
 import * as webpack from 'webpack';
-import {Configuration} from 'webpack';
+const TsConfigPathsPlugin = require('awesome-typescript-loader').TsConfigPathsPlugin;
+
+
 import {
   LOADERS_COMMON,
   SRC_DIR,
@@ -8,10 +10,12 @@ import {
   PUBLIC_PATH,
   FILE_NAME,
   LOADERS_STYLES_DEV,
+  LOADER_TS_CLIENT
 } from '../constants';
 
-const webpackConfig: Configuration = {
-  devtool: 'cheap-module-source-map',
+const webpackConfig = {
+
+  devtool: 'inline-source-map',
   context: SRC_DIR,
   output: {
     path: ASSETS_DIR,
@@ -20,14 +24,30 @@ const webpackConfig: Configuration = {
   },
   module: {
 
-    loaders: LOADERS_COMMON
-      .concat(
-      LOADERS_STYLES_DEV,
-      [{
+    loaders: [
+      {
+        test: /\.tsx?$/,
+        exclude: /node_modules/,
+        loader: 'awesome-typescript-loader?tsconfig=tsconfig-test.json',
+      },
+      {
         test: /sinon(\\|\/)pkg(\\|\/)sinon\.js/,
         loader: 'imports?define=>false,require=>false'
-      }]
-      )
+      }
+    ]
+
+    /*    loaders: (LOADERS_COMMON as any)
+          .concat(
+          LOADERS_STYLES_DEV,
+          [{
+            test: /\.tsx?$/,
+            loader: 'awesome-typescript-loader'
+          }],
+          [{
+            test: /sinon(\\|\/)pkg(\\|\/)sinon\.js/,
+            loader: 'imports?define=>false,require=>false'
+          }]
+          )*/
 
     ,
 
@@ -40,8 +60,8 @@ const webpackConfig: Configuration = {
     ]
   },
   resolve: {
-    root: SRC_DIR,
-    extensions: ['', '.ts', '.tsx', '.js', '.json'],
+    root: [SRC_DIR],
+    extensions: ['', '.ts', '.tsx', '.js', '.css'],
     alias: {
       sinon: 'sinon/pkg/sinon.js'
     }
@@ -51,6 +71,10 @@ const webpackConfig: Configuration = {
       filename: null, // if no value is provided the sourcemap is inlined
       test: /\.(ts|js)($|\?)/i // process .js and .ts files only
     }),
+    new (webpack as any).LoaderOptionsPlugin({
+      debug: true,
+    }),
+    new webpack.NoErrorsPlugin(),
     new webpack.DefinePlugin({
       'process.env': {
         NODE_ENV: '"test"'

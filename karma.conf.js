@@ -1,6 +1,7 @@
 'use strict';
 var argv = require('yargs').argv;
-var webpackConfig = require('./bin/webpack/webpack.config.test');
+var webpackConfig = require('./bin/webpack/webpack.config.test').default;
+
 module.exports = function (config) {
     config.set({
         basePath: '',
@@ -13,9 +14,9 @@ module.exports = function (config) {
         browsers: ['PhantomJS'],
         client: {
             mocha: {
-            reporter: 'html', // change Karma's debug.html to the mocha web reporter
-            ui: 'bdd',
-            timeout: 15000
+                reporter: 'html', // change Karma's debug.html to the mocha web reporter
+                ui: 'bdd',
+                timeout: 15000
             }
         },
         singleRun: !argv.watch,
@@ -32,6 +33,7 @@ module.exports = function (config) {
             'src/**/*.ts*': ['webpack', 'sourcemap'],
             'src/**/!(*.spec)+(.js)': ['coverage']
         },
+
         webpackMiddleware: {
             stats: {
                 chunkModules: false,

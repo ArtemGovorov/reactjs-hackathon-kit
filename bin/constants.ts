@@ -110,6 +110,12 @@ export const LOADER_TS_DLL = {
   exclude: NODE_MODULES
 };
 
+export const LOADER_TS_ES5 = {
+  test: /\.tsx?$/,
+  loader: 'awesome-typescript-loader?target=es5',
+  include: SRC_DIR
+};
+
 
 export const LOADER_TS_CLIENT = {
   test: /\.tsx?$/,

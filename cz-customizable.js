@@ -22,18 +22,6 @@ module.exports = {
     { name: 'server' }
   ],
 
-  // it needs to match the value for field type. Eg.: 'fix'
-  /*p
-  scopeOverrides: {
-    fix: [
-      {name: 'merge'},
-      {name: 'style'},
-      {name: 'e2eTest'},
-      {name: 'unitTest'}
-    ]
-  },
-  */
-
   allowCustomScopes: true,
   allowBreakingChanges: ['feat', 'fix']
 

@@ -18,6 +18,6 @@
     "**/bower_components": true
   },
   "stylelint.enable": true,
-  "css.validate": false,
+  "css.validate": true,
   "typescript.tsdk": "/home/nathanvale/Documents/repos/ts-starter-kit/node_modules/typescript/lib"
 }

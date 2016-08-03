@@ -5,10 +5,6 @@ const classNames = require('classnames/bind');
 const styles = require('./Login.css');
 const cx = classNames.bind(styles);
 
-function click(props) {
-  props.toggle();
-}
-
 
 export interface LoginProps {
   login: (username: string, password: string) => void;
@@ -18,18 +14,18 @@ export interface LoginProps {
   isWaiting: boolean;
 }
 
- const Login = (props: LoginProps) =>
+const Login = (props: LoginProps) =>
   (
 
     <div className={cx('loginColumns', 'animated', 'fadeInDow') } >
-    <Header/>
+      <Header/>
       <div className={cx('row1') }>
 
         <div className={cx('col1') }>
           <h2 className='font-bold'>Welcome to IN+</h2>
 
           <p>
-            WTF?? Perfectly designed and precisely prepared admin theme with over 50 pages with extra new web app views.
+            WTF??Perfectly designed and precisely prepared admin theme with over 50 pages with extra new web app views.
           </p>
 
           <p>

@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 const DuckImage = require('../assets/Duck.jpg');
-const styles = require('./HomeView.scss');
+const styles = require('./HomeView.css');
 
 export const HomeView = () => (
   <div>

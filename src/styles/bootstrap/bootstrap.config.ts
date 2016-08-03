@@ -11,8 +11,8 @@
  */
 
 export default {
-  preBootstrapCustomizations: './src/theme/variables.scss',
-  mainSass: './src/theme/bootstrap.overrides.scss',
+  preBootstrapCustomizations: './src/theme/variables.css',
+  mainSass: './src/theme/bootstrap.overrides.css',
   verbose: false,
   debug: false,
   scripts: {

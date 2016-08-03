@@ -8,7 +8,7 @@
   ],
   "tasks": [
     {
-      "taskName": "build",
+      "taskName": "build:nowatch",
       "suppressTaskName": true,
       "isBuildCommand": true,
       "isWatching": false,
@@ -18,7 +18,7 @@
       "problemMatcher": "$tsc"
     },
     {
-      "taskName": "build:watch",
+      "taskName": "build",
       "suppressTaskName": true,
       "isBuildCommand": true,
       "isWatching": true,

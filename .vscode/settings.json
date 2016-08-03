@@ -16,5 +16,7 @@
   "search.exclude": {
     "**/node_modules": true,
     "**/bower_components": true
-  }
+  },
+  "stylelint.enable": true,
+  "css.validate": false
 }

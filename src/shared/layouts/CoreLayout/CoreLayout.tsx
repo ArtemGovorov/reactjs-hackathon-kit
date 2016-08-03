@@ -1,7 +1,7 @@
 import * as React from 'react';
 import SplitReducer from '../../components/SplitReducer';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
-const styles = require('./CoreLayout.css');
+const styles = require('../../../styles/main.css');
 
 function CoreLayout(props) {
   return (

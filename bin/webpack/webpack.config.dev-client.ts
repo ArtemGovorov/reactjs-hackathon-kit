@@ -1,6 +1,7 @@
 import * as webpack from 'webpack';
 import {Configuration} from 'webpack';
 const AssetsPlugin = require('assets-webpack-plugin');
+const styleLintPlugin = require('stylelint-webpack-plugin');
 import {
   LOADERS_COMMON,
   SRC_DIR,
@@ -56,12 +57,17 @@ const webpackConfig: Configuration = {
       manifest: require(ASSETS_DIR + '/vendor-manifest.json'),
     }),
     new (webpack as any).LoaderOptionsPlugin({
-    debug: true,
-}),
+      debug: true,
+    }),
     new ForkCheckerPlugin(),
     new AssetsPlugin({
       filename: 'assets.json',
       path: ASSETS_DIR
+    }),
+    new styleLintPlugin({
+      configFile: PROJECT_ROOT + '/.stylelintrc',
+      context: SRC_DIR,
+      files: '**/*.?(sa|sc|c)ss'
     }),
     new webpack.DefinePlugin({
       __CLIENT__: true,

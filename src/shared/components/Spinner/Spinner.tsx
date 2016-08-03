@@ -2,7 +2,7 @@ import * as React from 'react';
 import * as  ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 import Squares from './Squares';
 const classNames = require('classnames/bind');
-const styles = require('./Spinner.scss');
+const styles = require('./Spinner.css');
 const cx = classNames.bind(styles);
 
 

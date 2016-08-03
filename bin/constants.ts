@@ -188,8 +188,27 @@ export const LOADERS_COMMON = [
 ]
   .concat(LOADERS_FONTS);
 
-export const POST_CSS_CONFIG_DEV = postCSSConfig;
-export const POST_CSS_CONFIG_PROD = postCSSConfig;
+export const POST_CSS_CONFIG_DEV = function () {
+  return [
+    require('postcss-import')({
+      path: join(__dirname, '../', 'src', 'styles'),
+      addDependencyTo: webpack // for hot-reloading
+    }),
+    require('postcss-cssnext')({
+      browsers: ['> 1%', 'last 2 versions']
+    }),
+    require('postcss-reporter')({ clearMessages: true })
+  ];
+};;
+export const POST_CSS_CONFIG_PROD = function () {
+  return [
+    require('postcss-import')(),
+    require('postcss-cssnext')({
+      browsers: ['> 1%', 'last 2 versions']
+    }),
+    require('postcss-reporter')({ clearMessages: true })
+  ];
+};;
 
 export const PLUG_IN_PROGRESS = new ProgressBarPlugin({
   clear: true,
@@ -263,27 +282,3 @@ function getExternals() {
   return nodeModulesTransform;
 
 }
-
-function postCSSConfig() {
-  return [
-    require('postcss-import')({
-      path: join(__dirname, '../', 'src', 'styles'),
-      // addDependencyTo is used for hot-reloading in webpack
-      addDependencyTo: webpack
-    }),
-    // Note: you must set postcss-mixins before simple-vars and nested
-    require('postcss-mixins')(),
-    require('postcss-simple-vars')(),
-    // Unwrap nested rules like how Sass does it
-    require('postcss-nested')(),
-    //  parse CSS and add vendor prefixes to CSS rules
-    require('autoprefixer')({
-      browsers: ['last 2 versions', 'IE > 8']
-    }),
-    // A PostCSS plugin to console.log() the messages registered by other
-    // PostCSS plugins
-    require('postcss-reporter')({
-      clearMessages: true
-    })
-  ];
-};

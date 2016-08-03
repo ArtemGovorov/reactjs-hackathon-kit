@@ -1,8 +1,8 @@
 import * as React from 'react';
 const classNames = require('classnames/bind');
-const styles = require('./Squares.scss');
+const styles = require('./Squares.css');
 const cx = classNames.bind(styles);
-export const Squares = () => {
+const Squares = () => {
   return (
     <div
       className={cx('uil-squares-css') }
@@ -42,9 +42,5 @@ export const Squares = () => {
     </div>
   );
 };
-
-if (__DEVSERVER__) {
-  (Squares as any).styles = [styles.source];
-}
 
 export default Squares;

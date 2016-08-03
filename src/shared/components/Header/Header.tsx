@@ -2,7 +2,7 @@ import * as React from 'react';
 import { IndexLink, Link } from 'react-router';
 import withStyles from 'isomorphic-style-loader/lib/withStyles';
 const classNames = require('classnames/bind');
-const styles = require('./Header.scss');
+const styles = require('./Header.css');
 const cx = classNames.bind(styles);
 
 

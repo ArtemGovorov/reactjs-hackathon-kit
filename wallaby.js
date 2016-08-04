@@ -6,7 +6,7 @@ var config = require('./bin/webpack/webpack.config.test').default;
 
 config.module.loaders = config.module.loaders.filter(
     function (l) {
-        return l.loader !== 'awesome-typescript-loader?tsconfig=tsconfig-test.json'
+        return l.loader !== 'awesome-typescript-loader?target=es5'
     }
 )
 

@@ -3,9 +3,10 @@ import {
   DOUBLE_ASYNC_PENDING,
   DOUBLE_ASYNC_ABORTED,
   increment,
-  doubleAsync,
-  default as counterReducer
+  doubleAsync
 } from './counter';
+
+import counterReducer  from './counter';
 
 import { ActionsObservable } from 'redux-observable';
 import { Subject } from 'rxjs/Subject';

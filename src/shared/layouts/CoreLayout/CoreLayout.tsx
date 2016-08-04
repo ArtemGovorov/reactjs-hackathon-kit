@@ -1,6 +1,6 @@
 import * as React from 'react';
 import SplitReducer from 'shared/components/SplitReducer';
-import withStyles from 'isomorphic-style-loader/lib/withStyles';
+import withStyles from 'shared/utils/withStyles';
 const styles = require('styles/main.css');
 const classNames = require('classnames/bind');
 const cx = classNames.bind(styles);

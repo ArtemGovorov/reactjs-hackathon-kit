@@ -1,7 +1,6 @@
 import * as webpack from 'webpack';
 const TsConfigPathsPlugin = require('awesome-typescript-loader').TsConfigPathsPlugin;
 
-
 import {
   LOADERS_COMMON,
   SRC_DIR,
@@ -9,13 +8,15 @@ import {
   BASENAME,
   PUBLIC_PATH,
   FILE_NAME,
+  NODE_MODULES,
   LOADERS_STYLES_DEV,
+  POST_CSS_CONFIG_DEV,
+  PLUG_IN_PROGRESS,
   LOADER_TS_CLIENT
 } from '../constants';
 
 const webpackConfig = {
-
-  devtool: 'inline-source-map',
+  devtool: 'cheap-module-source-map',
   context: SRC_DIR,
   output: {
     path: ASSETS_DIR,
@@ -24,30 +25,20 @@ const webpackConfig = {
   },
   module: {
 
-    loaders: [
-      {
+    loaders: LOADERS_COMMON
+      .concat(
+      LOADERS_STYLES_DEV,
+      [{
         test: /\.tsx?$/,
-        exclude: /node_modules/,
-        loader: 'awesome-typescript-loader?tsconfig=tsconfig-test.json',
-      },
-      {
+        loader: 'awesome-typescript-loader',
+        include: SRC_DIR,
+        exclude: NODE_MODULES
+      } as any],
+      [{
         test: /sinon(\\|\/)pkg(\\|\/)sinon\.js/,
         loader: 'imports?define=>false,require=>false'
-      }
-    ]
-
-    /*    loaders: (LOADERS_COMMON as any)
-          .concat(
-          LOADERS_STYLES_DEV,
-          [{
-            test: /\.tsx?$/,
-            loader: 'awesome-typescript-loader'
-          }],
-          [{
-            test: /sinon(\\|\/)pkg(\\|\/)sinon\.js/,
-            loader: 'imports?define=>false,require=>false'
-          }]
-          )*/
+      }]
+      )
 
     ,
 
@@ -60,21 +51,21 @@ const webpackConfig = {
     ]
   },
   resolve: {
-    root: [SRC_DIR],
-    extensions: ['', '.ts', '.tsx', '.js', '.css'],
+    root: SRC_DIR,
+    extensions: ['', '.ts', '.tsx', '.js', '.json', '.css'],
     alias: {
       sinon: 'sinon/pkg/sinon.js'
-    }
+    },
+    plugins: [
+      new TsConfigPathsPlugin()
+    ]
   },
   plugins: [
+    PLUG_IN_PROGRESS,
     new webpack.SourceMapDevToolPlugin({
       filename: null, // if no value is provided the sourcemap is inlined
       test: /\.(ts|js)($|\?)/i // process .js and .ts files only
     }),
-    new (webpack as any).LoaderOptionsPlugin({
-      debug: true,
-    }),
-    new webpack.NoErrorsPlugin(),
     new webpack.DefinePlugin({
       'process.env': {
         NODE_ENV: '"test"'
@@ -88,6 +79,7 @@ const webpackConfig = {
 
   ],
   externals: {
+    'bootstrap-css': true,
     'react/addons': true,
     'react/lib/ExecutionEnvironment': true,
     'react/lib/ReactContext': 'window'
@@ -95,6 +87,7 @@ const webpackConfig = {
 };
 
 webpackConfig['name'] = 'test';
+webpackConfig['postcss'] = POST_CSS_CONFIG_DEV;
 webpackConfig['noParse'] = [
   /\/sinon\.js/
 ];

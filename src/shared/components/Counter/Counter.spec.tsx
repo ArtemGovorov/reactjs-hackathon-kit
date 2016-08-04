@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { bindActionCreators } from 'redux';
-import  Counter  from './Counter';
+import Counter from './Counter';
 import { shallow } from 'enzyme';
 
 describe('(Component) Counter', () => {
@@ -55,10 +55,6 @@ describe('(Component) Counter', () => {
 
     beforeEach(() => {
       button = wrapper.find('button').filterWhere(a => a.text() === 'Increment');
-    });
-
-    it('has bootstrap classes', () => {
-      expect(button.hasClass('btn btn-default')).to.be.true;
     });
 
     it('Should dispatch a `increment` action when clicked', () => {

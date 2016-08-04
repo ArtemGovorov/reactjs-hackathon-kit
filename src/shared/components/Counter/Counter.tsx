@@ -1,10 +1,10 @@
 import * as React from 'react';
-import withStyles from 'isomorphic-style-loader/lib/withStyles';
+import withStyles from 'shared/utils/withStyles';
 const styles = require('./Counter.css');
 import Header from '../Header';
- const Counter = (props) => (
+const Counter = (props) => (
   <div>
-    <Header/>
+    <Header />
     <h2 className={styles['container']}>
       Counter:d
       {' '}

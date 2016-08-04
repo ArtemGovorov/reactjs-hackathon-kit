@@ -1,5 +1,5 @@
 import * as React from 'react';
-import withStyles from 'isomorphic-style-loader/lib/withStyles';
+import withStyles from 'shared/utils/withStyles';
 import Header from '../Header';
 const classNames = require('classnames/bind');
 const styles = require('./Login.css');

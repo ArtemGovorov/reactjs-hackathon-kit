@@ -11,7 +11,7 @@ module.exports = function (config) {
         logLevel: config.LOG_INFO,
         autoWatch: true,
         autoWatchBatchDelay: 300,
-        browsers: ['PhantomJS'],
+        browsers: ['Chrome'],
         client: {
             mocha: {
                 reporter: 'html', // change Karma's debug.html to the mocha web reporter
@@ -19,7 +19,7 @@ module.exports = function (config) {
                 timeout: 15000
             }
         },
-        singleRun: !argv.watch,
+        singleRun: false,//!argv.watch,
         files: [
             './node_modules/phantomjs-polyfill/bind-polyfill.js',
             {

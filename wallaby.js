@@ -1,19 +1,21 @@
 'use strict';
-
 var wallabyWebpack = require('wallaby-webpack');
-var config = require('./webpack/webpack.config.test.js')
 
 
-config.module.loaders = config.module.loaders.filter(function (l) {
-    return l.loader !== 'ts-loader'
-})
+var config = require('./bin/webpack/webpack.config.test').default;
+
+config.module.loaders = config.module.loaders.filter(
+    function (l) {
+        return l.loader !== 'awesome-typescript-loader?tsconfig=tsconfig-test.json'
+    }
+)
 
 // tests + specHelper will be webpack-ed entry points
 config.entryPatterns = ['src/**/*.spec.js*', 'src/polyfill.js', 'src/spec-helper.js'];
 
 config.resolve = {
 
-    extensions: ['', '.js', '.json'],
+    extensions: ['', '.js', '.json', '.css'],
     alias: {
         sinon: 'sinon/pkg/sinon.js'
     }
@@ -34,7 +36,7 @@ module.exports = function (wallaby) {
             { pattern: 'src/spec-helper.ts', load: false },
             { pattern: 'src/polyfill.ts', instrument: false },
             { pattern: 'src/**/*.ts*', load: false },
-            { pattern: 'src/**/*.scss', load: false },
+            { pattern: 'src/**/*.css', load: false },
             { pattern: 'src/**/*.jpg', load: false },
             { pattern: 'src/**/*.spec.ts*', ignore: true },
         ],
@@ -43,6 +45,10 @@ module.exports = function (wallaby) {
         ],
 
 
+        compilers: {
+
+            '**/*.ts': w.compilers.typeScript({ target: 'es5' })
+        },
 
         postprocessor: webpackPostprocessor,
 

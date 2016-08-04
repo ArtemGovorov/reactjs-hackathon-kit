@@ -1,4 +1,3 @@
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
 import { resolve, join } from 'path';
 const ProgressBarPlugin = require('progress-bar-webpack-plugin');
 const chalk = require('chalk');

@@ -79,7 +79,6 @@ const webpackConfig = {
 
   ],
   externals: {
-    'bootstrap-css': true,
     'react/addons': true,
     'react/lib/ExecutionEnvironment': true,
     'react/lib/ReactContext': 'window'

@@ -5,15 +5,15 @@
     "bin/**/*.js": true,
     "bin/**/*.map": true,
     "src/**/*.js": true,
-    "src/**/*.map": true,
-    "coverage": true,
-    "reports": true
+    "src/**/*.map": true
   },
   "todoIgnore": [
     "node_modules",
     "typings"
   ],
   "search.exclude": {
+    "coverage": true,
+    "reports": true,
     "**/node_modules": true,
     "**/bower_components": true
   },

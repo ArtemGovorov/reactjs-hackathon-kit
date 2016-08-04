@@ -1,11 +1,9 @@
 {
   "name": "reactjs-typescript-starterkit",
   "globalDependencies": {
-    "axios": "registry:dt/axios#0.9.1+20160317120654",
     "body-parser": "registry:dt/body-parser#0.0.0+20160619023215",
     "chai": "registry:dt/chai#3.4.0+20160317120654",
     "chai-as-promised": "registry:dt/chai-as-promised#0.0.0+20160423070304",
-    "cheerio": "registry:dt/cheerio#0.17.0+20160407085313",
     "classnames": "registry:dt/classnames#0.0.0+20160316155526",
     "debug": "registry:dt/debug#0.0.0+20160317120654",
     "del": "registry:dt/del#2.2.0+20160317120654",

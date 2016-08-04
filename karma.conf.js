@@ -44,7 +44,8 @@ module.exports = function (config) {
         },
         webpack: webpackConfig,
         reporters: [
-            'mocha'
+            'mocha',
+            'coverage'
         ],
         coverageReporter: {
             reporters: [

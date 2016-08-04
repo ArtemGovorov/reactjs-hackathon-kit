@@ -6,7 +6,7 @@ const Counter = (props) => (
   <div>
     <Header />
     <h2 className={styles['container']}>
-      Counter:d
+      Counter:
       {' '}
       <span className={styles['counter--green']}>
         {props.counter}

@@ -3,10 +3,11 @@ var wallabyWebpack = require('wallaby-webpack');
 
 
 var config = require('./bin/webpack/webpack.config.test').default;
+process.env.NODE_ENV = 'test';
 
 config.module.loaders = config.module.loaders.filter(
     function (l) {
-        return l.loader !== 'awesome-typescript-loader?target=es5'
+        return l.loader !== 'awesome-typescript-loader?useBabel=true'
     }
 )
 

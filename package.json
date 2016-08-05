@@ -3,9 +3,8 @@
   "version": "1.0.0",
   "description": "Node and ReactJS on the dancefloor; universally brought together by Typescript, Webpack, Express and Parse Server",
   "scripts": {
-    "dev": "npm run compile && cross-env DEBUG=app:* NODE_ENV=development node ./bin/start-notdev.js",
-    "dev:attach": "npm run compile && cross-env DEBUG=app:* NODE_ENV=development DEBUGGING=true node ./bin/start.js",
-    "build": "cross-env NODE_ENV=production DEBUG=app:* npm-run-all compile build:prod",
+    "dev": "npm run compile && cross-env DEBUG=app:* NODE_ENV=development node ./bin/start.js --dev",
+    "build": "npm run compile && cross-env DEBUG=app:* NODE_ENV=production node ./bin/start.js",
     "start": "cross-env DEBUG=app:* npm run kill && cross-env NODE_ENV=production DEBUG=app:*  node bin/server.js",
     "lint": "tslint -s node_modules/custom-tslint-formatters/formatters -t grouped 'src/**/*.ts?(x)' 'bin/**/*.ts?(x)'",
     "lint:vscode": "tslint -s node_modules/custom-tslint-formatters/formatters -t vscode 'src/**/*.ts?(x)' 'bin/**/*.ts?(x)'",

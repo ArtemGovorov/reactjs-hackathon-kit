@@ -1,11 +1,27 @@
 'use strict';
 var wallabyWebpack = require('wallaby-webpack');
 
+var Module = require('module').Module;
+var modulePrototype = Module.prototype;
+var originalRequire = modulePrototype.require;
+modulePrototype.require = function (filePath) {
+  if (filePath === 'source-map-support') {
+    return {install: () => {}};
+  }
+  return originalRequire.call(this, filePath);
+};
+
+var config = require('./bin/webpack/webpack.config.test').default;
+
+modulePrototype.require = originalRequire;
+
 
 var config = require('./bin/webpack/webpack.config.test').default;
 var TsConfigPathsPlugin = require('awesome-typescript-loader').TsConfigPathsPlugin;
 
 process.env.NODE_ENV = 'test';
+
+
 
 
 

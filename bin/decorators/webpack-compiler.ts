@@ -1,7 +1,7 @@
 import * as webpack from 'webpack';
 import _debug from './debug';
 import webpackStatsDecorator from './webpack-stats';
-import {compose} from 'ramda';
+import { compose } from 'ramda';
 import {
   NAME_SERVER,
   NAME_CLIENT
@@ -11,7 +11,7 @@ const debug = _debug('app:bin:decorators:webpack-compiler', '🛠');
 const chalk = require('chalk');
 const notifier = require('node-notifier');
 
-import {CustomStats} from './webpack-stats';
+import { CustomStats } from './webpack-stats';
 
 
 export interface CustomCompiler extends webpack.compiler.Compiler {
@@ -136,11 +136,11 @@ function compilerFactory(compiler, isHMR) {
           title: 'Webpack compile errors!',
           message: jsonStats.errors,
         });
-        return reject(jsonStats.errors);
+        return reject(new Error(jsonStats.errors));
       } else if (stats.hasWarnings()) {
         debug(chalk.yellow(`${debugPrefix(_name)}COMPILE WARNINGS...`));
         debug(jsonStats.warnings);
-        return reject(jsonStats.warnings);
+        return reject(new Error(jsonStats.warnings));
       }
       resolve(customStats);
     };

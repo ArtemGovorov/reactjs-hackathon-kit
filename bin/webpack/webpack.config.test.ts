@@ -30,7 +30,7 @@ const webpackConfig = {
       LOADERS_STYLES_DEV,
       [{
         test: /\.tsx?$/,
-        loader: 'awesome-typescript-loader?target=es5',
+        loader: 'awesome-typescript-loader?useBabel=true',
         include: SRC_DIR,
         exclude: NODE_MODULES
       } as any],

@@ -18,7 +18,7 @@ export default function (message: string) {
 
         function (err, data) {
           if (err) {
-            reject(err);
+            reject(new Error(err));
             return;
           }
           console.log(data, '\n\n');

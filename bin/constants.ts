@@ -39,11 +39,7 @@ const URL_BYTE_LIMIT: number = 20000;
 const IMAGES_LOADER_NAME = 'images/[name].[ext]';
 const FONTS_LOADER_NAME = 'fonts/[name].[ext]';
 
-const LOADER_LESS_QUERY = '!css-loader?'
-  + '-minimize&modules&importLoaders=1&localIdentName=[local]___[hash:base64:5]!postcss!less?outputStyle=expanded&sourceMap';
 
-const LOADER_SCSS_QUERY = 'css-loader?'
-  + '-minimize&modules&importLoaders=1&localIdentName=[local]___[hash:base64:5]!postcss';
 
 const LOADER_CSS_FAKE = {
   test: /\.css$/,

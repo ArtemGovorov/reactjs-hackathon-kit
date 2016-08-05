@@ -42,7 +42,7 @@ export default function () {
       app.listen((PORT + 1), function onAppListening(error) {
         if (error) {
           debug(error);
-          reject(error);
+          reject(new Error(error));
         } else {
           debug(`hot reloading: http://localhost:${(PORT + 1)}`);
         }

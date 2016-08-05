@@ -18,7 +18,7 @@ export default function () {
         ).catch(
         error => {
           debug(error);
-          reject(error);
+          reject(new Error(error));
         }
         );
     });

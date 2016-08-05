@@ -11,7 +11,7 @@ import {
 } from '../constants';
 
 
-import { join}  from 'path';
+import { join } from 'path';
 
 export default {
   devtool: 'inline-source-map',
@@ -39,9 +39,9 @@ export default {
       'es6-promise',
       'process',
       'parse',
+      'rxjs',
       'react-router-redux',
       'redux-observable',
-      'rxjs',
       'error-stack-parser',
       'stackframe',
       'classnames/bind.js',

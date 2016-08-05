@@ -1,30 +1,35 @@
 import * as webpack from 'webpack';
 
-const ForkCheckerPlugin = require('awesome-typescript-loader').ForkCheckerPlugin;
+const InlineEnviromentconstiablesPlugin = require('inline-environment-variables-webpack-plugin');
 const TsConfigPathsPlugin = require('awesome-typescript-loader').TsConfigPathsPlugin;
+
 import {
-  LOADERS_COMMON,
   SRC_DIR,
   ASSETS_DIR,
   BASENAME,
-  LOADERS_STYLES_FAKE,
-  EXTERNALS,
+  PUBLIC_PATH,
+  LOADERS_STYLES_PROD,
   PROJECT_ROOT,
-  BUILD_DIR,
-  NAME_SERVER,
+  LOADERS_COMMON,
+  FILE_NAME,
+  POST_CSS_CONFIG_PROD,
+  EXTERNALS,
+  NODE_MODULES,
   LOADER_TS,
-  POST_CSS_CONFIG_DEV
+  LOADERS_STYLES_FAKE,
+  PLUG_IN_PROGRESS
 } from '../constants';
 
 const webpackConfig = {
+
+  name: 'server',
   devtool: 'source-map',
   context: PROJECT_ROOT,
   entry: {
     server: [
-      //'bootstrap-loader/extractStyles',
-      //'webpack/hot/poll?1000',
       `${SRC_DIR}/server`
     ]
+
   },
   target: 'node',
   node: {
@@ -37,7 +42,7 @@ const webpackConfig = {
     path: ASSETS_DIR,
     pathinfo: true,
     filename: 'server.js',
-    publicPath: ASSETS_DIR,
+    publicPath: PUBLIC_PATH,
     libraryTarget: 'commonjs2'
   },
   module: {
@@ -54,32 +59,26 @@ const webpackConfig = {
       new TsConfigPathsPlugin()
     ]
   },
+  externals: EXTERNALS,
   plugins: [
-    new webpack.NoErrorsPlugin(),
-    new webpack.HotModuleReplacementPlugin(),
+    PLUG_IN_PROGRESS,
     new webpack.optimize.LimitChunkCountPlugin({ maxChunks: 1 }),
-    new ForkCheckerPlugin(),
     new (webpack as any).BannerPlugin(
       {
-        banner: `require("source-map-support").install({
-          environment: 'node'
-        });`,
+        banner: 'require("source-map-support").install();',
         raw: true,
         entryOnly: false
       }),
     new webpack.DefinePlugin({
       __CLIENT__: false,
       __DEVCLIENT__: false,
-      __DEVSERVER__: true,
+      __DEVSERVER__: false,
       __BASENAME__: BASENAME,
       __DEVTOOLS__: false
-    })
-  ]
+    }),
+    new InlineEnviromentconstiablesPlugin({ NODE_ENV: 'production' })
+  ],
+  postcss: POST_CSS_CONFIG_PROD
 };
-
-// The configuration for the server-side rendering
-webpackConfig['name'] = NAME_SERVER;
-webpackConfig['externals'] = EXTERNALS as any;
-webpackConfig['postcss'] = POST_CSS_CONFIG_DEV;
 
 export default webpackConfig;

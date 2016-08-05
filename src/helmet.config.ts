@@ -10,7 +10,6 @@ if (__DEVSERVER__) {
   styles = '';
 } else {
   assets = JSON.parse(fs.readFileSync('webpack-assets.json'));
-  styles = assets.main.css;
 }
 
 const config = {
@@ -20,7 +19,6 @@ const config = {
     { rel: 'icon', sizes: '192x192', href: chromecon },
     // Add to homescreen for Safari on IOS
     { rel: 'apple-touch-icon', sizes: '152x152', applecon },
-    { rel: 'stylesheet', href: styles }
     // SEO: If your mobile URL is different from the desktop URL,
     // add a canonical link to the desktop page https://developers.google.com/webmasters/smartphone-sites/feature-phones
     // { 'rel': 'canonical', 'href': 'http://www.example.com/' }

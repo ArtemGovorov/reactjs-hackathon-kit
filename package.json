@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "Node and ReactJS on the dancefloor; universally brought together by Typescript, Webpack, Express and Parse Server",
   "scripts": {
-    "dev": "npm run compile && cross-env DEBUG=app:* NODE_ENV=development node ./bin/start.js",
+    "dev": "npm run compile && cross-env DEBUG=app:* NODE_ENV=development node ./bin/start-notdev.js",
     "dev:attach": "npm run compile && cross-env DEBUG=app:* NODE_ENV=development DEBUGGING=true node ./bin/start.js",
     "build": "cross-env NODE_ENV=production DEBUG=app:* npm-run-all compile build:prod",
     "start": "cross-env DEBUG=app:* npm run kill && cross-env NODE_ENV=production DEBUG=app:*  node bin/server.js",
@@ -163,6 +163,7 @@
     "resolve-url-loader": "1.6.0",
     "sinon": "^1.17.3",
     "sinon-chai": "^2.8.0",
+    "source-map-support": "^0.4.2",
     "stylelint": "^6.9.0",
     "tslint": "3.13.0",
     "typescript": "^2.1.0-dev.20160802",

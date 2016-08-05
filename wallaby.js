@@ -3,7 +3,11 @@ var wallabyWebpack = require('wallaby-webpack');
 
 
 var config = require('./bin/webpack/webpack.config.test').default;
+var TsConfigPathsPlugin = require('awesome-typescript-loader').TsConfigPathsPlugin;
+
 process.env.NODE_ENV = 'test';
+
+
 
 config.module.loaders = config.module.loaders.filter(
     function (l) {
@@ -19,7 +23,11 @@ config.resolve = {
     extensions: ['', '.js', '.json', '.css'],
     alias: {
         sinon: 'sinon/pkg/sinon.js'
-    }
+    },
+
+    plugins: [
+        new TsConfigPathsPlugin()
+    ]
 }
 
 
@@ -45,11 +53,12 @@ module.exports = function (wallaby) {
             { pattern: 'src/**/*.spec.ts*', load: false },
         ],
 
-
         compilers: {
-
-            '**/*.ts': w.compilers.typeScript({ target: 'es5' })
+            'src/**/*.ts?(x)': wallaby.compilers.typeScript({
+                target: 'es5'
+            })
         },
+
 
         postprocessor: webpackPostprocessor,
 

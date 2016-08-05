@@ -15,8 +15,6 @@ var config = require('./bin/webpack/webpack.config.test').default;
 
 modulePrototype.require = originalRequire;
 
-
-var config = require('./bin/webpack/webpack.config.test').default;
 var TsConfigPathsPlugin = require('awesome-typescript-loader').TsConfigPathsPlugin;
 
 process.env.NODE_ENV = 'test';
@@ -41,9 +39,7 @@ config.resolve = {
         sinon: 'sinon/pkg/sinon.js'
     },
 
-    plugins: [
-        new TsConfigPathsPlugin()
-    ]
+    modules: ['node_modules', 'src']
 }
 
 

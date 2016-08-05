@@ -12,7 +12,7 @@
     "compile": "cross-env DEBUG=app:* node ./tsc-compile.js",
     "test": "npm run compile && cross-env NODE_ENV=test karma start",
     "typings": "typings install",
-    "postinstall": "typings install && npm run build",
+    "postinstall": "typings install",
     "commit": "git-cz",
     "prepublish": "typings install && npm run build"
   },
